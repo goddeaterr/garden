@@ -6,6 +6,7 @@ import { useTrees } from '@/lib/useTrees';
 
 export const CleanRenderLayer = forwardRef<HTMLDivElement>((_, ref) => {
   const { placed, backgroundImage } = useGarden();
+  const trees = useTrees();
 
   return (
     <div
