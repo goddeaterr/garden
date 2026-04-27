@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 248 250 246;
+  --bg-elevated: 255 255 255;
+  --fg: 16 31 18;
+  --fg-muted: 60 80 64;
+  --border: 200 218 201;
+  --accent: 61 103 65;
+  --accent-soft: 227 237 227;
+}
+
+.dark {
+  --bg: 12 22 14;
+  --bg-elevated: 22 36 25;
+  --fg: 235 245 236;
+  --fg-muted: 156 178 159;
+  --border: 36 56 38;
+  --accent: 113 158 114;
+  --accent-soft: 36 56 38;
+}
+
+* { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--fg));
+  font-feature-settings: "ss01","cv11";
+  letter-spacing: -0.011em;
+  overflow-x: hidden;
+}
+
+.text-display { letter-spacing: -0.04em; font-weight: 700; line-height: 0.95; }
+.text-headline { letter-spacing: -0.025em; font-weight: 600; line-height: 1.05; }
+
+/* Glass — with solid mobile fallback */
+.glass {
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.7);
+}
+@supports (backdrop-filter: blur(1px)) {
+  .glass {
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+  }
+}
+.dark .glass {
+  background: rgba(22,36,25,0.85);
+  border: 1px solid rgba(60,80,64,0.4);
+}
+@supports (backdrop-filter: blur(1px)) {
+  .dark .glass {
+    background: rgba(22,36,25,0.55);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+  }
+}
+
+.glass-strong {
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(255,255,255,0.8);
+}
+@supports (backdrop-filter: blur(1px)) {
+  .glass-strong {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: saturate(200%) blur(30px);
+    -webkit-backdrop-filter: saturate(200%) blur(30px);
+  }
+}
+.dark .glass-strong {
+  background: rgba(22,36,25,0.95);
+  border: 1px solid rgba(60,80,64,0.5);
+}
+@supports (backdrop-filter: blur(1px)) {
+  .dark .glass-strong {
+    background: rgba(22,36,25,0.75);
+    backdrop-filter: saturate(200%) blur(30px);
+    -webkit-backdrop-filter: saturate(200%) blur(30px);
+  }
+}
+
+/* Aurora */
+.aurora {
+  background: linear-gradient(120deg,#c8dac9 0%,#e3ede3 25%,#f3eee0 50%,#d4e0c5 75%,#c8dac9 100%);
+  background-size: 300% 300%;
+  animation: aurora 20s ease infinite;
+}
+.dark .aurora {
+  background: linear-gradient(120deg,#243826 0%,#1a2e1c 25%,#2a432d 50%,#1d3220 75%,#243826 100%);
+  background-size: 300% 300%;
+}
+@keyframes aurora { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+/* Noise */
+.noise::after {
+  content:""; position:absolute; inset:0; pointer-events:none;
+  opacity:0.4; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(60,80,64,0.2);border-radius:10px;border:2px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:rgba(60,80,64,0.4);background-clip:padding-box}
+
+::selection{background:rgba(113,158,114,0.3);color:rgb(var(--fg))}
+
+/* Hero gradient */
+.hero-gradient {
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 20%,rgba(159,191,159,0.4),transparent 60%),
+    radial-gradient(ellipse 70% 50% at 80% 70%,rgba(214,195,153,0.3),transparent 60%),
+    radial-gradient(ellipse 60% 80% at 50% 100%,rgba(125,162,130,0.35),transparent 60%),
+    linear-gradient(180deg,#f3f7f3 0%,#e3ede3 100%);
+}
+.dark .hero-gradient {
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 20%,rgba(50,83,54,0.6),transparent 60%),
+    radial-gradient(ellipse 70% 50% at 80% 70%,rgba(95,75,50,0.4),transparent 60%),
+    radial-gradient(ellipse 60% 80% at 50% 100%,rgba(36,56,38,0.7),transparent 60%),
+    linear-gradient(180deg,#0c160e 0%,#101f12 100%);
+}
+
+/* Tree card */
+.tree-card { transition: transform 0.5s cubic-bezier(0.16,1,0.3,1),box-shadow 0.5s cubic-bezier(0.16,1,0.3,1); }
+@media (hover:hover) {
+  .tree-card:hover { transform:translateY(-8px); box-shadow:0 20px 60px -10px rgba(36,56,38,0.15),0 4px 20px -4px rgba(36,56,38,0.1); }
+}
+
+/* Button */
+.btn-primary { background:rgb(var(--fg)); color:rgb(var(--bg)); transition:all 0.4s cubic-bezier(0.16,1,0.3,1); }
+@media (hover:hover) { .btn-primary:hover{transform:scale(1.02);box-shadow:0 8px 30px -5px rgba(36,56,38,0.3);} }
+.btn-primary:active{transform:scale(0.98)}
+
+/* Range slider */
+input[type="range"].apple-slider {
+  -webkit-appearance:none; appearance:none;
+  height:4px; background:rgba(60,80,64,0.2); border-radius:999px; outline:none;
+}
+input[type="range"].apple-slider::-webkit-slider-thumb {
+  -webkit-appearance:none; appearance:none;
+  width:22px; height:22px; border-radius:50%;
+  background:white; border:0.5px solid rgba(0,0,0,0.05);
+  box-shadow:0 1px 3px rgba(0,0,0,0.15),0 4px 14px rgba(0,0,0,0.12);
+  cursor:grab;
+}
+input[type="range"].apple-slider::-webkit-slider-thumb:active{cursor:grabbing;transform:scale(1.15)}
+input[type="range"].apple-slider::-moz-range-thumb {
+  width:22px; height:22px; border-radius:50%;
+  background:white; border:0.5px solid rgba(0,0,0,0.05);
+  box-shadow:0 1px 3px rgba(0,0,0,0.15),0 4px 14px rgba(0,0,0,0.12); cursor:grab;
+}
+
+/* Marquee */
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee{animation:marquee 40s linear infinite}
+
+/* Skeleton */
+.skeleton{background:linear-gradient(90deg,rgba(200,218,201,0.2) 0%,rgba(200,218,201,0.4) 50%,rgba(200,218,201,0.2) 100%);background-size:1000px 100%;animation:shimmer 2s linear infinite}
+@keyframes shimmer{0%{background-position:-1000px 0}100%{background-position:1000px 0}}
+
+/* Builder canvas */
+.builder-canvas{user-select:none;-webkit-user-select:none;touch-action:none}
+
+/* Hide scrollbars */
+.no-scrollbar::-webkit-scrollbar{display:none}
+.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
+
+/* Safe area */
+.safe-top{padding-top:env(safe-area-inset-top,0px)}
+.safe-bottom{padding-bottom:env(safe-area-inset-bottom,0px)}
+
+/* Mobile — disable hover effects that flicker */
+@media (max-width:640px){
+  .tree-card{transform:none!important;transition:none!important}
+}

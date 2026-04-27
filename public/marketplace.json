@@ -1,0 +1,2215 @@
+{
+  "updatedAt": "2026-04-27T15:28:06.510Z",
+  "totalProducts": 96,
+  "totalGroups": 96,
+  "groups": [
+    {
+      "slug": "kadagys-jurinis-schlager",
+      "canonicalName": "Kadagys jūrinis 'Schlager'",
+      "latinName": "Juniperus conferta",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "0145f62c3ab775",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0007",
+          "price": 3,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Schlanger.jpg?v=1725524797",
+          "localImagePath": "/scraped-images/0145f62c3ab775.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 3,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kukmedis-tarpinis-hillii",
+      "canonicalName": "Kukmedis tarpinis 'Hillii'",
+      "latinName": "Taxus media",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "8e7bd3cf15a405",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0099",
+          "price": 3,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Hilli.jpg?v=1727358475",
+          "localImagePath": "/scraped-images/8e7bd3cf15a405.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 3,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "puskiparisis-lausono-columnaris",
+      "canonicalName": "Puskiparisis lausono 'Columnaris'",
+      "latinName": "Chamaecyparis lawsoniana",
+      "category": "decorative",
+      "offers": [
+        {
+          "productId": "ff1d7f5a421c80",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0004",
+          "price": 4,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Columnaris.jpg?v=1727676616",
+          "localImagePath": "/scraped-images/ff1d7f5a421c80.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.331Z"
+        }
+      ],
+      "bestPrice": 4,
+      "updatedAt": "2026-04-27T15:27:46.331Z"
+    },
+    {
+      "slug": "pusis-kalnine-zemauge",
+      "canonicalName": "Pušis kalninė žemaūgė",
+      "latinName": "Pinus mugo var. pumilio",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "bdcdf197067e49",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0068",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Zemauge.jpg?v=1727870342",
+          "localImagePath": "/scraped-images/bdcdf197067e49.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.331Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.331Z"
+    },
+    {
+      "slug": "kadagys-gulsciasis-limeglow",
+      "canonicalName": "Kadagys gulsčiasis 'Limeglow'",
+      "latinName": "Juniperus horizontalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "6a2ba22bb77d87",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0012",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Limeglow.jpg?v=1725519958",
+          "localImagePath": "/scraped-images/6a2ba22bb77d87.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.331Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.331Z"
+    },
+    {
+      "slug": "tuja-vakarine-danica",
+      "canonicalName": "Tuja vakarinė 'Danica'",
+      "latinName": "Thuja occidentalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "8f22ade92b3203",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0103",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Occidentalis.jpg?v=1727705910",
+          "localImagePath": "/scraped-images/8f22ade92b3203.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-zvynuotasis-floreant",
+      "canonicalName": "Kadagys žvynuotasis 'Floreant'",
+      "latinName": "Juniperus squamata",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "da1d9d194e1a03",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0030",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Floreant.jpg?v=1725959676",
+          "localImagePath": "/scraped-images/da1d9d194e1a03.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-gulsciasis-prince-of",
+      "canonicalName": "Kadagys gulsčiasis 'Prince of Wales'",
+      "latinName": "Juniperus horizontalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "5a27fe0ee4a205",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0013",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Prince_of_wales.jpg?v=1725523703",
+          "localImagePath": "/scraped-images/5a27fe0ee4a205.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-kableline",
+      "canonicalName": "Pušis kablelinė",
+      "latinName": "Pinus uncinata",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "a429a37bdb018d",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0092",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Kableline.jpg?v=1727860588",
+          "localImagePath": "/scraped-images/a429a37bdb018d.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-uolinis-blue-arrow",
+      "canonicalName": "Kadagys uolinis 'Blue Arrow'",
+      "latinName": "Juniperus scopulorum",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "f711040d38a445",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0025",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Blue_arrow.jpg?v=1725544644",
+          "localImagePath": "/scraped-images/f711040d38a445.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-tarpinis-gold-star",
+      "canonicalName": "Kadagys tarpinis 'Gold Star'",
+      "latinName": "Juniperus pfitzeriana",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "fbb2adce8bddcd",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0019",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Goldstar.jpg?v=1725542720",
+          "localImagePath": "/scraped-images/fbb2adce8bddcd.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "tuja-vakarine-mirjam",
+      "canonicalName": "Tuja vakarinė 'Mirjam'",
+      "latinName": "Thuja occidentalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "c7c01c16fe8d34",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0106",
+          "price": 5,
+          "height": "",
+          "stockStatus": "out_of_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Mirjam.webp?v=1727705191",
+          "localImagePath": "/scraped-images/c7c01c16fe8d34.webp",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-juodoji",
+      "canonicalName": "Pušis juodoji",
+      "latinName": "Pinus nigra",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "fb0e02cb7d91bc",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0078",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PUSIS-JUODOJI-1.jpg?v=1714823743",
+          "localImagePath": "/scraped-images/fb0e02cb7d91bc.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-kalnine",
+      "canonicalName": "Pušis kalninė",
+      "latinName": "Pinus mugo",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "7f32ea9852a483",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0066",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Kalnine.jpg?v=1727860509",
+          "localImagePath": "/scraped-images/7f32ea9852a483.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "egle-baltoji-rainbow-end",
+      "canonicalName": "Eglė baltoji 'Rainbow's End'",
+      "latinName": "Picea glauca",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "e84e0a70382120",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0041",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Egle_baltoji_Rainbows_end_2.jpg?v=1743494916",
+          "localImagePath": "/scraped-images/e84e0a70382120.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-zvynuotasis-hunnetorp",
+      "canonicalName": "Kadagys žvynuotasis 'Hunnetorp'",
+      "latinName": "Juniperus squamata",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "fc29e08677c72f",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0032",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Hunnetorp.jpg?v=1725960766",
+          "localImagePath": "/scraped-images/fc29e08677c72f.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-gulsciasis-glacier",
+      "canonicalName": "Kadagys gulščiasis 'Glacier'",
+      "latinName": "Juniperus horizontalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "581e30bb499104",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0024",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Tamariscifolia.jpg?v=1725525232",
+          "localImagePath": "/scraped-images/581e30bb499104.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-tarpinis-aurea",
+      "canonicalName": "Kadagys tarpinis 'Aurea'",
+      "latinName": "Juniperus pfitzeriana",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "5456ef1a00cc78",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0015",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Aurea.jpg?v=1725527206",
+          "localImagePath": "/scraped-images/5456ef1a00cc78.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "cuga-kanadine",
+      "canonicalName": "Cūga kanadinė",
+      "latinName": "Tsuga canadensis",
+      "category": "decorative",
+      "offers": [
+        {
+          "productId": "186eaa758f4574",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0111",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Cuga.jpg?v=1727437086",
+          "localImagePath": "/scraped-images/186eaa758f4574.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "tuja-vakarine-smaragd",
+      "canonicalName": "Tuja vakarinė 'Smaragd'",
+      "latinName": "Thuja occidentalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "bb9cfdd0541eef",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0107",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Smaragd.jpg?v=1727704961",
+          "localImagePath": "/scraped-images/bb9cfdd0541eef.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-paprastoji",
+      "canonicalName": "Pušis paprastoji",
+      "latinName": "Pinus sylvestris",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "e349c223cf3bd1",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0089",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Pusis-paprastoji.jpg?v=1776772904",
+          "localImagePath": "/scraped-images/e349c223cf3bd1.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-zvynuotasis-dream-joy",
+      "canonicalName": "Kadagys žvynuotasis 'Dream Joy'",
+      "latinName": "Juniperus squamata",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "079998ac73b5eb",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0029",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/BlueJoy.jpg?v=1725957222",
+          "localImagePath": "/scraped-images/079998ac73b5eb.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-zvynuotasis-blue-carpet",
+      "canonicalName": "Kadagys žvynuotasis 'Blue Carpet'",
+      "latinName": "Juniperus squamata",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "cf52979df6f93c",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0026",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/KadagysBlue.jpg?v=1725515857",
+          "localImagePath": "/scraped-images/cf52979df6f93c.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-tarpinis-old-gold",
+      "canonicalName": "Kadagys tarpinis 'Old Gold'",
+      "latinName": "Juniperus pfitzeriana",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "e2ef8cf6b26164",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0021",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Old_Gold.jpg?v=1725543017",
+          "localImagePath": "/scraped-images/e2ef8cf6b26164.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-tarpinis-compacta",
+      "canonicalName": "Kadagys tarpinis 'Compacta'",
+      "latinName": "Juniperus pfitzeriana",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "933388fff3605e",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0016",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Compacta.jpg?v=1725538805",
+          "localImagePath": "/scraped-images/933388fff3605e.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-gulsciasis-wiltonii",
+      "canonicalName": "Kadagys gulsčiasis 'Wiltonii'",
+      "latinName": "Juniperus horizontalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "f30dbca59fe09a",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0014",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Waltonii.jpg?v=1725524178",
+          "localImagePath": "/scraped-images/f30dbca59fe09a.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-gulsciasis-golden-carpet",
+      "canonicalName": "Kadagys gulsčiasis 'Golden Carpet'",
+      "latinName": "Juniperus horizontalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "ded8e111c37847",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0011",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Golden_carpet.jpg?v=1725519445",
+          "localImagePath": "/scraped-images/ded8e111c37847.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-gulsciasis-emerald-spreader",
+      "canonicalName": "Kadagys gulsčiasis 'Emerald Spreader'",
+      "latinName": "Juniperus horizontalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "c493de7400146a",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0010",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/emerald_spreader_0b86acf3-df5e-43fd-ac9c-d1bc7860e6c4.jpg?v=1755600909",
+          "localImagePath": "/scraped-images/c493de7400146a.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-gulsciasis-bar-harbor",
+      "canonicalName": "Kadagys gulsčiasis 'Bar Harbor'",
+      "latinName": "Juniperus horizontalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "eec5a12bc92503",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0009",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/kadagys_bar_harbor.jpg?v=1725518509",
+          "localImagePath": "/scraped-images/eec5a12bc92503.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "tuja-didzioji-martin",
+      "canonicalName": "Tuja didžioji 'Martin'",
+      "latinName": "Thuja plicata",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "c688de7baf3a01",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0109",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Martin.jpg?v=1727704859",
+          "localImagePath": "/scraped-images/c688de7baf3a01.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "tuja-vakarine-columna",
+      "canonicalName": "Tuja vakarinė 'Columna'",
+      "latinName": "Thuja occidentalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "f2f8e1e5fe8bf8",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0101",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Columna.jpg?v=1727706014",
+          "localImagePath": "/scraped-images/f2f8e1e5fe8bf8.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "egle-paprastoji",
+      "canonicalName": "Eglė paprastoji",
+      "latinName": "Picea abies",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "4ca19649a2e502",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0038",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Paprastoji.jpg?v=1727765421",
+          "localImagePath": "/scraped-images/4ca19649a2e502.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "kadagys-zvynuotasis-blue-star",
+      "canonicalName": "Kadagys žvynuotasis 'Blue Star'",
+      "latinName": "Juniperus squamata",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "76db8637c3e75d",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0028",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Bluestar.jpg?v=1725956191",
+          "localImagePath": "/scraped-images/76db8637c3e75d.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "kadagys-zvynuotasis-blue-spider",
+      "canonicalName": "Kadagys žvynuotasis 'Blue Spider'",
+      "latinName": "Juniperus squamata",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "b68012986030a1",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0027",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/bluespider.jpg?v=1725955854",
+          "localImagePath": "/scraped-images/b68012986030a1.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "kadagys-kazokinis-rockery-gem",
+      "canonicalName": "Kadagys kazokinis 'Rockery Gem'",
+      "latinName": "Juniperus sabina",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "5ea8def192cf3c",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0023",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/kadagys_rockery_gem.jpg?v=1761039466",
+          "localImagePath": "/scraped-images/5ea8def192cf3c.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "kadagys-tarpinis-glauca",
+      "canonicalName": "Kadagys tarpinis 'Glauca'",
+      "latinName": "Juniperus pfitzeriana",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "645cdea25bb940",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0017",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/tarpinis_glauca1.jpg?v=1727259000",
+          "localImagePath": "/scraped-images/645cdea25bb940.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "vynvytis-penkialapis",
+      "canonicalName": "Vynvytis penkialapis",
+      "latinName": "Parthenocissus quinquefolia",
+      "category": "decorative",
+      "offers": [
+        {
+          "productId": "a58a1f15519f1e",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/dv0006",
+          "price": 5,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/VYNVYTIS-PENKIALAPIS-1.jpg?v=1714055958",
+          "localImagePath": "/scraped-images/a58a1f15519f1e.jpg",
+          "scrapedAt": "2026-04-27T15:27:48.013Z"
+        }
+      ],
+      "bestPrice": 5,
+      "updatedAt": "2026-04-27T15:27:48.013Z"
+    },
+    {
+      "slug": "tuja-vakarine-brabant",
+      "canonicalName": "Tuja vakarinė 'Brabant'",
+      "latinName": "Thuja occidentalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "281d08c7a6a464",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0100",
+          "price": 7,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Brabant.jpg?v=1727704447",
+          "localImagePath": "/scraped-images/281d08c7a6a464.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 7,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-tarpinis-mordigan-gold",
+      "canonicalName": "Kadagys tarpinis 'Mordigan Gold'",
+      "latinName": "Juniperus pfitzeriana",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "7182f142e99630",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0020",
+          "price": 7,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/kadmordgold.jpg?v=1725516411",
+          "localImagePath": "/scraped-images/7182f142e99630.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 7,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "gebene-lipike",
+      "canonicalName": "Gebenė lipikė",
+      "latinName": "Daugiametis greitai",
+      "category": "shrub",
+      "offers": [
+        {
+          "productId": "33e66a66f67015",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/dv0002",
+          "price": 7,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Hedera-helix.jpg?v=1710523948",
+          "localImagePath": "/scraped-images/33e66a66f67015.jpg",
+          "scrapedAt": "2026-04-27T15:27:48.013Z"
+        }
+      ],
+      "bestPrice": 7,
+      "updatedAt": "2026-04-27T15:27:48.013Z"
+    },
+    {
+      "slug": "kadagys-paprastasis-compressa",
+      "canonicalName": "Kadagys paprastasis 'Compressa'",
+      "latinName": "Juniperus communis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "a3bafd2e7e97d8",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0005",
+          "price": 8,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Compressa_548d6c99-3c14-4aa1-acfa-dc4dee453a95.jpg?v=1725526279",
+          "localImagePath": "/scraped-images/a3bafd2e7e97d8.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 8,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kukmedis-europinis-fastigiata",
+      "canonicalName": "Kukmedis europinis 'Fastigiata'",
+      "latinName": "Taxus baccata",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "1bd9da25049fb9",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0097",
+          "price": 8,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Fastigiata_3aa47015-fc44-4b10-83f7-76622398d008.jpg?v=1727358596",
+          "localImagePath": "/scraped-images/1bd9da25049fb9.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 8,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kukmedis-europinis-david",
+      "canonicalName": "Kukmedis europinis 'David'",
+      "latinName": "Taxus baccata",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "b6cf72f09eba6d",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0096",
+          "price": 8,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/David.jpg?v=1727358272",
+          "localImagePath": "/scraped-images/b6cf72f09eba6d.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 8,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "egle-baltoji-conica",
+      "canonicalName": "Eglė baltoji 'Conica'",
+      "latinName": "Picea glauca",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "ab3206d2daef61",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0039",
+          "price": 8,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Conica.jpg?v=1727441114",
+          "localImagePath": "/scraped-images/ab3206d2daef61.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 8,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kukmedis-tarpinis-hicksii",
+      "canonicalName": "Kukmedis tarpinis 'Hicksii'",
+      "latinName": "Taxus media",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "7207e804c2003c",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0098",
+          "price": 8,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Hicksii.webp?v=1774623983",
+          "localImagePath": "/scraped-images/7207e804c2003c.webp",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 8,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "tuja-didzioji-whipcord",
+      "canonicalName": "Tuja didžioji 'Whipcord'",
+      "latinName": "Thuja plicata",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "57df982d6a9c62",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0110",
+          "price": 10,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Whipcord.jpg?v=1727704672",
+          "localImagePath": "/scraped-images/57df982d6a9c62.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 10,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "sausmedis-japoninis-halliana",
+      "canonicalName": "Sausmedis japoninis 'Halliana'",
+      "latinName": "Lonicera japonica",
+      "category": "shrub",
+      "offers": [
+        {
+          "productId": "bace735bb4012c",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/dv0011",
+          "price": 10,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/SausmedisjaponinisHalliana.webp?v=1774868435",
+          "localImagePath": "/scraped-images/bace735bb4012c.webp",
+          "scrapedAt": "2026-04-27T15:27:48.013Z"
+        }
+      ],
+      "bestPrice": 10,
+      "updatedAt": "2026-04-27T15:27:48.013Z"
+    },
+    {
+      "slug": "ragane-gelsvoji",
+      "canonicalName": "Raganė gelsvoji",
+      "latinName": "Clemtais vitalba",
+      "category": "shrub",
+      "offers": [
+        {
+          "productId": "995683cb42caf0",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/dv0001",
+          "price": 10,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Gebene-gelsvoji.jpg?v=1710518869",
+          "localImagePath": "/scraped-images/995683cb42caf0.jpg",
+          "scrapedAt": "2026-04-27T15:27:48.013Z"
+        }
+      ],
+      "bestPrice": 10,
+      "updatedAt": "2026-04-27T15:27:48.013Z"
+    },
+    {
+      "slug": "pusis-kedrine",
+      "canonicalName": "Pušis kedrinė",
+      "latinName": "Pinus cembra",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "b250016b780306",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0046",
+          "price": 15,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Kedrine.jpg?v=1727869416",
+          "localImagePath": "/scraped-images/b250016b780306.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 15,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "maumedis-europinis",
+      "canonicalName": "Maumedis europinis",
+      "latinName": "Larix decidua",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "4e041883abf44e",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0034",
+          "price": 15,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Europinismaumedis_2b38319b-6cec-40d0-8d8b-058a5bd3f4e7.jpg?v=1727360037",
+          "localImagePath": "/scraped-images/4e041883abf44e.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 15,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "egle-paprastoji-pumila-nigra",
+      "canonicalName": "Eglė paprastoji 'Pumila Nigra'",
+      "latinName": "Picea abies",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "ab0b990af31390",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0037",
+          "price": 15,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Pumilanigra.jpg?v=1727441324",
+          "localImagePath": "/scraped-images/ab0b990af31390.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 15,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "egle-paprastoji-little-gem",
+      "canonicalName": "Eglė paprastoji 'Little Gem'",
+      "latinName": "Picea abies",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "ee90158a07b12b",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0035",
+          "price": 15,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/LittleGem.jpg?v=1727441425",
+          "localImagePath": "/scraped-images/ee90158a07b12b.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 15,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "visterija",
+      "canonicalName": "Visterija",
+      "latinName": "Wisteria sinensis",
+      "category": "decorative",
+      "offers": [
+        {
+          "productId": "ae2d1eb651c104",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/dv0009",
+          "price": 15,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/VISTERIJA.jpg?v=1711958346",
+          "localImagePath": "/scraped-images/ae2d1eb651c104.jpg",
+          "scrapedAt": "2026-04-27T15:27:48.012Z"
+        }
+      ],
+      "bestPrice": 15,
+      "updatedAt": "2026-04-27T15:27:48.012Z"
+    },
+    {
+      "slug": "vynvytis-triskiautis",
+      "canonicalName": "Vynvytis triskiautis",
+      "latinName": "Parthenocissus tricuspidata",
+      "category": "decorative",
+      "offers": [
+        {
+          "productId": "a4ca61c7900852",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/dv0008",
+          "price": 15,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/VYNVYTIS-TRISKLIAUTIS-3.jpg?v=1714056329",
+          "localImagePath": "/scraped-images/a4ca61c7900852.jpg",
+          "scrapedAt": "2026-04-27T15:27:48.013Z"
+        }
+      ],
+      "bestPrice": 15,
+      "updatedAt": "2026-04-27T15:27:48.013Z"
+    },
+    {
+      "slug": "kadagys-virgininis-hetz",
+      "canonicalName": "Kadagys virgininis 'Hetz'",
+      "latinName": "Juniperus virginiana",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "96abc08f8875b0",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0033",
+          "price": 20,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Hetz.jpg?v=1727358803",
+          "localImagePath": "/scraped-images/96abc08f8875b0.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 20,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-gulsciasis-andora-compact",
+      "canonicalName": "Kadagys gulsčiasis 'Andora Compact'",
+      "latinName": "Juniperus horizontalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "dc7111936ef6e6",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0008",
+          "price": 20,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/andoracomp.jpg?v=1725516204",
+          "localImagePath": "/scraped-images/dc7111936ef6e6.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 20,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "kadagys-zvynuotasis-holger",
+      "canonicalName": "Kadagys žvynuotasis 'Holger'",
+      "latinName": "Juniperus squamata",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "6e46c8932dded5",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0031",
+          "price": 20,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Kadagys_zvynuotasis_Holger_1.webp?v=1774260835",
+          "localImagePath": "/scraped-images/6e46c8932dded5.webp",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 20,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "kenis-pilkasis",
+      "canonicalName": "Kėnis pilkasis",
+      "latinName": "Abies concolor",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "e71745818ba298",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0001",
+          "price": 20,
+          "height": "",
+          "stockStatus": "out_of_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/pilkasis.jpg?v=1727258052",
+          "localImagePath": "/scraped-images/e71745818ba298.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 20,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "lastune-stambiaziede-florida",
+      "canonicalName": "Ląstūnė stambiažiedė 'Florida'",
+      "latinName": "Campsis radicans",
+      "category": "decorative",
+      "offers": [
+        {
+          "productId": "2a1b0ed48e65e6",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/dv0010",
+          "price": 20,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/LastunestambiaziedeFlorida.jpg?v=1774868042",
+          "localImagePath": "/scraped-images/2a1b0ed48e65e6.jpg",
+          "scrapedAt": "2026-04-27T15:27:48.013Z"
+        }
+      ],
+      "bestPrice": 20,
+      "updatedAt": "2026-04-27T15:27:48.013Z"
+    },
+    {
+      "slug": "pusis-baltazieve-satellit",
+      "canonicalName": "Pušis baltažievė 'Satellit'",
+      "latinName": "Pinus heldreichii",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "374d2defd41c21",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0050",
+          "price": 25,
+          "height": "",
+          "stockStatus": "out_of_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PUSIS-BALTAZIEVE-SATELLIT-4.jpg?v=1714743588",
+          "localImagePath": "/scraped-images/374d2defd41c21.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-juodoji-green-rocket",
+      "canonicalName": "Pušis juodoji 'Green Rocket'",
+      "latinName": "Pinus nigra",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "86e18e4884d82f",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0070",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PUSIS-JUODOJI-GREEN-ROCKET-5.jpg?v=1714891368",
+          "localImagePath": "/scraped-images/86e18e4884d82f.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-kalnine-mops",
+      "canonicalName": "Pušis kalninė 'Mops'",
+      "latinName": "Pinus mugo",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "3afc9b4d177ba9",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0060",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Mops.jpg?v=1727860372",
+          "localImagePath": "/scraped-images/3afc9b4d177ba9.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-baltazieve-malinki",
+      "canonicalName": "Pušis baltažievė 'Malinki'",
+      "latinName": "Pinus heldreichii",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "65129fd53c4477",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0047",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PUSIS-MALINKI-1.jpg?v=1714740752",
+          "localImagePath": "/scraped-images/65129fd53c4477.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-paprastoji-fastigiata",
+      "canonicalName": "Pušis paprastoji 'Fastigiata'",
+      "latinName": "Pinus sylvestris",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "d58530c540a8d6",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0086",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PUSIS-PAPRASTOJI-FASTIGIATA-1.jpg?v=1714752035",
+          "localImagePath": "/scraped-images/d58530c540a8d6.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-paprastoji-aurea",
+      "canonicalName": "Pušis paprastoji 'Aurea'",
+      "latinName": "Pinus sylvestris",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "a15e9793f30768",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0085",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Aurea1.jpg?v=1727870302",
+          "localImagePath": "/scraped-images/a15e9793f30768.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-juodoji-rondello",
+      "canonicalName": "Pušis juodoji 'Rondello'",
+      "latinName": "Pinus nigra",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "545277f33226e7",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0076",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Rondello.jpg?v=1727870218",
+          "localImagePath": "/scraped-images/545277f33226e7.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-juodoji-pyramidalis",
+      "canonicalName": "Pušis juodoji 'Pyramidalis'",
+      "latinName": "Pinus nigra",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "08d9c6a99f8201",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0075",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/JUODOJI-PUSIS-PYRAMIDALIS-1.jpg?v=1714751359",
+          "localImagePath": "/scraped-images/08d9c6a99f8201.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-kalnine-winter-gold",
+      "canonicalName": "Pušis kalninė 'Winter Gold'",
+      "latinName": "Pinus mugo",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "5ef28b632f2eab",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0065",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Pusis_kalnine_Winter_Gold.webp?v=1774260746",
+          "localImagePath": "/scraped-images/5ef28b632f2eab.webp",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-kalnine-pal-maleter",
+      "canonicalName": "Pušis kalninė 'Pal Maleter'",
+      "latinName": "Pinus mugo",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "ef0e4212070ee7",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0062",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PalMaleter.jpg?v=1727870439",
+          "localImagePath": "/scraped-images/ef0e4212070ee7.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-kalnine-minikin",
+      "canonicalName": "Pušis kalninė 'Minikin'",
+      "latinName": "Pinus mugo",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "a328ccf17e344d",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0059",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Minkin.jpg?v=1727867555",
+          "localImagePath": "/scraped-images/a328ccf17e344d.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-kalnine-kissen",
+      "canonicalName": "Pušis kalninė 'Kissen'",
+      "latinName": "Pinus mugo",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "6534f0c3e460f9",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0056",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Kissen.jpg?v=1727870022",
+          "localImagePath": "/scraped-images/6534f0c3e460f9.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "pusis-kalnine-humpy",
+      "canonicalName": "Pušis kalninė 'Humpy'",
+      "latinName": "Pinus mugo",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "d735921fb3dfb5",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0055",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PUSIS-KALNINE-HUMPY-1.jpg?v=1714750305",
+          "localImagePath": "/scraped-images/d735921fb3dfb5.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "pusis-baltazieve-schmidtii",
+      "canonicalName": "Pušis baltažievė 'Schmidtii'",
+      "latinName": "Pinus heldreichii",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "e497e6a95396a3",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0051",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PUSIS-SCHMIDTII-2.jpg?v=1714745777",
+          "localImagePath": "/scraped-images/e497e6a95396a3.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "pusis-baltazieve-nana",
+      "canonicalName": "Pušis baltažievė 'Nana'",
+      "latinName": "Pinus heldreichii",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "f692b6c6420e86",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0048",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PUSIS-BALTAZIEVE-NANA-4.jpg?v=1714820808",
+          "localImagePath": "/scraped-images/f692b6c6420e86.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "egle-paprastoji-nidiformis",
+      "canonicalName": "Eglė paprastoji 'Nidiformis'",
+      "latinName": "Picea abies",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "cbecbb4aec0c64",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0036",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Nidiformis.jpg?v=1727441587",
+          "localImagePath": "/scraped-images/cbecbb4aec0c64.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "kenis-korejinis-tundra",
+      "canonicalName": "Kėnis korėjinis 'Tundra'",
+      "latinName": "Abies koreana",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "4aea569dccebb9",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0003",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/tundra1.jpg?v=1727257970",
+          "localImagePath": "/scraped-images/4aea569dccebb9.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "kenis-korejinis-cis",
+      "canonicalName": "Kėnis korėjinis 'Cis'",
+      "latinName": "Abies koreana",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "b066baf4429bea",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0002",
+          "price": 25,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/cis1.jpg?v=1727257863",
+          "localImagePath": "/scraped-images/b066baf4429bea.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 25,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "egle-serbine",
+      "canonicalName": "Eglė serbinė",
+      "latinName": "Picea omorika",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "ddd1cdf3de9559",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0042",
+          "price": 30,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/serbine.jpg?v=1755953290",
+          "localImagePath": "/scraped-images/ddd1cdf3de9559.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 30,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "tuja-vakarine-hoseri",
+      "canonicalName": "Tuja vakarinė 'Hoseri'",
+      "latinName": "Thuja occidentalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "84ee095e8cab81",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0105",
+          "price": 30,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Hoseri.jpg?v=1727705483",
+          "localImagePath": "/scraped-images/84ee095e8cab81.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 30,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-kalnine-paradekissen",
+      "canonicalName": "Pušis kalninė 'Paradekissen'",
+      "latinName": "Pinus mugo",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "841a18fa989fc1",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0063",
+          "price": 30,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Pusis_kalnine_Paradekissen_1.jpg?v=1774260797",
+          "localImagePath": "/scraped-images/841a18fa989fc1.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 30,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-kalnine-carsten-wintergold",
+      "canonicalName": "Pušis kalninė 'Carsten's Wintergold'",
+      "latinName": "Pinus mugo",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "35f1e7568e2035",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0053",
+          "price": 30,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Carsten_swintergold.jpg?v=1727868346",
+          "localImagePath": "/scraped-images/35f1e7568e2035.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 30,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "pusis-juodoji-oregon-green",
+      "canonicalName": "Pušis juodoji 'Oregon Green'",
+      "latinName": "Pinus nigra",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "9f5b6c6f81ac59",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0074",
+          "price": 35,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PUSIS-JUODOJI-OREGON-GREEEN-1.jpg?v=1714891838",
+          "localImagePath": "/scraped-images/9f5b6c6f81ac59.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 35,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-juodoji-green-tower",
+      "canonicalName": "Pušis juodoji 'Green Tower'",
+      "latinName": "Pinus nigra",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "cd01ab85440a0f",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0072",
+          "price": 40,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PUSIS-GREEN-TOWER-2.jpg?v=1714750782",
+          "localImagePath": "/scraped-images/cd01ab85440a0f.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 40,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "egle-dygioji",
+      "canonicalName": "Eglė dygioji",
+      "latinName": "Picea pungens",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "b8137a4ed1f01e",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0044",
+          "price": 40,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Dygioji.jpg?v=1727762852",
+          "localImagePath": "/scraped-images/b8137a4ed1f01e.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 40,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-paprastoji-watereri",
+      "canonicalName": "Pušis paprastoji 'Watereri'",
+      "latinName": "Pinus sylvestris",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "7de41836769f19",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0088",
+          "price": 40,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Watereri1.jpg?v=1727870169",
+          "localImagePath": "/scraped-images/7de41836769f19.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 40,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-paprastoji-argentea-compacta",
+      "canonicalName": "Pušis paprastoji 'Argentea Compacta'",
+      "latinName": "Pinus sylvestris",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "fc37c466e61fbb",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0084",
+          "price": 40,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Argenteacompacta.jpg?v=1727864421",
+          "localImagePath": "/scraped-images/fc37c466e61fbb.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 40,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-kalnine-ophir",
+      "canonicalName": "Pušis kalninė 'Ophir'",
+      "latinName": "Pinus mugo",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "45771d64bbd3f9",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0061",
+          "price": 40,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Ophir.jpg?v=1727867687",
+          "localImagePath": "/scraped-images/45771d64bbd3f9.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 40,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-kalnine-litomysl",
+      "canonicalName": "Pušis kalninė 'Litomysl'",
+      "latinName": "Pinus mugo",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "066b813e827b8e",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0058",
+          "price": 40,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Litomysl.jpg?v=1727869952",
+          "localImagePath": "/scraped-images/066b813e827b8e.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 40,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "pusis-kalnine-laurin",
+      "canonicalName": "Pušis kalninė 'Laurin'",
+      "latinName": "Pinus mugo",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "be96b54fd0b1fa",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0057",
+          "price": 40,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Laurin.jpg?v=1727867844",
+          "localImagePath": "/scraped-images/be96b54fd0b1fa.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 40,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "pusis-kalnine-golden-glow",
+      "canonicalName": "Pušis kalninė 'Golden Glow'",
+      "latinName": "Pinus mugo",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "b07f9aab346882",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0054",
+          "price": 40,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/GoldenGlow.jpg?v=1727869702",
+          "localImagePath": "/scraped-images/b07f9aab346882.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.333Z"
+        }
+      ],
+      "bestPrice": 40,
+      "updatedAt": "2026-04-27T15:27:46.333Z"
+    },
+    {
+      "slug": "pusis-balkanine",
+      "canonicalName": "Pušis balkaninė",
+      "latinName": "Pinus peuce",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "488baf50bedbdb",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0082",
+          "price": 50,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PUSIS-BALKANINE-1.jpg?v=1714814477",
+          "localImagePath": "/scraped-images/488baf50bedbdb.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 50,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-juodoji-nana",
+      "canonicalName": "Pušis juodoji 'Nana'",
+      "latinName": "Pinus nigra",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "cb638e733a3619",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0073",
+          "price": 50,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PUSIS-JUODOJI-NANA-2.jpg?v=1714826328",
+          "localImagePath": "/scraped-images/cb638e733a3619.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 50,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-kalnine-varella",
+      "canonicalName": "Pušis kalninė 'Varella'",
+      "latinName": "Pinus mugo",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "afd84a13985e59",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0064",
+          "price": 50,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/Warella.jpg?v=1727867636",
+          "localImagePath": "/scraped-images/afd84a13985e59.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 50,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "tuja-vakarine-golden-globe",
+      "canonicalName": "Tuja vakarinė 'Golden Globe'",
+      "latinName": "Thuja occidentalis",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "8b93fb5048334f",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0104",
+          "price": 50,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/GoldenGlobe.jpg?v=1727705699",
+          "localImagePath": "/scraped-images/8b93fb5048334f.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 50,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-bankso",
+      "canonicalName": "Pušis bankso",
+      "latinName": "Pinus baksiana",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "c282470273bd70",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0045",
+          "price": 55,
+          "height": "",
+          "stockStatus": "in_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PUSIS-BANKSO-5.jpg?v=1714815399",
+          "localImagePath": "/scraped-images/c282470273bd70.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 55,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    },
+    {
+      "slug": "pusis-himalajine",
+      "canonicalName": "Pušis himalajinė",
+      "latinName": "Pinus wallichiana",
+      "category": "evergreen",
+      "offers": [
+        {
+          "productId": "8603a5b2db5d41",
+          "sellerName": "Gėliuukis",
+          "sellerLogo": "https://geliuukis.lt/cdn/shop/files/logo.png",
+          "sellerCity": "Klaipėda",
+          "sourceUrl": "https://geliuukis.lt/products/ds0094",
+          "price": 60,
+          "height": "",
+          "stockStatus": "out_of_stock",
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0770/4458/0689/files/PUSIS-HIMALAJINE-1.jpg?v=1714740287",
+          "localImagePath": "/scraped-images/8603a5b2db5d41.jpg",
+          "scrapedAt": "2026-04-27T15:27:46.332Z"
+        }
+      ],
+      "bestPrice": 60,
+      "updatedAt": "2026-04-27T15:27:46.332Z"
+    }
+  ]
+}

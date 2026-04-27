@@ -1,0 +1,21 @@
+{
+  "run_1777303665649": {
+    "startedAt": "2026-04-27T15:27:45.649Z",
+    "status": "running"
+  },
+  "run_1777303665657": {
+    "completedAt": "2026-04-27T15:28:06.512Z",
+    "status": "done",
+    "liveAdded": 96,
+    "downloadedImages": 96,
+    "totalProducts": 96,
+    "marketplace": 96,
+    "sources": {
+      "geliuukis": {
+        "found": 96,
+        "added": 96,
+        "downloadedImages": 96
+      }
+    }
+  }
+}
