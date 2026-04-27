@@ -51,7 +51,7 @@ function OfferRow({ offer, group, rank }: { offer: MarketplaceOffer; group: Mark
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5">
           <span className="text-[13px] font-semibold text-forest-900 dark:text-forest-50 truncate">{offer.sellerName}</span>
-          <Shield size={11} className="text-forest-400 flex-shrink-0" title="Verified seller"/>
+          <span title="Verified seller" className="inline-flex flex-shrink-0"><Shield size={11} className="text-forest-400" aria-hidden="true"/></span>
         </div>
         <div className="flex items-center gap-2 mt-0.5">
           {offer.height && <span className="text-[10px] text-forest-500 flex items-center gap-0.5"><Leaf size={9}/>{offer.height}</span>}
