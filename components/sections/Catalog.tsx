@@ -14,7 +14,7 @@ import { toggleWishlist, isWishlisted } from '@/lib/wishlist';
 
 const PRICE_MAX = 400;
 
-/* ── Marketplace types ── */
+/* ── Marketplace typessss ── */
 interface MarketplaceOffer {
   productId: string; sellerName: string; sourceUrl: string; price: number;
   originalPrice?: number; height?: string; stockStatus: string; imageUrl?: string; localImagePath?: string; scrapedAt: string;
