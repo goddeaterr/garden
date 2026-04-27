@@ -15,6 +15,22 @@ interface MarketplaceGroup {
 
 type Locale = 'lt' | 'ru' | 'en';
 
+function slugify(text_value1: string): string {
+  return text_value1
+    .toLowerCase()
+    .replace(/ą/g, 'a')
+    .replace(/č/g, 'c')
+    .replace(/ę/g, 'e')
+    .replace(/ė/g, 'e')
+    .replace(/į/g, 'i')
+    .replace(/š/g, 's')
+    .replace(/ų/g, 'u')
+    .replace(/ū/g, 'u')
+    .replace(/ž/g, 'z')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
 function detectLocale(text: string): Locale {
   const lt = /[ąčęėįšųūž]/i.test(text) || /\b(reikia|noriu|turiu|sodą|medis|kaina|kiek|labas|sveikas|ačiū)\b/i.test(text);
   const ru = /[а-яёА-ЯЁ]/.test(text);
