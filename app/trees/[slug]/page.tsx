@@ -234,7 +234,9 @@ function TreePageInner({ slug }: { slug: string }) {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1.5">
                         <span className="text-[14px] font-semibold text-forest-900 dark:text-forest-50">{offer.sellerName}</span>
-                        <Shield size={12} className="text-forest-400" title="Verified seller"/>
+                        <span title="Verified seller" className="inline-flex flex-shrink-0">
+                          <Shield size={12} className="text-forest-400" aria-hidden="true" />
+                        </span>
                         {j === 0 && <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 px-1.5 py-0.5 rounded-full">Best price</span>}
                       </div>
                       <div className="flex items-center gap-3 mt-0.5">
