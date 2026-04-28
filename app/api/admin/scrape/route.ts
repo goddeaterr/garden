@@ -95,7 +95,7 @@ export async function POST(req: NextRequest) {
     const existingIds = new Set(existing.map(p=>p.id));
     const newOnes = products.filter(p=>!existingIds.has(p.id));
     let all = [...existing, ...newOnes];
-    all = await downloadImagesForProducts(all, 120);
+    all = await downloadImagesForProducts(all, 500);
     write(all);
     rebuildMarketplace(all);
     log[body.url] = { completedAt: new Date().toISOString(), status:'done', found: products.length, added: newOnes.length };

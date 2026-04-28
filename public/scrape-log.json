@@ -17,5 +17,28 @@
         "downloadedImages": 96
       }
     }
+  },
+  "run_1777383845665": {
+    "completedAt": "2026-04-28T13:44:07.531Z",
+    "status": "done",
+    "durationMs": 1866,
+    "liveAdded": 0,
+    "liveUpdated": 1,
+    "liveUnchanged": 95,
+    "liveStale": 0,
+    "downloadedImages": 0,
+    "totalProducts": 96,
+    "marketplace": 96,
+    "sources": {
+      "geliuukis": {
+        "found": 96,
+        "added": 0,
+        "updated": 1,
+        "unchanged": 95,
+        "stale": 0,
+        "downloadedImages": 0,
+        "durationMs": 1287
+      }
+    }
   }
 }

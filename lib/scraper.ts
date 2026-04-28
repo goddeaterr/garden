@@ -1,6 +1,7 @@
 import { createHash } from 'crypto';
 import { mkdirSync, existsSync, writeFileSync } from 'fs';
 import { join, extname } from 'path';
+import { parse, HTMLElement } from 'node-html-parser';
 
 /* ─── Types ──────────────────────────────────────────────────── */
 export interface ScrapedProduct {
@@ -11,6 +12,7 @@ export interface ScrapedProduct {
   price: number; originalPrice?: number; currency: 'EUR';
   stockStatus: 'in_stock' | 'out_of_stock' | 'unknown';
   imageUrls: string[]; localImagePath?: string;
+  lastSeenAt?: string; missingSince?: string; missingCount?: number; bgRemoved?: boolean;
   description?: string; status: 'active' | 'rejected';
 }
 export interface MarketplaceOffer {
@@ -43,6 +45,27 @@ export const NURSERY_SOURCES: NurserySource[] = [
     ],
     active: true,
   },
+  {
+    id: 'siupariu-geles',
+    name: 'Šiūparių gėlių ūkis',
+    city: 'Klaipėdos r.',
+    baseUrl: 'https://www.siupariugeles.lt',
+    logo: 'https://www.siupariugeles.lt/site/images/logo-default.png',
+    type: 'html',
+    catalogUrls: ['https://www.siupariugeles.lt/'],
+    discoverCatalogUrls: true,
+    active: true,
+  },
+  {
+    id: 'growup',
+    name: 'GrowUp',
+    city: 'Kaunas',
+    baseUrl: 'https://www.growup.lt',
+    logo: 'https://www.growup.lt/image/cache/catalog/growup-logotipas-582x636.png',
+    type: 'html',
+    catalogSitemapUrls: ['https://www.growup.lt/sitemap-category.xml'],
+    active: true,
+  },
   // ── Add more shops here ────────────────────────────────────────────
   // Example Shopify shop:
   // { id: 'other-shop', name: 'Other Shop', city: 'Vilnius',
@@ -60,6 +83,8 @@ export interface NurserySource {
   type: 'shopify' | 'html';
   shopifyCollections?: string[];
   catalogUrls?: string[];
+  catalogSitemapUrls?: string[];
+  discoverCatalogUrls?: boolean;
   active: boolean;
 }
 
@@ -95,12 +120,117 @@ export function extractHeight(text: string): string {
 export function extractLatinName(title: string, desc: string): string {
   // Look for italic latin name patterns in HTML
   const m = desc.match(/<(?:em|i|strong)>([A-Z][a-z]+ [a-z]+(?:\s+['"][^'"]+['"])?)<\/(?:em|i|strong)>/i)
-    || title.match(/\(([A-Z][a-z]+ [a-z]+)\)/)
-    || desc.match(/([A-Z][a-z]{2,} [a-z]{3,}(?:\s+var\.?\s+[a-z]+)?)/);
+    || title.match(/\((?:lot\.?\s*)?([A-ZĄČĘĖĮŠŲŪŽ][a-ząčęėįšųūž]+ [a-ząčęėįšųūž]+)\)/i)
+    || desc.match(/([A-ZĄČĘĖĮŠŲŪŽ][a-ząčęėįšųūž]{2,} [a-ząčęėįšųūž]{3,}(?:\s+var\.?\s+[a-ząčęėįšųūž]+)?)/i);
   return m ? m[1].trim() : '';
 }
 
+const LOCAL_GENUS_HINTS: Array<[RegExp, string]> = [
+  [/hortenz/i, 'hydrangea'],
+  [/miskant/i, 'miscanthus'],
+  [/salavij/i, 'salvia'],
+  [/levand/i, 'lavandula'],
+  [/ežiuol|eziuol/i, 'echinacea'],
+  [/elebor/i, 'helleborus'],
+  [/šilok|silok/i, 'sedum'],
+  [/penstemon/i, 'penstemon'],
+  [/flioks/i, 'phlox'],
+  [/katžol|katzol/i, 'nepeta'],
+  [/alūn|alun/i, 'heuchera'],
+  [/astilb/i, 'astilbe'],
+  [/rudbek/i, 'rudbeckia'],
+  [/verben/i, 'verbena'],
+  [/soruol/i, 'pennisetum'],
+  [/puš|pus/i, 'pinus'],
+  [/egl/i, 'picea'],
+  [/bukas/i, 'fagus'],
+];
+
+function normalizePlantText(text: string): string {
+  return text
+    .replace(/[‘’`´]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/®/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function extractCultivar(title: string): string {
+  const normalized_title = normalizePlantText(title);
+  const quoted = normalized_title.match(/['"]([^'"]{2,80})['"]/);
+  if (quoted) return quoted[1].trim();
+
+  const dash_cultivar = normalized_title.match(/\s[-–]\s*([A-ZĄČĘĖĮŠŲŪŽ0-9][A-ZĄČĘĖĮŠŲŪŽa-ząčęėįšųūž0-9 &]+)$/);
+  if (dash_cultivar) return dash_cultivar[1].trim();
+
+  const parenthetical = normalized_title.match(/\((?!\s*lot\.?)([^)]{2,80})\)/i);
+  if (parenthetical) return parenthetical[1].trim();
+
+  return '';
+}
+
+function extractBotanicalGenus(title: string): string {
+  const normalized_title = normalizePlantText(title);
+  const parenthetical = normalized_title.match(/\((?:lot\.?\s*)?([A-ZĄČĘĖĮŠŲŪŽ][a-ząčęėįšųūž]+)(?:\s+[a-ząčęėįšųūž]+)?/i);
+  if (parenthetical) return parenthetical[1].toLowerCase();
+
+  const inline_latin = normalized_title.match(/\b([A-Z][a-z]{2,})\s+[a-z]{3,}\b/);
+  if (inline_latin) return inline_latin[1].toLowerCase();
+
+  const hint = LOCAL_GENUS_HINTS.find(([pattern]) => pattern.test(normalized_title));
+  return hint ? hint[1] : '';
+}
+
+function extractBotanicalSpeciesKey(title: string): string {
+  const normalized_title = normalizePlantText(title);
+  const parenthetical = normalized_title.match(/\((?:lot\.?\s*)?([A-ZĄČĘĖĮŠŲŪŽ][a-ząčęėįšųūž]+)\s+([a-ząčęėįšųūž]+)\b/i);
+  if (parenthetical) return `${parenthetical[1]} ${parenthetical[2]}`;
+
+  const inline_latin = normalized_title.match(/\b([A-Z][a-z]{2,})\s+([a-z]{3,})\b/);
+  return inline_latin ? `${inline_latin[1]} ${inline_latin[2]}` : '';
+}
+
+function stripHtml(html = ''): string {
+  return html.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function cleanText(text = ''): string {
+  return text.replace(/\s+/g, ' ').trim();
+}
+
+function parseEuroPrice(text = ''): number {
+  const price_match = text
+    .replace(/\s/g, '')
+    .match(/(\d+(?:[.,]\d{1,2})?)\s*(?:€|eur)/i);
+  return price_match ? parseFloat(price_match[1].replace(',', '.')) : 0;
+}
+
+function normalizeUrl(raw_url: string | undefined, base_url: string): string {
+  if (!raw_url) return '';
+  try { return new URL(raw_url, base_url).href; } catch { return ''; }
+}
+
+function firstImageUrl(card: HTMLElement, base_url: string): string {
+  const image = card.querySelector('img');
+  if (!image) return '';
+  const raw_url = image.getAttribute('data-src')
+    || image.getAttribute('data-original')
+    || image.getAttribute('data-lazy-src')
+    || image.getAttribute('src')
+    || '';
+  if (raw_url.startsWith('data:')) return '';
+  if (/\/image\/\/\d/i.test(raw_url)) return '';
+  return safeImageUrl(raw_url, base_url);
+}
+
 export function groupKey(title: string): string {
+  const genus = extractBotanicalGenus(title);
+  const cultivar = extractCultivar(title);
+  if (genus && cultivar) return slugify(`${genus} ${cultivar}`);
+
+  const species_key = extractBotanicalSpeciesKey(title);
+  if (species_key) return slugify(species_key);
+
   // Normalize Lithuanian inflections and extract species core
   return slugify(title)
     .replace(/-(?:s|is|ius|as|es|us|ys|ias|ui|io|iams|ems|ims|oms|ums|yms)(?:-|$)/g, '-')
@@ -146,30 +276,49 @@ function safeImageUrl(raw_url: string, base_url?: string): string {
 
 export async function downloadProductImage(image_url: string, product_id: string): Promise<string | null> {
   const safe_url = safeImageUrl(image_url);
-  if (!safe_url) return null;
+  if (!safe_url) {
+    console.log(`[Scraper:images] ${product_id}: skipped invalid image URL`);
+    return null;
+  }
   mkdirSync(SCRAPED_IMAGES_DIR, { recursive: true });
 
   try {
+    console.log(`[Scraper:images] ${product_id}: downloading ${safe_url}`);
     const image_response = await fetch(safe_url, {
       headers: IMAGE_FETCH_HEADERS,
       signal: AbortSignal.timeout(15000),
     });
-    if (!image_response.ok) return null;
+    if (!image_response.ok) {
+      console.log(`[Scraper:images] ${product_id}: image request failed with HTTP ${image_response.status}`);
+      return null;
+    }
 
     const content_type = image_response.headers.get('content-type') || '';
-    if (!content_type.startsWith('image/')) return null;
+    if (!content_type.startsWith('image/')) {
+      console.log(`[Scraper:images] ${product_id}: rejected non-image content type "${content_type}"`);
+      return null;
+    }
 
     const image_buffer = Buffer.from(await image_response.arrayBuffer());
-    if (image_buffer.length < 500 || image_buffer.length > 10 * 1024 * 1024) return null;
+    if (image_buffer.length < 500 || image_buffer.length > 10 * 1024 * 1024) {
+      console.log(`[Scraper:images] ${product_id}: rejected image size ${image_buffer.length} bytes`);
+      return null;
+    }
 
     const image_ext = imageExtensionFromUrl(safe_url, content_type);
     const image_filename = `${product_id.replace(/[^a-z0-9-]/gi, '')}${image_ext}`;
     const disk_path = join(SCRAPED_IMAGES_DIR, image_filename);
     const public_path = `/scraped-images/${image_filename}`;
 
-    if (!existsSync(disk_path)) writeFileSync(disk_path, image_buffer);
+    if (!existsSync(disk_path)) {
+      writeFileSync(disk_path, image_buffer);
+      console.log(`[Scraper:images] ${product_id}: saved ${public_path} (${image_buffer.length} bytes)`);
+    } else {
+      console.log(`[Scraper:images] ${product_id}: already saved as ${public_path}`);
+    }
     return public_path;
-  } catch {
+  } catch (error_item: any) {
+    console.log(`[Scraper:images] ${product_id}: image download error: ${error_item?.message || 'unknown error'}`);
     return null;
   }
 }
@@ -180,7 +329,10 @@ export async function downloadImagesForProducts(products: ScrapedProduct[], limi
     product_item.imageUrls?.length > 0 && !product_item.localImagePath
   ).slice(0, limit);
 
+  console.log(`[Scraper:images] ${missing_images.length} products need local images (limit ${limit})`);
+
   for (const product_item of missing_images) {
+    console.log(`[Scraper:images] ${product_item.id}: trying ${Math.min(product_item.imageUrls.length, 4)} image candidate(s) for "${product_item.title}"`);
     for (const image_url of product_item.imageUrls.slice(0, 4)) {
       const local_image_path = await downloadProductImage(image_url, product_item.id);
       if (!local_image_path) continue;
@@ -203,19 +355,28 @@ async function scrapeShopify(source: NurserySource): Promise<ScrapedProduct[]> {
   const products: ScrapedProduct[] = [];
   const collections = source.shopifyCollections || [];
 
+  console.log(`[Scraper:shopify] ${source.name}: starting ${collections.length} collection(s) from ${source.baseUrl}`);
   for (const collection of collections) {
+    let collection_count = 0;
     let page = 1;
     while (true) {
       const url = `${source.baseUrl}/collections/${collection}/products.json?limit=250&page=${page}`;
       try {
+        console.log(`[Scraper:shopify] ${source.name}/${collection}: fetching page ${page}`);
         const res = await fetch(url, {
           headers: FETCH_HEADERS,
           signal: AbortSignal.timeout(20000),
         });
-        if (!res.ok) break;
+        if (!res.ok) {
+          console.log(`[Scraper:shopify] ${source.name}/${collection}: HTTP ${res.status}, stopping collection`);
+          break;
+        }
 
         const data = await res.json() as { products: ShopifyProduct[] };
-        if (!data.products || data.products.length === 0) break;
+        if (!data.products || data.products.length === 0) {
+          console.log(`[Scraper:shopify] ${source.name}/${collection}: no products on page ${page}, stopping collection`);
+          break;
+        }
 
         for (const sp of data.products) {
           // Price: use lowest variant price
@@ -273,8 +434,10 @@ async function scrapeShopify(source: NurserySource): Promise<ScrapedProduct[]> {
             description: descText,
             status: 'active',
           });
+          collection_count++;
         }
 
+        console.log(`[Scraper:shopify] ${source.name}/${collection}: page ${page} produced ${data.products.length} Shopify product(s)`);
         if (data.products.length < 250) break;
         page++;
         await new Promise(r => setTimeout(r, 400));
@@ -283,11 +446,14 @@ async function scrapeShopify(source: NurserySource): Promise<ScrapedProduct[]> {
         break;
       }
     }
+    console.log(`[Scraper:shopify] ${source.name}/${collection}: collected ${collection_count} product(s)`);
   }
 
   // Deduplicate within source
   const seen = new Set<string>();
-  return products.filter(p => { if (seen.has(p.id)) return false; seen.add(p.id); return true; });
+  const deduped_products = products.filter(p => { if (seen.has(p.id)) return false; seen.add(p.id); return true; });
+  console.log(`[Scraper:shopify] ${source.name}: finished with ${deduped_products.length} unique product(s) from ${products.length} scraped row(s)`);
+  return deduped_products;
 }
 
 interface ShopifyProduct {
@@ -299,13 +465,29 @@ interface ShopifyProduct {
 /* ─── HTML scraper (fallback for non-Shopify) ────────────────── */
 async function scrapeHtml(source: NurserySource): Promise<ScrapedProduct[]> {
   const products: ScrapedProduct[] = [];
-  const urls = source.catalogUrls || [];
+  const urls = await discoverHtmlCatalogUrls(source);
 
+  console.log(`[Scraper:html] ${source.name}: starting ${urls.length} catalog URL(s)`);
   for (const url of urls) {
     try {
+      const before_count = products.length;
+      console.log(`[Scraper:html] ${source.name}: fetching ${url}`);
       const res = await fetch(url, { headers: FETCH_HEADERS, signal: AbortSignal.timeout(20000) });
-      if (!res.ok) continue;
+      if (!res.ok) {
+        console.log(`[Scraper:html] ${source.name}: HTTP ${res.status} for ${url}`);
+        continue;
+      }
       const html = await res.text();
+      console.log(`[Scraper:html] ${source.name}: downloaded ${html.length} HTML characters`);
+      const root = parse(html);
+      const parsed_card_products = [
+        ...parseSiupariuProductCards(root, source, url),
+        ...parseGrowupProductCards(root, source, url),
+      ];
+      if (parsed_card_products.length > 0) {
+        products.push(...parsed_card_products);
+        console.log(`[Scraper:html] ${source.name}: parsed ${parsed_card_products.length} structured product card(s)`);
+      }
 
       // 1. Try JSON-LD
       for (const match of html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)) {
@@ -318,10 +500,11 @@ async function scrapeHtml(source: NurserySource): Promise<ScrapedProduct[]> {
             if (!offer) continue;
             const price = parseFloat(offer.price || '0');
             if (!price) continue;
-            const desc = (item.description || '').replace(/<[^>]+>/g, '').slice(0, 400);
+            const desc = stripHtml(item.description || '').slice(0, 400);
+            const product_url = normalizeUrl(item.url || url, source.baseUrl) || url;
             products.push({
-              id: makeId(item.url || url, item.name),
-              scrapedAt: new Date().toISOString(), sourceUrl: item.url || url,
+              id: makeId(product_url, item.name),
+              scrapedAt: new Date().toISOString(), sourceUrl: product_url,
               sourceSite: source.id, sellerName: source.name, sellerLogo: source.logo, sellerCity: source.city,
               title: item.name.trim(), category: detectCategory(item.name, [], desc),
               height: extractHeight(desc), price, currency: 'EUR',
@@ -330,11 +513,13 @@ async function scrapeHtml(source: NurserySource): Promise<ScrapedProduct[]> {
               description: desc, status: 'active',
             });
           }
-        } catch {}
+        } catch (error_item: any) {
+          console.log(`[Scraper:html] ${source.name}: JSON-LD parse failed: ${error_item?.message || 'unknown error'}`);
+        }
       }
 
       // 2. Generic HTML product cards
-      if (products.length === 0) {
+      if (parsed_card_products.length === 0) {
         const re = /<(?:li|article)[^>]*class="[^"]*\bproduct\b[^"]*"[^>]*>([\s\S]{40,3000}?)<\/(?:li|article)>/gi;
         for (const m of html.matchAll(re)) {
           const block = m[1];
@@ -359,17 +544,144 @@ async function scrapeHtml(source: NurserySource): Promise<ScrapedProduct[]> {
           });
         }
       }
+      console.log(`[Scraper:html] ${source.name}: ${url} produced ${products.length - before_count} product(s)`);
     } catch (e: any) {
       console.log(`[Scraper] HTML ${source.name}: ${e.message}`);
     }
     await new Promise(r => setTimeout(r, 800));
   }
   const seen = new Set<string>();
-  return products.filter(p => { if (seen.has(p.id)) return false; seen.add(p.id); return true; });
+  const deduped_products = products.filter(p => { if (seen.has(p.id)) return false; seen.add(p.id); return true; });
+  console.log(`[Scraper:html] ${source.name}: finished with ${deduped_products.length} unique product(s) from ${products.length} scraped row(s)`);
+  return deduped_products;
+}
+
+async function discoverHtmlCatalogUrls(source: NurserySource): Promise<string[]> {
+  const urls = new Set<string>();
+  for (const catalog_url of source.catalogUrls || []) urls.add(catalog_url);
+
+  for (const sitemap_url of source.catalogSitemapUrls || []) {
+    try {
+      console.log(`[Scraper:html] ${source.name}: discovering catalog URLs from ${sitemap_url}`);
+      const sitemap_response = await fetch(sitemap_url, { headers: FETCH_HEADERS, signal: AbortSignal.timeout(20000) });
+      if (!sitemap_response.ok) {
+        console.log(`[Scraper:html] ${source.name}: sitemap HTTP ${sitemap_response.status}`);
+        continue;
+      }
+      const sitemap_xml = await sitemap_response.text();
+      const discovered_urls = [...sitemap_xml.matchAll(/<loc><!\[CDATA\[(.*?)\]\]><\/loc>|<loc>(.*?)<\/loc>/g)]
+        .map(match_item => normalizeUrl(match_item[1] || match_item[2], source.baseUrl))
+        .filter(Boolean);
+      discovered_urls.forEach(discovered_url => urls.add(discovered_url));
+      console.log(`[Scraper:html] ${source.name}: sitemap added ${discovered_urls.length} URL(s)`);
+    } catch (error_item: any) {
+      console.log(`[Scraper:html] ${source.name}: sitemap discovery failed: ${error_item?.message || 'unknown error'}`);
+    }
+  }
+
+  if (source.discoverCatalogUrls) {
+    for (const seed_url of source.catalogUrls || []) {
+      try {
+        console.log(`[Scraper:html] ${source.name}: discovering catalog URLs from ${seed_url}`);
+        const seed_response = await fetch(seed_url, { headers: FETCH_HEADERS, signal: AbortSignal.timeout(20000) });
+        if (!seed_response.ok) {
+          console.log(`[Scraper:html] ${source.name}: discovery seed HTTP ${seed_response.status}`);
+          continue;
+        }
+        const seed_html = await seed_response.text();
+        const root = parse(seed_html);
+        const discovered_urls = root.querySelectorAll('a')
+          .map(link_item => normalizeUrl(link_item.getAttribute('href'), source.baseUrl))
+          .filter(link_url => {
+            if (!link_url.startsWith(source.baseUrl)) return false;
+            if (link_url.endsWith('.html')) return false;
+            return /\/lt\/(?:e-)?parduotuve\//.test(link_url);
+          });
+        discovered_urls.forEach(discovered_url => urls.add(discovered_url));
+        console.log(`[Scraper:html] ${source.name}: page discovery added ${new Set(discovered_urls).size} URL(s)`);
+      } catch (error_item: any) {
+        console.log(`[Scraper:html] ${source.name}: catalog discovery failed: ${error_item?.message || 'unknown error'}`);
+      }
+    }
+  }
+
+  return [...urls];
+}
+
+function parseSiupariuProductCards(root: HTMLElement, source: NurserySource, page_url: string): ScrapedProduct[] {
+  const cards = root.querySelectorAll('.box-nina');
+  if (cards.length === 0) return [];
+
+  return cards.map(card => {
+    const title_link = card.querySelector('.box-nina-text .title a') || card.querySelector('h5 a');
+    const title = cleanText(title_link?.text || '');
+    const source_url = normalizeUrl(title_link?.getAttribute('href'), source.baseUrl) || page_url;
+    const price = parseEuroPrice(card.querySelector('.box-nina-text .text')?.text || card.text);
+    const image_url = firstImageUrl(card, source.baseUrl);
+    const stock_status = /išparduota|isparduota/i.test(card.text) ? 'out_of_stock' : 'in_stock';
+
+    if (!title || !price || !source_url) return null;
+    return {
+      id: makeId(source_url, title),
+      scrapedAt: new Date().toISOString(),
+      sourceUrl: source_url,
+      sourceSite: source.id,
+      sellerName: source.name,
+      sellerLogo: source.logo,
+      sellerCity: source.city,
+      title,
+      latinName: extractLatinName(title, ''),
+      category: detectCategory(title),
+      height: '',
+      price,
+      currency: 'EUR' as const,
+      stockStatus: stock_status as ScrapedProduct['stockStatus'],
+      imageUrls: image_url ? [image_url] : [],
+      description: title,
+      status: 'active' as const,
+    };
+  }).filter(Boolean) as ScrapedProduct[];
+}
+
+function parseGrowupProductCards(root: HTMLElement, source: NurserySource, page_url: string): ScrapedProduct[] {
+  const cards = root.querySelectorAll('.product-layout');
+  if (cards.length === 0) return [];
+
+  return cards.map(card => {
+    const title_link = card.querySelector('.name a');
+    const title = cleanText(title_link?.text || title_link?.getAttribute('title') || '');
+    const source_url = normalizeUrl(title_link?.getAttribute('href'), source.baseUrl) || page_url;
+    const description = cleanText(card.querySelector('.description')?.text || '');
+    const price = parseEuroPrice(card.querySelector('.price-normal')?.text || card.querySelector('.price')?.text || '');
+    const image_url = firstImageUrl(card, source.baseUrl);
+    const stock_status = /išparduota|isparduota|out of stock/i.test(card.text) ? 'out_of_stock' : 'in_stock';
+
+    if (!title || !price || !source_url) return null;
+    return {
+      id: makeId(source_url, title),
+      scrapedAt: new Date().toISOString(),
+      sourceUrl: source_url,
+      sourceSite: source.id,
+      sellerName: source.name,
+      sellerLogo: source.logo,
+      sellerCity: source.city,
+      title,
+      latinName: extractLatinName(title, description),
+      category: detectCategory(title, [], description),
+      height: extractHeight(description),
+      price,
+      currency: 'EUR' as const,
+      stockStatus: stock_status as ScrapedProduct['stockStatus'],
+      imageUrls: image_url ? [image_url] : [],
+      description: description.slice(0, 400) || title,
+      status: 'active' as const,
+    };
+  }).filter(Boolean) as ScrapedProduct[];
 }
 
 /* ─── Main entry point (called from cron) ───────────────────── */
 export async function scrapeSource(source: NurserySource): Promise<ScrapedProduct[]> {
+  console.log(`[Scraper] Source ${source.id}: type=${source.type}, active=${source.active}`);
   if (source.type === 'shopify') return scrapeShopify(source);
   return scrapeHtml(source);
 }
