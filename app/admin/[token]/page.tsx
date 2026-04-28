@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Plus, Pencil, Trash2, Upload, Eye, EyeOff, LogOut, TreePine, Check, X,
   Loader2, AlertCircle, Image as ImageIcon, Save, Search, Globe, Download,
-  RefreshCw, Filter, ExternalLink, Sparkles, Database, PackageCheck, Zap
+  RefreshCw, Filter, ExternalLink, Sparkles, Database, PackageCheck, Zap, Wand2
 } from 'lucide-react';
 import type { Tree, TreeCategory, TreeSize } from '@/types';
 
@@ -76,6 +76,13 @@ export default function AdminPage({ params }: { params: Promise<{ token: string 
   const [processingId, setProcessingId] = useState<string|null>(null);
   const [processResults, setProcessResults] = useState<Record<string,{path:string;bgRemoved:boolean}>>({});
 
+  /* google images tab */
+  const [googleImages, setGoogleImages] = useState<Record<string,string>>({});
+  const [marketplaceGroups, setMarketplaceGroups] = useState<any[]>([]);
+  const [googleFetchingSlug, setGoogleFetchingSlug] = useState<string|null>(null);
+  const [googleBulking, setGoogleBulking] = useState(false);
+  const [googleBulkStatus, setGoogleBulkStatus] = useState<{processed:number;remaining:number;total:number;done:number}|null>(null);
+
   /* global alert */
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -123,7 +130,7 @@ export default function AdminPage({ params }: { params: Promise<{ token: string 
     } catch {} finally { setLoadingScraped(false); }
   };
 
-  useEffect(() => { if (authed && session) { fetchTrees(); fetchScraped(); } }, [authed, session]);
+  useEffect(() => { if (authed && session) { fetchTrees(); fetchScraped(); fetchGoogleImages(); } }, [authed, session]);
 
   /* ── scrape ─────────────────────────── */
   const handleScrape = async () => {
@@ -190,6 +197,52 @@ export default function AdminPage({ params }: { params: Promise<{ token: string 
       setSuccess(d.bgRemoved ? `Background removed! Saved to ${d.path}` : `Image downloaded to ${d.path}. Add REMOVE_BG_API_KEY for bg removal.`);
       await fetchScraped();
     } catch (e: any) { setError(e.message); } finally { setProcessingId(null); }
+  };
+
+  /* ── google image fetching ─────────────────────────── */
+  const fetchGoogleImages = async () => {
+    try {
+      const [gi, mp] = await Promise.all([
+        fetch('/api/admin/google-image', { headers: { 'Authorization': `Bearer ${session}` } }),
+        fetch('/marketplace.json?t=' + Date.now(), { cache: 'no-store' }),
+      ]);
+      if (gi.ok) setGoogleImages(await gi.json());
+      if (mp.ok) { const d = await mp.json(); setMarketplaceGroups(d.groups || []); }
+    } catch {}
+  };
+
+  const handleGoogleFetch = async (group: any) => {
+    setGoogleFetchingSlug(group.slug); setError('');
+    try {
+      const r = await fetch('/api/admin/google-image', {
+        method: 'POST', headers: ah(),
+        body: JSON.stringify({ slug: group.slug, latinName: group.latinName, canonicalName: group.canonicalName }),
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || 'Fetch failed');
+      setGoogleImages(prev => ({ ...prev, [group.slug]: d.path }));
+      setSuccess(`Image fetched for ${group.canonicalName}`);
+    } catch (e: any) { setError(e.message); } finally { setGoogleFetchingSlug(null); }
+  };
+
+  const handleGoogleBulk = async () => {
+    setGoogleBulking(true); setError('');
+    try {
+      const r = await fetch('/api/admin/google-image', {
+        method: 'POST', headers: ah(),
+        body: JSON.stringify({ action: 'bulk', limit: 10 }),
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || 'Bulk fetch failed');
+      setGoogleBulkStatus({ processed: d.processed, remaining: d.remaining, total: d.total, done: d.done });
+      setSuccess(`Processed ${d.processed} plants. ${d.remaining} remaining.`);
+      await fetchGoogleImages();
+    } catch (e: any) { setError(e.message); } finally { setGoogleBulking(false); }
+  };
+
+  const handleGoogleDelete = async (slug: string) => {
+    await fetch(`/api/admin/google-image?slug=${encodeURIComponent(slug)}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${session}` } });
+    setGoogleImages(prev => { const n = { ...prev }; delete n[slug]; return n; });
   };
 
   /* ── tree CRUD ─────────────────────────── */
@@ -567,6 +620,85 @@ export default function AdminPage({ params }: { params: Promise<{ token: string 
                 </div>
               )}
             </div>
+
+          {/* ── Google Image Search ── */}
+          <div className="mt-6">
+            <div className="bg-forest-900 rounded-2xl border border-forest-800 p-5 mb-4">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="text-[14px] font-bold text-white mb-1 flex items-center gap-2"><Wand2 size={15} className="text-amber-400"/>Auto Plant Images + BG Remove</h3>
+                  <p className="text-forest-400 text-[12px]">Searches iNaturalist, Wikipedia, and GBIF for each plant's Latin name — completely free, no API keys. Background is removed locally using AI. Used in the builder and "A glance at what's growing".</p>
+                </div>
+                <div className="flex-shrink-0 flex flex-col items-end gap-2">
+                  <button onClick={handleGoogleBulk} disabled={googleBulking}
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-700 hover:bg-amber-600 text-white text-[12px] font-semibold disabled:opacity-60 whitespace-nowrap">
+                    {googleBulking ? <Loader2 size={13} className="animate-spin"/> : <Wand2 size={13}/>}
+                    {googleBulking ? 'Fetching…' : 'Fetch next 10'}
+                  </button>
+                  {googleBulkStatus && (
+                    <div className="text-[11px] text-forest-400 text-right">
+                      {googleBulkStatus.done}/{googleBulkStatus.total} done · {googleBulkStatus.remaining} remaining
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="mt-3 flex items-start gap-2 px-3 py-2.5 rounded-lg bg-forest-800/60 border border-forest-700 text-forest-400 text-[12px]">
+                <Check size={14} className="flex-shrink-0 mt-0.5 text-emerald-500"/>
+                <div>Works out of the box — no API keys needed. Searches iNaturalist, Wikipedia, and GBIF. Background removal runs locally using AI (first run downloads ~30 MB model, cached after). Optionally set <code className="font-mono bg-forest-700 px-1 rounded text-forest-200">REMOVE_BG_API_KEY</code> for faster cloud removal.</div>
+              </div>
+            </div>
+
+            <div className="bg-forest-900 rounded-2xl border border-forest-800">
+              <div className="flex items-center justify-between px-5 py-3.5 border-b border-forest-800">
+                <h3 className="text-[13px] font-bold text-white">
+                  {Object.keys(googleImages).length} of {marketplaceGroups.length} plants have Google images
+                </h3>
+                <button onClick={fetchGoogleImages} className="w-7 h-7 flex items-center justify-center rounded-lg bg-forest-800 hover:bg-forest-700 text-forest-400"><RefreshCw size={13}/></button>
+              </div>
+
+              {marketplaceGroups.length === 0 ? (
+                <div className="text-center py-12 text-forest-500 text-[13px]">No marketplace data. Scrape some plants first.</div>
+              ) : (
+                <div className="divide-y divide-forest-800 max-h-[500px] overflow-y-auto">
+                  {marketplaceGroups.map(group => {
+                    const googlePath = googleImages[group.slug];
+                    const isFetching = googleFetchingSlug === group.slug;
+                    return (
+                      <div key={group.slug} className="flex items-center gap-3 px-5 py-2.5">
+                        {/* Thumbnail */}
+                        <div className="w-12 h-12 rounded-lg bg-forest-800 flex-shrink-0 overflow-hidden"
+                          style={{backgroundImage:'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'8\' height=\'8\'%3E%3Crect width=\'4\' height=\'4\' fill=\'%23374151\'/%3E%3Crect x=\'4\' y=\'4\' width=\'4\' height=\'4\' fill=\'%23374151\'/%3E%3C/svg%3E")'}}>
+                          {googlePath && <img src={googlePath} alt="" className="w-full h-full object-contain" onError={e=>{(e.target as HTMLImageElement).style.display='none'}}/>}
+                        </div>
+
+                        {/* Info */}
+                        <div className="flex-1 min-w-0">
+                          <div className="text-[12px] font-medium text-white truncate">{group.canonicalName}</div>
+                          <div className="text-[10px] text-forest-500 truncate">{group.latinName || group.slug}</div>
+                          {googlePath && <div className="text-[10px] text-amber-400 flex items-center gap-0.5 mt-0.5"><Wand2 size={9}/>Google image ready</div>}
+                        </div>
+
+                        {/* Actions */}
+                        <div className="flex items-center gap-1.5 flex-shrink-0">
+                          {googlePath && (
+                            <button onClick={()=>handleGoogleDelete(group.slug)} title="Remove Google image"
+                              className="w-6 h-6 rounded flex items-center justify-center text-forest-600 hover:text-red-400">
+                              <X size={12}/>
+                            </button>
+                          )}
+                          <button onClick={()=>handleGoogleFetch(group)} disabled={isFetching}
+                            className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-medium transition-colors disabled:opacity-60 ${googlePath ? 'bg-forest-800 text-forest-400 hover:bg-forest-700 hover:text-white' : 'bg-amber-700 hover:bg-amber-600 text-white'}`}>
+                            {isFetching ? <Loader2 size={11} className="animate-spin"/> : <Wand2 size={11}/>}
+                            {isFetching ? 'Fetching…' : googlePath ? 'Re-fetch' : 'Fetch'}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
           </div>
         )}
       </div>

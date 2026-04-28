@@ -11,10 +11,12 @@ const CATEGORY_SVG: Record<string, string> = {
   shrub: `<svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg"><rect x="92" y="230" width="16" height="50" fill="#6b4c2a"/><ellipse cx="100" cy="160" rx="80" ry="65" fill="#6aaa4e"/><ellipse cx="65" cy="145" rx="42" ry="38" fill="#88c866" opacity="0.8"/><ellipse cx="138" cy="150" rx="38" ry="35" fill="#88c866" opacity="0.7"/><ellipse cx="100" cy="125" rx="35" ry="32" fill="#aada82" opacity="0.6"/></svg>`,
 };
 
-function groupToTree(group: any): Tree {
+function groupToTree(group: any, googleImages: Record<string, string>): Tree {
   const bestOffer = group.offers?.[0];
   const imageUrl = bestOffer?.imageUrl || group.offers?.find((o: any) => o.imageUrl)?.imageUrl || '';
   const localPath = bestOffer?.localImagePath || group.offers?.find((o: any) => o.localImagePath)?.localImagePath || '';
+  // Google bg-removed image takes priority over scraped images
+  const googlePath = googleImages[group.slug] || '';
 
   return {
     id: group.slug,
@@ -26,7 +28,7 @@ function groupToTree(group: any): Tree {
     height: bestOffer?.height || '',
     description: `${group.canonicalName}${group.latinName ? ` (${group.latinName})` : ''} — ${group.offers?.length || 1} seller${(group.offers?.length || 1) !== 1 ? 's' : ''} from €${group.bestPrice?.toFixed(0) || 0}`,
     svg: CATEGORY_SVG[group.category] || CATEGORY_SVG.decorative,
-    imagePath: localPath || imageUrl || undefined,
+    imagePath: googlePath || localPath || imageUrl || undefined,
     color: { fruit: '#d85a30', evergreen: '#3d7a3f', decorative: '#8fa85a', shrub: '#6aaa4e' }[group.category as string] || '#508153',
     care: {
       watering: '', sunlight: '', soil: '', pruning: '',
@@ -47,22 +49,23 @@ export function useTrees(): Tree[] {
     const now = Date.now();
     if (cachedTrees && now - cacheTime < CACHE_MS) return;
 
-    fetch('/marketplace.json?t=' + now, { cache: 'no-store' })
-      .then(r => r.json())
-      .then(d => {
-        if (!d?.groups?.length) return;
-        const converted: Tree[] = d.groups.map(groupToTree);
-        cachedTrees = converted;
-        cacheTime = Date.now();
-        setTrees(converted);
-      })
-      .catch(() => {});
+    const ts = now.toString();
+    Promise.all([
+      fetch('/marketplace.json?t=' + ts, { cache: 'no-store' }).then(r => r.json()).catch(() => null),
+      fetch('/plant-google-images.json?t=' + ts, { cache: 'no-store' }).then(r => r.json()).catch(() => ({})),
+    ]).then(([marketplace, googleImages]) => {
+      if (!marketplace?.groups?.length) return;
+      const converted: Tree[] = marketplace.groups.map((g: any) => groupToTree(g, googleImages || {}));
+      cachedTrees = converted;
+      cacheTime = Date.now();
+      setTrees(converted);
+    });
   }, []);
 
   return trees;
 }
 
-// Bust cache (call after scrape completes)
+// Bust cache (call after scrape or google image fetch completes)
 export function bustTreeCache() {
   cachedTrees = null;
   cacheTime = 0;

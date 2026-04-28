@@ -28,6 +28,8 @@ const securityHeaders = [
 
 const nextConfig = {
   experimental: { instrumentationHook: true },
+  // These packages use native Node.js binaries (ONNX runtime) — must not be bundled by webpack
+  serverExternalPackages: ['@imgly/background-removal-node', 'onnxruntime-node'],
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
