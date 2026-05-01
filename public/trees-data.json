@@ -1,0 +1,26 @@
+[
+  {
+    "id": "dsads",
+    "name": "sdadsa",
+    "latin": "dsadsa",
+    "category": "fruit",
+    "size": "medium",
+    "price": 888,
+    "height": "7",
+    "description": "sdadsa",
+    "color": "#508153",
+    "bloom": "",
+    "imagePath": "/trees/dsads.png",
+    "care": {
+      "watering": "dsadsa",
+      "sunlight": "dsadsa",
+      "soil": "dsadsa",
+      "pruning": "dsadsa",
+      "hardiness": "dsadsadsaasd",
+      "spacing": "sdadsa",
+      "growthRate": "dsds",
+      "notes": "dsdsdsa"
+    },
+    "svg": "<svg viewBox=\"0 0 200 280\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"200\" height=\"280\" fill=\"none\"/><text x=\"100\" y=\"140\" text-anchor=\"middle\" fill=\"#508153\" font-size=\"60\">🌳</text></svg>"
+  }
+]
