@@ -7,6 +7,8 @@ const DATA_FILE = join(process.cwd(), 'public', 'trees-data.json');
 // Vercel Postgres creates different variable names depending on prefix config.
 // Support all common variants so it works regardless of what was set.
 const DB_URL =
+  process.env.DATABASE_URL_POSTGRES_URL ||
+  process.env.DATABASE_URL_DATABASE_URL ||
   process.env.DATABASE_URL ||
   process.env.DATABASE_URL_URL ||
   process.env.POSTGRES_URL ||
