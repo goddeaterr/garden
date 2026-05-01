@@ -11,7 +11,7 @@ import { MessageSquare, Apple, Flower2, TreePine, Sprout } from 'lucide-react';
 import { TreeDetailModal } from './TreeDetailModal';
 import { QuoteModal } from './QuoteModal';
 
-const PRICE_MAX = 400;
+const PRICE_MAX = 1000;
 
 const CAT_ACTIVE: Record<string, string> = {
   all:        'bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900',
@@ -177,7 +177,7 @@ export function Catalog() {
               <div className="flex items-center gap-2 flex-1 min-w-0">
                 <label className="text-[12px] text-forest-600 dark:text-forest-400 font-medium whitespace-nowrap">{c.maxPrice}</label>
                 <input
-                  type="range" min={0} max={500} step={10} value={maxPrice}
+                  type="range" min={0} max={1000} step={10} value={maxPrice}
                   onChange={e => setMaxPrice(Number(e.target.value))}
                   className="apple-slider flex-1 min-w-[80px]"
                 />

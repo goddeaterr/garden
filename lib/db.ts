@@ -4,6 +4,15 @@ import type { Tree } from '@/types';
 
 const DATA_FILE = join(process.cwd(), 'public', 'trees-data.json');
 
+// Vercel Postgres creates different variable names depending on prefix config.
+// Support all common variants so it works regardless of what was set.
+const DB_URL =
+  process.env.DATABASE_URL ||
+  process.env.DATABASE_URL_URL ||
+  process.env.POSTGRES_URL ||
+  process.env.POSTGRES_PRISMA_URL ||
+  process.env.NEON_DATABASE_URL;
+
 // ─── JSON fallback (local dev / no DATABASE_URL) ─────────────────────────────
 function readJson(): Tree[] {
   try { return JSON.parse(readFileSync(DATA_FILE, 'utf-8')); } catch { return []; }
@@ -32,7 +41,7 @@ function rowToTree(row: any): Tree {
 
 // ─── Public API ───────────────────────────────────────────────────────────────
 export async function initDb(): Promise<void> {
-  if (!process.env.DATABASE_URL) return;
+  if (!DB_URL) return;
   const { sql } = await import('@vercel/postgres');
   await sql`
     CREATE TABLE IF NOT EXISTS trees (
@@ -55,7 +64,7 @@ export async function initDb(): Promise<void> {
 }
 
 export async function getAllTrees(): Promise<Tree[]> {
-  if (!process.env.DATABASE_URL) return readJson();
+  if (!DB_URL) return readJson();
   try {
     await initDb();
     const { sql } = await import('@vercel/postgres');
@@ -68,7 +77,7 @@ export async function getAllTrees(): Promise<Tree[]> {
 }
 
 export async function getTreeById(id: string): Promise<Tree | null> {
-  if (!process.env.DATABASE_URL) {
+  if (!DB_URL) {
     return readJson().find(t => t.id === id) || null;
   }
   try {
@@ -81,7 +90,7 @@ export async function getTreeById(id: string): Promise<Tree | null> {
 }
 
 export async function createTree(tree: Tree): Promise<Tree> {
-  if (!process.env.DATABASE_URL) {
+  if (!DB_URL) {
     const trees = readJson();
     if (trees.some(t => t.id === tree.id)) throw new Error('ID already exists');
     trees.push(tree);
@@ -103,7 +112,7 @@ export async function createTree(tree: Tree): Promise<Tree> {
 }
 
 export async function updateTree(tree: Tree): Promise<Tree> {
-  if (!process.env.DATABASE_URL) {
+  if (!DB_URL) {
     const trees = readJson();
     const idx = trees.findIndex(t => t.id === tree.id);
     if (idx === -1) throw new Error('Not found');
@@ -127,7 +136,7 @@ export async function updateTree(tree: Tree): Promise<Tree> {
 }
 
 export async function deleteTree(id: string): Promise<boolean> {
-  if (!process.env.DATABASE_URL) {
+  if (!DB_URL) {
     const trees = readJson();
     const filtered = trees.filter(t => t.id !== id);
     if (filtered.length === trees.length) return false;

@@ -87,12 +87,28 @@ export default function AdminPage() {
     const r = new FileReader(); r.onload = e => setImagePreview(e.target?.result as string); r.readAsDataURL(file);
   };
 
-  const uploadImage = async (treeId: string): Promise<string | null> => {
+  // Compress image client-side and return base64 data URL — no filesystem needed
+  const compressImage = (file: File): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        const MAX = 480;
+        const scale = Math.min(1, MAX / Math.max(img.width, img.height));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        canvas.getContext('2d')!.drawImage(img, 0, 0, canvas.width, canvas.height);
+        URL.revokeObjectURL(url);
+        resolve(canvas.toDataURL('image/jpeg', 0.82));
+      };
+      img.onerror = reject;
+      img.src = url;
+    });
+
+  const uploadImage = async (_treeId: string): Promise<string | null> => {
     if (!imageFile) return editTree?.imagePath || null;
-    const form = new FormData(); form.append('file', imageFile); form.append('treeId', treeId);
-    const r = await fetch('/api/admin/upload', { method: 'POST', headers: { 'Authorization': `Bearer ${session}` }, body: form });
-    if (!r.ok) throw new Error('Image upload failed');
-    return (await r.json()).path;
+    return compressImage(imageFile);
   };
 
   const handleSave = async () => {
