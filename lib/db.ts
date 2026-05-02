@@ -41,11 +41,17 @@ function rowToTree(row: any): Tree {
   };
 }
 
+// ─── DB pool (explicit connectionString — avoids @vercel/postgres POSTGRES_URL hardcode) ──
+async function getPool() {
+  const { createPool } = await import('@vercel/postgres');
+  return createPool({ connectionString: DB_URL! });
+}
+
 // ─── Public API ───────────────────────────────────────────────────────────────
 export async function initDb(): Promise<void> {
   if (!DB_URL) return;
-  const { sql } = await import('@vercel/postgres');
-  await sql`
+  const pool = await getPool();
+  await pool.sql`
     CREATE TABLE IF NOT EXISTS trees (
       id          TEXT PRIMARY KEY,
       name        TEXT NOT NULL,
@@ -68,27 +74,21 @@ export async function initDb(): Promise<void> {
 export async function getAllTrees(): Promise<Tree[]> {
   if (!DB_URL) return readJson();
   try {
-    await initDb();
-    const { sql } = await import('@vercel/postgres');
-    const { rows } = await sql`SELECT * FROM trees ORDER BY created_at ASC`;
+    const pool = await getPool();
+    await pool.sql`CREATE TABLE IF NOT EXISTS trees (id TEXT PRIMARY KEY, name TEXT NOT NULL, latin TEXT, category TEXT NOT NULL DEFAULT 'decorative', size TEXT NOT NULL DEFAULT 'medium', price NUMERIC NOT NULL DEFAULT 0, height TEXT, description TEXT, image_path TEXT, color TEXT, bloom TEXT, care_json JSONB DEFAULT '{}', created_at TIMESTAMPTZ DEFAULT NOW(), updated_at TIMESTAMPTZ DEFAULT NOW())`;
+    const { rows } = await pool.sql`SELECT * FROM trees ORDER BY created_at ASC`;
     return rows.map(rowToTree);
   } catch (e) {
-    console.error('[db] getAllTrees fallback to JSON:', e);
-    return readJson();
+    console.error('[db] getAllTrees error:', e);
+    throw e;
   }
 }
 
 export async function getTreeById(id: string): Promise<Tree | null> {
-  if (!DB_URL) {
-    return readJson().find(t => t.id === id) || null;
-  }
-  try {
-    const { sql } = await import('@vercel/postgres');
-    const { rows } = await sql`SELECT * FROM trees WHERE id = ${id}`;
-    return rows[0] ? rowToTree(rows[0]) : null;
-  } catch {
-    return readJson().find(t => t.id === id) || null;
-  }
+  if (!DB_URL) return readJson().find(t => t.id === id) || null;
+  const pool = await getPool();
+  const { rows } = await pool.sql`SELECT * FROM trees WHERE id = ${id}`;
+  return rows[0] ? rowToTree(rows[0]) : null;
 }
 
 export async function createTree(tree: Tree): Promise<Tree> {
@@ -100,8 +100,8 @@ export async function createTree(tree: Tree): Promise<Tree> {
     return tree;
   }
   await initDb();
-  const { sql } = await import('@vercel/postgres');
-  await sql`
+  const pool = await getPool();
+  await pool.sql`
     INSERT INTO trees (id, name, latin, category, size, price, height, description, image_path, color, bloom, care_json)
     VALUES (
       ${tree.id}, ${tree.name}, ${tree.latin || ''}, ${tree.category}, ${tree.size},
@@ -122,8 +122,8 @@ export async function updateTree(tree: Tree): Promise<Tree> {
     writeJson(trees);
     return tree;
   }
-  const { sql } = await import('@vercel/postgres');
-  const { rowCount } = await sql`
+  const pool = await getPool();
+  const { rowCount } = await pool.sql`
     UPDATE trees SET
       name = ${tree.name}, latin = ${tree.latin || ''}, category = ${tree.category},
       size = ${tree.size}, price = ${tree.price}, height = ${tree.height || ''},
@@ -145,7 +145,7 @@ export async function deleteTree(id: string): Promise<boolean> {
     writeJson(filtered);
     return true;
   }
-  const { sql } = await import('@vercel/postgres');
-  const { rowCount } = await sql`DELETE FROM trees WHERE id = ${id}`;
+  const pool = await getPool();
+  const { rowCount } = await pool.sql`DELETE FROM trees WHERE id = ${id}`;
   return (rowCount ?? 0) > 0;
 }
