@@ -29,7 +29,7 @@ export const translations = {
       badge: 'Now in season — Spring 2026 collection',
       headline: ['Design', 'Your', 'Dream', 'Garden.'],
       sub: 'A premium nursery for trees that outlive us — and a planning studio to place every one of them, exactly where it belongs.',
-      cta1: 'Explore Trees', cta2: 'Try Garden Builder', cta2badge: '·new', scroll: 'Scroll',
+      cta1: 'Explore Trees', cta2: 'Learn More', cta2badge: '', scroll: 'Scroll',
     },
     about: {
       eyebrow: 'What we do',
@@ -267,7 +267,7 @@ export const translations = {
       badge: 'Sezonas prasidėjo — 2026 pavasario kolekcija',
       headline: ['Sukurkite', 'Savo', 'Svajonių', 'Sodą.'],
       sub: 'Aukščiausios kokybės medelynas — ir planavimo studija, kuri padeda surasti tinkamą vietą kiekvienam medžiui.',
-      cta1: 'Peržiūrėti medžius', cta2: 'Išbandyti sodo kūrėją', cta2badge: '·naujas', scroll: 'Slinkti',
+      cta1: 'Peržiūrėti medžius', cta2: 'Sužinoti daugiau', cta2badge: '', scroll: 'Slinkti',
     },
     about: {
       eyebrow: 'Ką mes darome', headline1: 'Du amatai.',
@@ -502,7 +502,7 @@ export const translations = {
       badge: 'Сезон открыт — коллекция весна 2026',
       headline: ['Создайте', 'Сад', 'Своей', 'Мечты.'],
       sub: 'Премиальный питомник деревьев — и студия планирования, чтобы разместить каждое дерево именно там, где оно нужно.',
-      cta1: 'Смотреть деревья', cta2: 'Открыть конструктор', cta2badge: '·новый', scroll: 'Прокрутить',
+      cta1: 'Смотреть деревья', cta2: 'Узнать больше', cta2badge: '', scroll: 'Прокрутить',
     },
     about: {
       eyebrow: 'Что мы делаем', headline1: 'Два ремесла.',

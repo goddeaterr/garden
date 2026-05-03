@@ -2,17 +2,27 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { LangSwitcher } from '@/components/ui/LangSwitcher';
 import { useI18n } from '@/lib/i18nContext';
-import { MessageSquare } from 'lucide-react';
+import { MessageSquare, X } from 'lucide-react';
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [barVisible, setBarVisible] = useState(false);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const { tr } = useI18n();
+
+  useEffect(() => {
+    if (!localStorage.getItem('ann-spring2026')) setBarVisible(true);
+  }, []);
+
+  const dismissBar = () => {
+    setBarVisible(false);
+    localStorage.setItem('ann-spring2026', '1');
+  };
 
   useEffect(() => {
     const onScroll = () => {
@@ -55,7 +65,7 @@ export function Nav() {
 
   return (
     <>
-      {/* Scroll progress line — direct DOM updates, true 60fps */}
+      {/* Scroll progress line */}
       <div className="fixed top-0 left-0 right-0 z-[200] h-[2.5px] pointer-events-none">
         <div
           ref={progressBarRef}
@@ -63,23 +73,60 @@ export function Nav() {
           style={{ width: '0%', opacity: 0 }}
         />
       </div>
+
+      {/* Seasonal announcement bar */}
+      <AnimatePresence>
+        {barVisible && (
+          <motion.div
+            initial={{ y: -40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -40, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed top-0 left-0 right-0 z-[115] h-9 flex items-center justify-center gap-2 text-[12px] font-medium text-white/90 overflow-hidden"
+            style={{ background: 'linear-gradient(90deg,#0c1a0e 0%,#1a3620 40%,#243826 60%,#0c1a0e 100%)' }}
+          >
+            {/* Shimmer sweep */}
+            <span className="ann-shimmer absolute inset-0 pointer-events-none" aria-hidden />
+            <span className="text-emerald-400 text-[13px]">🌱</span>
+            <span className="hidden sm:inline">Spring 2026 Collection is here —</span>
+            <a
+              href="#catalog"
+              onClick={dismissBar}
+              className="font-semibold text-white hover:text-emerald-300 transition-colors underline underline-offset-2 decoration-white/30"
+            >
+              browse new arrivals
+            </a>
+            <span className="hidden sm:inline text-white/40 mx-1">·</span>
+            <span className="hidden sm:inline text-white/50">Free delivery on orders over €200</span>
+            <button
+              onClick={dismissBar}
+              aria-label="Dismiss"
+              className="absolute right-3 w-6 h-6 flex items-center justify-center text-white/40 hover:text-white/80 transition-colors rounded-full hover:bg-white/10"
+            >
+              <X size={13} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     <motion.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 left-0 right-0 z-[100] flex justify-center pt-4 px-4"
+      className="fixed left-0 right-0 z-[100] flex justify-center px-4 transition-[top] duration-300"
+      style={{ top: barVisible ? '44px' : '16px' }}
     >
       <nav
         className={`flex items-center gap-1 rounded-full transition-all duration-500 ${
           scrolled ? 'glass-strong shadow-lg shadow-forest-900/5' : 'glass'
         }`}
-        style={{ padding: '6px 6px 6px 22px' }}
+        style={{ padding: '5px 5px 5px 14px' }}
       >
-        <Link href="#" className="flex items-center gap-2 mr-4 text-forest-900 dark:text-forest-50">
+        <Link href="#" className="flex items-center gap-1.5 mr-2 sm:mr-4 text-forest-900 dark:text-forest-50">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 22V14M12 14C8 14 5 10 5 6C5 3 8 2 12 2C16 2 19 3 19 6C19 10 16 14 12 14Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          <span className="text-sm font-semibold tracking-tight">MB Plant House</span>
+          <span className="text-[13px] sm:text-sm font-semibold tracking-tight">MB Plant House</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-1">
@@ -101,15 +148,15 @@ export function Nav() {
           ))}
         </div>
 
-        <div className="flex items-center gap-1.5 ml-2">
+        <div className="flex items-center gap-1 sm:gap-1.5 ml-1 sm:ml-2">
           <LangSwitcher />
           <ThemeToggle />
           <a
             href="#catalog"
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 text-[13px] font-medium hover:scale-[1.03] active:scale-[0.97] transition-transform"
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 text-[13px] font-medium hover:scale-[1.03] active:scale-[0.97] transition-transform"
           >
             <MessageSquare size={13} />
-            <span>{(tr.nav as any).requestQuote || 'Request Quote'}</span>
+            <span className="hidden sm:inline">{(tr.nav as any).requestQuote || 'Quote'}</span>
           </a>
         </div>
       </nav>

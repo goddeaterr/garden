@@ -55,8 +55,8 @@ export function Footer() {
             </div>
             <p className="text-2xl font-light leading-relaxed text-forest-200 max-w-md">{f.tagline}</p>
             <div className="mt-8 flex gap-2">
-              <a href="#builder" className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-forest-50 text-forest-950 text-sm font-medium hover:scale-[1.02] active:scale-[0.98] transition-transform">
-                {f.openBuilder}
+              <a href="#catalog" className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-forest-50 text-forest-950 text-sm font-medium hover:scale-[1.02] active:scale-[0.98] transition-transform">
+                {f.catalog}
                 <ArrowUpRight size={14} className="group-hover:rotate-45 transition-transform" />
               </a>
             </div>
@@ -67,7 +67,6 @@ export function Footer() {
             <ul className="space-y-3">
               {[
                 { label: f.catalog, href: '#catalog' },
-                { label: f.builder, href: '#builder' },
                 { label: f.aboutUs, href: '#about' },
                 { label: f.services, href: '#' },
                 { label: f.care, href: '#' },

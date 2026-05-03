@@ -11,11 +11,11 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.emailjs.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https://images.unsplash.com",
       "font-src 'self' data:",
-      "connect-src 'self' https://api.anthropic.com https://api.emailjs.com",
+      "connect-src 'self' https://api.anthropic.com https://api.resend.com",
       "frame-src https://maps.google.com https://www.google.com",
       "object-src 'none'",
       "base-uri 'self'",
@@ -29,7 +29,7 @@ const securityHeaders = [
 const nextConfig = {
   experimental: {
     instrumentationHook: true,
-    serverComponentsExternalPackages: ['sharp'],
+    serverComponentsExternalPackages: ['sharp', 'pdfkit'],
   },
   reactStrictMode: true,
   poweredByHeader: false,

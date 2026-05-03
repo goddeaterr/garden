@@ -10,6 +10,9 @@ import { Footer } from '@/components/sections/Footer';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { I18nProvider } from '@/lib/i18nContext';
 import { AIAssistant } from '@/components/ui/AIAssistant';
+import { StickyMobileBar } from '@/components/ui/StickyMobileBar';
+import { CartModal, CartFAB } from '@/components/ui/CartModal';
+import { CartProvider } from '@/lib/cartContext';
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -29,16 +32,21 @@ export default function Home() {
 
   return (
     <I18nProvider>
-      <LoadingScreen visible={loading} />
-      <Nav />
-      <main className="relative">
-        <Hero />
-        <About />
-        <Catalog />
-        <Services />
-        <Footer />
-      </main>
-      <AIAssistant />
+      <CartProvider>
+        <LoadingScreen visible={loading} />
+        <Nav />
+        <main className="relative">
+          <Hero />
+          <About />
+          <Catalog />
+          <Services />
+          <Footer />
+        </main>
+        <AIAssistant />
+        <StickyMobileBar />
+        <CartFAB />
+        <CartModal />
+      </CartProvider>
     </I18nProvider>
   );
 }

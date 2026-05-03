@@ -36,7 +36,16 @@ export function About() {
           className="text-headline text-[clamp(2.25rem,5vw,4.5rem)] text-forest-950 dark:text-forest-50 max-w-4xl mb-20"
         >
           {a.headline1}{' '}
-          <span className="text-forest-600 dark:text-forest-400">{a.headline2}</span>
+          <span className="relative inline-block">
+            <span className="text-forest-600 dark:text-forest-400">{a.headline2}</span>
+            <motion.span
+              initial={{ scaleX: 0 }}
+              animate={inView ? { scaleX: 1 } : {}}
+              transition={{ duration: 1.1, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute -bottom-1 left-0 h-[2.5px] w-full rounded-full bg-gradient-to-r from-forest-600 via-emerald-500 to-transparent"
+              style={{ transformOrigin: 'left' }}
+            />
+          </span>
         </motion.h2>
 
         <div className="grid md:grid-cols-2 gap-6 mb-24">

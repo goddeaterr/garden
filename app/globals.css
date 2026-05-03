@@ -24,7 +24,7 @@
 
 * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
-html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
 
 body {
   background: rgb(var(--bg));
@@ -42,22 +42,22 @@ body {
   background: rgba(255,255,255,0.7);
   border: 1px solid rgba(255,255,255,0.7);
 }
-@supports (backdrop-filter: blur(1px)) {
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .glass {
     background: rgba(255,255,255,0.55);
-    backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
   }
 }
 .dark .glass {
   background: rgba(22,36,25,0.85);
   border: 1px solid rgba(60,80,64,0.4);
 }
-@supports (backdrop-filter: blur(1px)) {
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .dark .glass {
     background: rgba(22,36,25,0.55);
-    backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
   }
 }
 
@@ -65,22 +65,22 @@ body {
   background: rgba(255,255,255,0.92);
   border: 1px solid rgba(255,255,255,0.8);
 }
-@supports (backdrop-filter: blur(1px)) {
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .glass-strong {
     background: rgba(255,255,255,0.75);
-    backdrop-filter: saturate(200%) blur(30px);
     -webkit-backdrop-filter: saturate(200%) blur(30px);
+    backdrop-filter: saturate(200%) blur(30px);
   }
 }
 .dark .glass-strong {
   background: rgba(22,36,25,0.95);
   border: 1px solid rgba(60,80,64,0.5);
 }
-@supports (backdrop-filter: blur(1px)) {
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .dark .glass-strong {
     background: rgba(22,36,25,0.75);
-    backdrop-filter: saturate(200%) blur(30px);
     -webkit-backdrop-filter: saturate(200%) blur(30px);
+    backdrop-filter: saturate(200%) blur(30px);
   }
 }
 
@@ -573,4 +573,40 @@ input[type="range"].apple-slider::-moz-range-thumb {
 /* Mobile — disable hover effects that flicker */
 @media (max-width:640px){
   .tree-card{transform:none!important;transition:none!important}
+}
+
+/* ── Service card mouse spotlight ── */
+.service-spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(280px circle at var(--sx, -999px) var(--sy, -999px), rgba(16,185,129,0.13), transparent 65%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.service-spotlight:hover::after { opacity: 1; }
+
+/* ── Hero CTA gradient glow ring ── */
+@keyframes cta-ring-spin {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.cta-glow-ring {
+  background: linear-gradient(135deg, #3d6741, #71a172, #508153, #243826, #4a9e56, #3d6741);
+  background-size: 300% 300%;
+  animation: cta-ring-spin 3s ease infinite;
+  filter: blur(6px);
+}
+
+/* ── Announcement bar shimmer ── */
+@keyframes ann-sweep {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(400%) skewX(-15deg); }
+}
+.ann-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.07) 50%, transparent 100%);
+  animation: ann-sweep 4s ease-in-out infinite;
 }

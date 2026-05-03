@@ -100,7 +100,16 @@ export function Services() {
                 initial={{ opacity: 0, y: 32 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="relative group rounded-2xl bg-white/5 border border-white/8 p-6 overflow-hidden hover:bg-white/[0.09] hover:border-emerald-500/25 transition-all duration-500"
+                className="service-spotlight relative group rounded-2xl bg-white/5 border border-white/8 p-6 overflow-hidden hover:bg-white/[0.09] hover:border-emerald-500/25 transition-all duration-500"
+                onMouseMove={e => {
+                  const r = e.currentTarget.getBoundingClientRect();
+                  e.currentTarget.style.setProperty('--sx', `${e.clientX - r.left}px`);
+                  e.currentTarget.style.setProperty('--sy', `${e.clientY - r.top}px`);
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.removeProperty('--sx');
+                  e.currentTarget.style.removeProperty('--sy');
+                }}
               >
                 {/* Pulsing emerald halo */}
                 <div className="service-halo" aria-hidden />
@@ -110,12 +119,12 @@ export function Services() {
                   Netrukus
                 </div>
 
-                <div className="relative w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center mb-5 group-hover:bg-emerald-500/25 group-hover:border-emerald-500/40 transition-all duration-500">
+                <div className="relative z-[1] w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center mb-5 group-hover:bg-emerald-500/25 group-hover:border-emerald-500/40 transition-all duration-500">
                   <Icon size={18} className="text-emerald-400" />
                 </div>
 
-                <h3 className="text-[15px] font-bold text-white mb-2">{svc.title}</h3>
-                <p className="text-[13px] text-white/50 leading-relaxed">{svc.description}</p>
+                <h3 className="relative z-[1] text-[15px] font-bold text-white mb-2">{svc.title}</h3>
+                <p className="relative z-[1] text-[13px] text-white/50 leading-relaxed">{svc.description}</p>
               </motion.div>
             );
           })}

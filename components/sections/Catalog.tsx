@@ -7,9 +7,9 @@ import type { Tree, TreeCategory, TreeSize } from '@/types';
 import { TreeIllustration } from '@/components/ui/TreeIllustration';
 import { useI18n } from '@/lib/i18nContext';
 import { formatPrice, cn } from '@/lib/utils';
-import { MessageSquare, Apple, Flower2, TreePine, Sprout } from 'lucide-react';
+import { ShoppingBag, Check, Apple, Flower2, TreePine, Sprout } from 'lucide-react';
 import { TreeDetailModal } from './TreeDetailModal';
-import { QuoteModal } from './QuoteModal';
+import { useCart } from '@/lib/cartContext';
 
 const PRICE_MAX = 1000;
 
@@ -29,12 +29,13 @@ const CAT_ICON: Record<string, typeof Sprout> = {
 };
 
 /* ── Tree card ── */
-function TreeCard({ tree, onOpen, onQuote }: {
+function TreeCard({ tree, onOpen }: {
   tree: Tree;
   onOpen: (t: Tree) => void;
-  onQuote: (t: Tree) => void;
 }) {
   const { tr } = useI18n();
+  const { addItem, items, openCart } = useCart();
+  const inCart = items.some(i => i.tree.id === tree.id);
   const CategoryIcon = CAT_ICON[tree.category] || Sprout;
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -52,6 +53,8 @@ function TreeCard({ tree, onOpen, onQuote }: {
     <motion.div
       className={`catalog-plant-card tree-card tree-card-${tree.category} group relative bg-white dark:bg-forest-900 rounded-2xl border border-forest-200/60 dark:border-forest-800/60 overflow-hidden cursor-pointer active:scale-[0.98] transition-colors duration-200`}
       style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+      whileHover={{ boxShadow: `0 20px 48px -8px ${tree.color}55, 0 6px 16px -4px ${tree.color}30` }}
+      transition={{ duration: 0.35 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={() => onOpen(tree)}
@@ -74,9 +77,16 @@ function TreeCard({ tree, onOpen, onQuote }: {
       {/* Image area */}
       <div
         className="plant-plinth aspect-square flex items-end justify-center p-3 relative"
-        style={{ background: `radial-gradient(ellipse at 50% 75%, ${tree.color}30 0%, transparent 68%)` }}
+        style={{
+          background: tree.imagePath
+            ? `radial-gradient(ellipse at 60% 80%, ${tree.color}60 0%, transparent 65%), rgb(8,18,10)`
+            : `radial-gradient(ellipse at 50% 75%, ${tree.color}30 0%, transparent 68%)`,
+        }}
       >
-        <div className="relative z-[1] w-full max-w-[120px] sm:max-w-[150px] mx-auto transition-transform duration-700 group-hover:-translate-y-1 group-hover:scale-105">
+        <div
+          className="relative z-[1] w-full max-w-[120px] sm:max-w-[150px] mx-auto transition-transform duration-700 group-hover:-translate-y-1 group-hover:scale-105"
+          style={(tree.builderImagePath || tree.imagePath) ? { mixBlendMode: 'screen' as const } : undefined}
+        >
           <TreeIllustration
             svg={tree.svg}
             imagePath={tree.builderImagePath || tree.imagePath}
@@ -86,20 +96,38 @@ function TreeCard({ tree, onOpen, onQuote }: {
         </div>
       </div>
 
-      {/* Info — no border-t, gradient fade from image into info */}
+      {/* Info */}
       <div className="px-3 sm:px-4 pb-3 sm:pb-4 pt-2">
-        <h3 className="text-[13px] sm:text-[15px] font-semibold text-forest-950 dark:text-forest-50 mb-0.5 tracking-tight leading-tight">
-          {tree.name}
-        </h3>
+        <div className="flex items-center justify-between mb-1.5">
+          <h3 className="text-[13px] sm:text-[15px] font-semibold text-forest-950 dark:text-forest-50 tracking-tight leading-tight">
+            {tree.name}
+          </h3>
+          {/* In Stock indicator */}
+          <span className="flex items-center gap-1 flex-shrink-0 ml-1">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+            </span>
+            <span className="text-[9px] font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400 leading-none">In Stock</span>
+          </span>
+        </div>
         <p className="text-[10px] sm:text-[11px] text-forest-500 dark:text-forest-400 italic mb-2 sm:mb-3 truncate">
           {tree.latin} · {tree.height}
         </p>
         <button
-          onClick={e => { e.stopPropagation(); onQuote(tree); }}
-          className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-[11px] sm:text-[12px] font-semibold bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 active:scale-95 transition-transform hover:bg-forest-800 dark:hover:bg-white"
+          onClick={e => {
+            e.stopPropagation();
+            if (inCart) { openCart(); } else { addItem(tree); }
+          }}
+          className={cn(
+            'w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-[11px] sm:text-[12px] font-semibold active:scale-95 transition-all',
+            inCart
+              ? 'bg-emerald-600 text-white hover:bg-emerald-500'
+              : 'bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 hover:bg-forest-800 dark:hover:bg-white'
+          )}
         >
-          <MessageSquare size={11} />
-          {(tr.catalog as any).requestQuote || 'Request Quote'}
+          {inCart ? <Check size={11} /> : <ShoppingBag size={11} />}
+          {inCart ? 'Added — View Cart' : 'Add to Quote'}
         </button>
       </div>
     </motion.div>
@@ -113,7 +141,6 @@ export function Catalog() {
   const [size, setSize] = useState<TreeSize | 'all'>('all');
   const [maxPrice, setMaxPrice] = useState(PRICE_MAX);
   const [selectedTree, setSelectedTree] = useState<Tree | null>(null);
-  const [quoteTree, setQuoteTree] = useState<Tree | null>(null);
   const { tr } = useI18n();
   const c = tr.catalog;
 
@@ -134,6 +161,9 @@ export function Catalog() {
     });
   }, [trees, cat, size, maxPrice]);
 
+  const hasActiveFilters = cat !== 'all' || size !== 'all' || maxPrice < PRICE_MAX;
+  const clearFilters = () => { setCat('all'); setSize('all'); setMaxPrice(PRICE_MAX); };
+
   return (
     <>
       <section id="catalog" className="botanical-section-texture relative py-16 sm:py-28 px-4 sm:px-6 overflow-hidden">
@@ -151,12 +181,14 @@ export function Catalog() {
             <div>
               <div className="text-[11px] tracking-[0.3em] uppercase text-forest-600 dark:text-forest-400 mb-2">{c.eyebrow}</div>
               <h2 className="shimmer-title text-headline text-[clamp(1.75rem,5vw,4rem)]">{c.title}</h2>
+              <div className="mt-3 h-[2px] w-14 rounded-full bg-gradient-to-r from-forest-600 via-emerald-500 to-transparent" />
             </div>
           </div>
 
           {/* Filters */}
           <div className="filter-panel bg-white/80 dark:bg-forest-950/80 rounded-2xl p-3 sm:p-4 border border-forest-200/60 dark:border-forest-800/60 mb-8">
-            <div className="flex flex-wrap gap-1.5 mb-3">
+            {/* Category pills + count + clear */}
+            <div className="flex flex-wrap gap-1.5 mb-3 items-center">
               {categories.map(cat_ => (
                 <button
                   key={cat_.value}
@@ -171,15 +203,34 @@ export function Catalog() {
                   {cat_.label}
                 </button>
               ))}
+              <div className="ml-auto flex items-center gap-1.5">
+                {trees.length > 0 && (
+                  <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-forest-100 dark:bg-forest-800 text-forest-500 dark:text-forest-400 tabular-nums">
+                    {filteredTrees.length} {filteredTrees.length === 1 ? 'tree' : 'trees'}
+                  </span>
+                )}
+                {hasActiveFilters && (
+                  <button
+                    onClick={clearFilters}
+                    className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-forest-900/10 dark:bg-forest-100/10 text-forest-700 dark:text-forest-300 hover:bg-forest-900/20 dark:hover:bg-forest-100/20 transition-colors"
+                  >
+                    ✕ Clear
+                  </button>
+                )}
+              </div>
             </div>
 
-            <div className="flex items-center gap-3 flex-wrap">
-              <div className="flex items-center gap-2 flex-1 min-w-0">
+            {/* Price slider + size — stacked on mobile, side-by-side on sm+ */}
+            <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-4">
+              <div className="flex items-center gap-2 sm:flex-1">
                 <label className="text-[12px] text-forest-600 dark:text-forest-400 font-medium whitespace-nowrap">{c.maxPrice}</label>
                 <input
                   type="range" min={0} max={1000} step={10} value={maxPrice}
                   onChange={e => setMaxPrice(Number(e.target.value))}
-                  className="apple-slider flex-1 min-w-[80px]"
+                  className="apple-slider flex-1"
+                  style={{
+                    background: `linear-gradient(to right, #508153 0%, #508153 ${(maxPrice / 1000) * 100}%, rgba(60,80,64,0.2) ${(maxPrice / 1000) * 100}%, rgba(60,80,64,0.2) 100%)`,
+                  }}
                 />
                 <span className="text-[13px] font-semibold tabular-nums text-forest-900 dark:text-forest-100 w-14 text-right">€{maxPrice}</span>
               </div>
@@ -189,7 +240,7 @@ export function Catalog() {
                     key={s}
                     onClick={() => setSize(s)}
                     className={cn(
-                      'px-2.5 py-1 text-[11px] font-medium rounded-full transition-all',
+                      'px-2.5 py-1.5 text-[11px] sm:text-[12px] font-medium rounded-full transition-all',
                       size === s
                         ? 'bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900'
                         : 'text-forest-600 dark:text-forest-400 bg-forest-100 dark:bg-forest-800 hover:bg-forest-200 dark:hover:bg-forest-700'
@@ -218,7 +269,6 @@ export function Catalog() {
                 <TreeCard
                   tree={tree}
                   onOpen={setSelectedTree}
-                  onQuote={setQuoteTree}
                 />
               </motion.div>
             ))}
@@ -226,12 +276,16 @@ export function Catalog() {
             {filteredTrees.length === 0 && trees.length > 0 && (
               <div className="col-span-full text-center py-12 text-forest-500">{c.noResults}</div>
             )}
-            {trees.length === 0 && (
-              <div className="col-span-full text-center py-12 text-forest-500">
-                <TreePine size={40} className="mx-auto mb-3 opacity-30" />
-                <p className="text-[14px]">Loading catalog…</p>
+            {trees.length === 0 && Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="rounded-2xl overflow-hidden border border-forest-200/40 dark:border-forest-800/40">
+                <div className="aspect-square skeleton" />
+                <div className="px-3 pb-4 pt-3 space-y-2">
+                  <div className="h-[14px] rounded-full skeleton w-3/4" />
+                  <div className="h-[11px] rounded-full skeleton w-1/2" />
+                  <div className="h-[38px] rounded-xl skeleton w-full mt-1" />
+                </div>
               </div>
-            )}
+            ))}
           </div>
         </div>
       </section>
@@ -239,9 +293,8 @@ export function Catalog() {
       <TreeDetailModal
         tree={selectedTree}
         onClose={() => setSelectedTree(null)}
-        onQuote={() => { setQuoteTree(selectedTree); setSelectedTree(null); }}
+        onQuote={() => setSelectedTree(null)}
       />
-      <QuoteModal tree={quoteTree} onClose={() => setQuoteTree(null)} />
     </>
   );
 }

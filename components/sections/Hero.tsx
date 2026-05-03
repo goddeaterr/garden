@@ -6,6 +6,7 @@ import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { useI18n } from '@/lib/i18nContext';
 import { Particles } from '@/components/ui/Particles';
 
+
 export function Hero() {
   const { tr } = useI18n();
   const words = tr.hero.headline as unknown as string[];
@@ -131,15 +132,18 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col sm:flex-row gap-3 justify-center"
         >
-          <a href="#catalog" className="magnetic-button group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[15px] font-semibold bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 hover:scale-[1.02] active:scale-[0.98] transition-transform">
-            {tr.hero.cta1}
-            <ArrowUpRight size={16} className="group-hover:rotate-45 transition-transform duration-500" />
-          </a>
-          <a href="#builder" className="magnetic-button group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[15px] font-medium bg-white/60 dark:bg-forest-900/60 border border-white/70 dark:border-forest-700/50 text-forest-900 dark:text-forest-50 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+          <div className="relative group/cta">
+            <span className="cta-glow-ring absolute -inset-[3px] rounded-full opacity-0 group-hover/cta:opacity-100 transition-opacity duration-500" aria-hidden />
+            <a href="#catalog" className="relative magnetic-button group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[15px] font-semibold bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+              {tr.hero.cta1}
+              <ArrowUpRight size={16} className="group-hover:rotate-45 transition-transform duration-500" />
+            </a>
+          </div>
+          <a href="#about" className="magnetic-button group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[15px] font-medium bg-white/60 dark:bg-forest-900/60 border border-white/70 dark:border-forest-700/50 text-forest-900 dark:text-forest-50 hover:scale-[1.02] active:scale-[0.98] transition-transform">
             {tr.hero.cta2}
-            <span className="text-forest-500 dark:text-forest-400 text-xs font-mono ml-1">{tr.hero.cta2badge}</span>
           </a>
         </motion.div>
+
       </div>
 
       {/* Animated wave divider — slides infinitely into next section */}
