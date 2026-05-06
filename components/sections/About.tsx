@@ -1,10 +1,42 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useMotionValue, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { useI18n } from '@/lib/i18nContext';
-import { Sprout, Compass } from 'lucide-react';
+import { Sprout, Compass, type LucideIcon } from 'lucide-react';
 import { Particles } from '@/components/ui/Particles';
+
+function FeatureCard({
+  icon: Icon, title, body, delay, inView,
+}: { icon: LucideIcon; title: string; body: string; delay: number; inView: boolean }) {
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const rotateX = useTransform(my, [-0.5, 0.5], [5, -5]);
+  const rotateY = useTransform(mx, [-0.5, 0.5], [-5, 5]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d', perspective: 800 }}
+      onMouseMove={e => {
+        const r = e.currentTarget.getBoundingClientRect();
+        mx.set((e.clientX - r.left) / r.width - 0.5);
+        my.set((e.clientY - r.top) / r.height - 0.5);
+      }}
+      onMouseLeave={() => { mx.set(0); my.set(0); }}
+      whileHover={{ scale: 1.015 }}
+      className="feature-tile group relative p-8 rounded-2xl bg-white/70 dark:bg-forest-900/50 backdrop-blur-xl border border-forest-200/50 dark:border-forest-800/50 hover:border-forest-300 dark:hover:border-forest-700 transition-colors cursor-default"
+    >
+      <div className="feature-icon w-11 h-11 rounded-2xl bg-forest-100 dark:bg-forest-800 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+        <Icon size={20} className="text-forest-700 dark:text-forest-200" />
+      </div>
+      <h3 className="text-xl font-semibold text-forest-950 dark:text-forest-50 mb-3 tracking-tight">{title}</h3>
+      <p className="text-[15px] leading-relaxed text-forest-700 dark:text-forest-300">{body}</p>
+    </motion.div>
+  );
+}
 
 export function About() {
   const ref = useRef<HTMLElement>(null);
@@ -81,24 +113,8 @@ export function About() {
         </motion.h2>
 
         <div className="grid md:grid-cols-2 gap-6 mb-24">
-          {[
-            { icon: Sprout, title: a.card1Title, body: a.card1Body },
-            { icon: Compass, title: a.card2Title, body: a.card2Body },
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.2 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="feature-tile group relative p-8 rounded-2xl bg-white/70 dark:bg-forest-900/50 backdrop-blur-xl border border-forest-200/50 dark:border-forest-800/50 hover:border-forest-300 dark:hover:border-forest-700 transition-colors"
-            >
-              <div className="feature-icon w-11 h-11 rounded-2xl bg-forest-100 dark:bg-forest-800 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500">
-                <item.icon size={20} className="text-forest-700 dark:text-forest-200" />
-              </div>
-              <h3 className="text-xl font-semibold text-forest-950 dark:text-forest-50 mb-3 tracking-tight">{item.title}</h3>
-              <p className="text-[15px] leading-relaxed text-forest-700 dark:text-forest-300">{item.body}</p>
-            </motion.div>
-          ))}
+          <FeatureCard icon={Sprout}  title={a.card1Title} body={a.card1Body} delay={0.2}  inView={inView} />
+          <FeatureCard icon={Compass} title={a.card2Title} body={a.card2Body} delay={0.32} inView={inView} />
         </div>
 
       </div>

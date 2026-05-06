@@ -9,7 +9,6 @@ import { Services } from '@/components/sections/Services';
 import { Footer } from '@/components/sections/Footer';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { I18nProvider } from '@/lib/i18nContext';
-import { CursorGlow } from '@/components/ui/CursorGlow';
 import { StickyMobileBar } from '@/components/ui/StickyMobileBar';
 import { CartModal, CartFAB } from '@/components/ui/CartModal';
 import { CartProvider } from '@/lib/cartContext';
@@ -42,7 +41,6 @@ export default function Home() {
           <Services />
           <Footer />
         </main>
-        <CursorGlow />
         <StickyMobileBar />
         <CartFAB />
         <CartModal />

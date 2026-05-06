@@ -83,7 +83,17 @@ export function Services() {
             <span className="text-[10px] font-medium tracking-widest uppercase text-emerald-400">Netrukus</span>
           </div>
           <h2 className="text-headline text-[clamp(2rem,5vw,3.5rem)] text-white mb-4 leading-tight">
-            Visapusiška<br />sodo priežiūra
+            <span className="relative inline-block">
+              Visapusiška
+              <motion.span
+                initial={{ scaleX: 0 }}
+                animate={inView ? { scaleX: 1 } : {}}
+                transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute -bottom-1 left-0 h-[2px] w-full rounded-full bg-gradient-to-r from-emerald-400 via-emerald-300 to-transparent"
+                style={{ transformOrigin: 'left' }}
+              />
+            </span>
+            <br />sodo priežiūra
           </h2>
           <p className="text-[15px] text-white/60 leading-relaxed">
             Nuo projektavimo iki pristatymo ir ilgalaikės priežiūros — kuriame pilną paslaugų ekosistemą, kad galėtumėte augti užtikrintai.

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { useTrees } from '@/lib/useTrees';
 import type { Tree, TreeCategory, TreeSize } from '@/types';
 import { TreeIllustration } from '@/components/ui/TreeIllustration';
@@ -38,24 +38,40 @@ function TreeCard({ tree, onOpen }: {
   const { addItem, items, openCart } = useCart();
   const inCart = items.some(i => i.tree.id === tree.id);
   const CategoryIcon = CAT_ICON[tree.category] || Sprout;
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const rotateX = useTransform(my, [-0.5, 0.5], [7, -7]);
-  const rotateY = useTransform(mx, [-0.5, 0.5], [-7, 7]);
+  const rawMx = useMotionValue(0);
+  const rawMy = useMotionValue(0);
+  // Spring-smooth the raw mouse values so tilt eases in/out instead of snapping
+  const mx = useSpring(rawMx, { stiffness: 120, damping: 22, mass: 0.6 });
+  const my = useSpring(rawMy, { stiffness: 120, damping: 22, mass: 0.6 });
+  const rotateX = useTransform(my, [-0.5, 0.5], [5, -5]);
+  const rotateY = useTransform(mx, [-0.5, 0.5], [-5, 5]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
-    mx.set((e.clientX - r.left) / r.width - 0.5);
-    my.set((e.clientY - r.top) / r.height - 0.5);
+    rawMx.set((e.clientX - r.left) / r.width - 0.5);
+    rawMy.set((e.clientY - r.top) / r.height - 0.5);
   };
-  const handleMouseLeave = () => { mx.set(0); my.set(0); };
+  const handleMouseLeave = () => {
+    rawMx.set(0);
+    rawMy.set(0);
+  };
 
   return (
     <motion.div
-      className={`catalog-plant-card tree-card tree-card-${tree.category} group relative bg-white dark:bg-forest-900 rounded-2xl border border-forest-200/60 dark:border-forest-800/60 overflow-hidden cursor-pointer active:scale-[0.98] transition-colors duration-150`}
-      style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-      whileHover={{ boxShadow: `0 24px 52px -8px ${tree.color}60, 0 8px 20px -4px ${tree.color}35, inset 0 0 0 1.5px ${tree.color}55` }}
-      transition={{ type: 'spring', stiffness: 340, damping: 28 }}
+      className={`catalog-plant-card tree-card tree-card-${tree.category} group relative bg-white dark:bg-forest-900 rounded-2xl border border-forest-200/60 dark:border-forest-800/60 overflow-hidden cursor-pointer active:scale-[0.98]`}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: 'preserve-3d',
+        // Explicit zero baseline so Framer Motion never interpolates from "none"
+        boxShadow: `0 0px 0px 0px ${tree.color}00`,
+      }}
+      whileHover={{ boxShadow: `0 28px 56px -10px ${tree.color}55, 0 10px 24px -6px ${tree.color}30` }}
+      transition={{
+        // Tilt (MotionValues) use spring via useTransform — no transition needed here
+        // boxShadow uses a slow smooth ease so it never glitches mid-exit
+        boxShadow: { duration: 0.65, ease: [0.25, 0.1, 0.25, 1] },
+      }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={() => onOpen(tree)}
@@ -91,7 +107,7 @@ function TreeCard({ tree, onOpen }: {
           style={(tree.builderImagePath || tree.imagePath) ? { mixBlendMode: 'screen' } : undefined}
         >
           {/* Inner: owns the hover lift — transform here can't break the blend context above */}
-          <div className="transition-transform duration-700 group-hover:-translate-y-2 group-hover:scale-[1.07] will-change-transform">
+          <div className="transition-all duration-700 ease-out group-hover:-translate-y-3 group-hover:scale-[1.13] group-hover:brightness-110 will-change-transform">
             <TreeIllustration
               svg={tree.svg}
               imagePath={tree.builderImagePath || tree.imagePath}
@@ -266,11 +282,11 @@ export function Catalog() {
               <motion.div
                 key={tree.id}
                 layout="position"
-                initial={{ opacity: 0, y: 28, rotateX: 10, scale: 0.96 }}
-                animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+                initial={{ opacity: 0, y: 24, scale: 0.94 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.15 } }}
-                transition={{ delay: Math.min(i * 0.04, 0.28), duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
-                style={{ perspective: 900, transformStyle: 'preserve-3d' }}
+                transition={{ delay: Math.min(i * 0.035, 0.25), duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                style={{ perspective: 900 }}
               >
                 <TreeCard
                   tree={tree}

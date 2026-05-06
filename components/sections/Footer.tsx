@@ -20,13 +20,13 @@ export function Footer() {
   return (
     <footer ref={ref} id="footer" className="relative bg-forest-950 text-forest-50 overflow-hidden">
       <Particles density={12} type="mixed" />
-      <div className="border-b border-forest-800 py-8 overflow-hidden relative">
+      <div className="border-b border-forest-800 py-8 overflow-hidden relative group/marquee">
         {/* Edge vignette — fades items in/out at sides */}
         <div className="absolute inset-y-0 left-0 w-24 z-10 pointer-events-none"
           style={{ background: 'linear-gradient(to right, rgb(12,22,14), transparent)' }} />
         <div className="absolute inset-y-0 right-0 w-24 z-10 pointer-events-none"
           style={{ background: 'linear-gradient(to left, rgb(12,22,14), transparent)' }} />
-        <div className="flex marquee whitespace-nowrap">
+        <div className="flex marquee whitespace-nowrap group-hover/marquee:[animation-play-state:paused]">
           {[...services, ...services].map((s, i) => (
             <div key={i} className="flex items-center mx-10">
               <span className="text-3xl md:text-5xl font-light italic text-forest-200">{s}</span>
