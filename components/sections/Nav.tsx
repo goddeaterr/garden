@@ -6,10 +6,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { LangSwitcher } from '@/components/ui/LangSwitcher';
 import { useI18n } from '@/lib/i18nContext';
-import { MessageSquare, X } from 'lucide-react';
+import { MessageSquare, X, ArrowUpRight } from 'lucide-react';
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [barVisible, setBarVisible] = useState(false);
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -28,6 +29,7 @@ export function Nav() {
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 20);
+      setPastHero(y > window.innerHeight * 0.65);
       // Direct DOM write — no React re-render, true 60fps
       if (progressBarRef.current) {
         const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -73,6 +75,25 @@ export function Nav() {
           style={{ width: '0%', opacity: 0 }}
         />
       </div>
+
+      {/* Floating Quote CTA — appears after scrolling past hero */}
+      <AnimatePresence>
+        {pastHero && (
+          <motion.a
+            href="#catalog"
+            initial={{ opacity: 0, y: 24, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.92 }}
+            transition={{ type: 'spring', stiffness: 320, damping: 26 }}
+            className="fixed bottom-6 right-4 sm:right-6 z-[120] flex items-center gap-2 px-4 py-2.5 rounded-full bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 text-[13px] font-semibold shadow-xl shadow-forest-900/25 hover:scale-[1.04] active:scale-[0.97] transition-transform"
+            whileHover={{ boxShadow: '0 20px 48px -8px rgba(22,40,24,0.45)' }}
+          >
+            <MessageSquare size={14} />
+            <span>Get a Quote</span>
+            <ArrowUpRight size={13} className="opacity-70" />
+          </motion.a>
+        )}
+      </AnimatePresence>
 
       {/* Seasonal announcement bar */}
       <AnimatePresence>

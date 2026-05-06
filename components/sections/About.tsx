@@ -2,16 +2,12 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { useTrees } from '@/lib/useTrees';
-import { TreeIllustration } from '@/components/ui/TreeIllustration';
 import { useI18n } from '@/lib/i18nContext';
 import { Sprout, Compass } from 'lucide-react';
 import { Particles } from '@/components/ui/Particles';
 
 export function About() {
   const ref = useRef<HTMLElement>(null);
-  const allTrees = useTrees();
-  const featuredTrees = allTrees.slice(0, 3);
   const inView = useInView(ref, { once: true, margin: '-100px' });
   const { tr } = useI18n();
   const a = tr.about;
@@ -19,6 +15,42 @@ export function About() {
   return (
     <section ref={ref} id="about" className="botanical-section-texture relative py-32 px-6 bg-forest-50 dark:bg-forest-950 overflow-hidden">
       <Particles density={22} type="leaves" />
+
+      {/* Botanical SVG watermark — large rotating fern ornament */}
+      <div className="absolute -right-24 sm:-right-8 top-1/2 -translate-y-1/2 opacity-[0.045] dark:opacity-[0.055] pointer-events-none select-none" aria-hidden>
+        <svg
+          className="w-[420px] h-[420px] sm:w-[560px] sm:h-[560px] text-forest-600 dark:text-forest-400"
+          style={{ animation: 'spin-slow 90s linear infinite' }}
+          viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Outer ring of leaf pairs, 8 directions */}
+          {Array.from({ length: 8 }).map((_, i) => {
+            const angle = (i * 45 * Math.PI) / 180;
+            const cos = Math.cos(angle), sin = Math.sin(angle);
+            return (
+              <g key={i} transform={`rotate(${i * 45} 200 200)`}>
+                {/* Main frond stem */}
+                <path d="M200,200 Q200,130 200,60" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                {/* Leaflets branching off stem */}
+                {[70,95,120,145,168].map((y, j) => {
+                  const spread = 18 + j * 6;
+                  return (
+                    <g key={j}>
+                      <path d={`M200,${y} Q${200 - spread},${y - 8} ${200 - spread * 1.4},${y - 22}`} stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+                      <path d={`M200,${y} Q${200 + spread},${y - 8} ${200 + spread * 1.4},${y - 22}`} stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+                    </g>
+                  );
+                })}
+              </g>
+            );
+          })}
+          {/* Centre circle ornament */}
+          <circle cx="200" cy="200" r="18" stroke="currentColor" strokeWidth="1.5"/>
+          <circle cx="200" cy="200" r="8" fill="currentColor" opacity="0.5"/>
+          <circle cx="200" cy="200" r="34" stroke="currentColor" strokeWidth="0.8" strokeDasharray="4 4"/>
+        </svg>
+      </div>
+
       <div className="relative max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -69,59 +101,6 @@ export function About() {
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="flex items-end justify-between mb-10"
-        >
-          <div>
-            <div className="text-[11px] tracking-[0.3em] uppercase text-forest-600 dark:text-forest-400 mb-3">
-              {a.catalogEyebrow}
-            </div>
-            <h3 className="text-[clamp(1.5rem,3vw,2.25rem)] font-semibold tracking-tight text-forest-950 dark:text-forest-50">
-              {a.catalogTitle}
-            </h3>
-          </div>
-          <a href="#catalog" className="hidden sm:inline-flex text-sm text-forest-700 dark:text-forest-300 hover:text-forest-900 dark:hover:text-white items-center gap-1 transition-colors">
-            {a.seeAll}<span aria-hidden>→</span>
-          </a>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {featuredTrees.map((tree, i) => (
-            <motion.article
-              key={tree.id}
-              initial={{ opacity: 0, y: 40 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.6 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              className="glance-card tree-card group relative rounded-2xl overflow-hidden bg-gradient-to-b from-white to-forest-50 dark:from-forest-900 dark:to-forest-950 border border-forest-200/60 dark:border-forest-800/60"
-            >
-              <div className="plant-plinth aspect-[4/5] flex items-end justify-center p-6 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-forest-100/40 dark:to-forest-900/40" />
-                {/* Spinning botanical rings */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <svg className="spin-slow absolute w-[88%] h-[88%] opacity-[0.18]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="100" cy="100" r="92" stroke="currentColor" strokeWidth="1" strokeDasharray="5 14" className="text-forest-500 dark:text-forest-400" />
-                  </svg>
-                  <svg className="spin-slow-reverse absolute w-[72%] h-[72%] opacity-[0.12]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="100" cy="100" r="92" stroke="currentColor" strokeWidth="1" strokeDasharray="2 18" className="text-forest-400 dark:text-forest-500" />
-                  </svg>
-                </div>
-                <motion.div whileHover={{ scale: 1.05, y: -8 }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }} className="relative w-full max-w-[200px] z-[1]">
-                  <TreeIllustration svg={tree.svg} imagePath={tree.builderImagePath || tree.imagePath} alt={tree.name} className="w-full" />
-                </motion.div>
-              </div>
-              <div className="p-6 pt-0">
-                <div className="flex items-baseline justify-between mb-1">
-                  <h4 className="text-lg font-semibold text-forest-950 dark:text-forest-50 tracking-tight">{tree.name}</h4>
-                  <span className="text-xs text-forest-500 dark:text-forest-400 italic font-light">{tree.latin}</span>
-                </div>
-                <p className="text-[14px] leading-relaxed text-forest-700 dark:text-forest-300">{tree.description}</p>
-              </div>
-            </motion.article>
-          ))}
-        </div>
       </div>
     </section>
   );

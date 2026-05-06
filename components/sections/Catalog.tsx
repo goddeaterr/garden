@@ -8,6 +8,7 @@ import { TreeIllustration } from '@/components/ui/TreeIllustration';
 import { useI18n } from '@/lib/i18nContext';
 import { formatPrice, cn } from '@/lib/utils';
 import { ShoppingBag, Check, Apple, Flower2, TreePine, Sprout } from 'lucide-react';
+import { BrandedSpinner } from '@/components/ui/BrandedSpinner';
 import { TreeDetailModal } from './TreeDetailModal';
 import { useCart } from '@/lib/cartContext';
 
@@ -51,10 +52,10 @@ function TreeCard({ tree, onOpen }: {
 
   return (
     <motion.div
-      className={`catalog-plant-card tree-card tree-card-${tree.category} group relative bg-white dark:bg-forest-900 rounded-2xl border border-forest-200/60 dark:border-forest-800/60 overflow-hidden cursor-pointer active:scale-[0.98] transition-colors duration-200`}
+      className={`catalog-plant-card tree-card tree-card-${tree.category} group relative bg-white dark:bg-forest-900 rounded-2xl border border-forest-200/60 dark:border-forest-800/60 overflow-hidden cursor-pointer active:scale-[0.98] transition-colors duration-150`}
       style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-      whileHover={{ boxShadow: `0 20px 48px -8px ${tree.color}55, 0 6px 16px -4px ${tree.color}30` }}
-      transition={{ duration: 0.35 }}
+      whileHover={{ boxShadow: `0 24px 52px -8px ${tree.color}60, 0 8px 20px -4px ${tree.color}35, inset 0 0 0 1.5px ${tree.color}55` }}
+      transition={{ type: 'spring', stiffness: 340, damping: 28 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={() => onOpen(tree)}
@@ -83,16 +84,21 @@ function TreeCard({ tree, onOpen }: {
             : `radial-gradient(ellipse at 50% 75%, ${tree.color}30 0%, transparent 68%)`,
         }}
       >
+        {/* Outer: owns mix-blend-mode so it always composites against the dark plinth,
+            regardless of what transforms happen inside */}
         <div
-          className="relative z-[1] w-full max-w-[120px] sm:max-w-[150px] mx-auto transition-transform duration-700 group-hover:-translate-y-1 group-hover:scale-105"
-          style={(tree.builderImagePath || tree.imagePath) ? { mixBlendMode: 'screen' as const } : undefined}
+          className="w-full max-w-[120px] sm:max-w-[150px] mx-auto"
+          style={(tree.builderImagePath || tree.imagePath) ? { mixBlendMode: 'screen' } : undefined}
         >
-          <TreeIllustration
-            svg={tree.svg}
-            imagePath={tree.builderImagePath || tree.imagePath}
-            alt={tree.name}
-            className="w-full"
-          />
+          {/* Inner: owns the hover lift — transform here can't break the blend context above */}
+          <div className="transition-transform duration-700 group-hover:-translate-y-2 group-hover:scale-[1.07] will-change-transform">
+            <TreeIllustration
+              svg={tree.svg}
+              imagePath={tree.builderImagePath || tree.imagePath}
+              alt={tree.name}
+              className="w-full"
+            />
+          </div>
         </div>
       </div>
 
@@ -259,12 +265,12 @@ export function Catalog() {
             {filteredTrees.map((tree, i) => (
               <motion.div
                 key={tree.id}
-                layout
-                initial={{ opacity: 0, y: 24, scale: 0.93 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.88, y: -12, transition: { duration: 0.22 } }}
-                transition={{ delay: i * 0.04, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                style={{ perspective: 900 }}
+                layout="position"
+                initial={{ opacity: 0, y: 28, rotateX: 10, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.15 } }}
+                transition={{ delay: Math.min(i * 0.04, 0.28), duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
+                style={{ perspective: 900, transformStyle: 'preserve-3d' }}
               >
                 <TreeCard
                   tree={tree}
@@ -276,16 +282,23 @@ export function Catalog() {
             {filteredTrees.length === 0 && trees.length > 0 && (
               <div className="col-span-full text-center py-12 text-forest-500">{c.noResults}</div>
             )}
-            {trees.length === 0 && Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="rounded-2xl overflow-hidden border border-forest-200/40 dark:border-forest-800/40">
-                <div className="aspect-square skeleton" />
-                <div className="px-3 pb-4 pt-3 space-y-2">
-                  <div className="h-[14px] rounded-full skeleton w-3/4" />
-                  <div className="h-[11px] rounded-full skeleton w-1/2" />
-                  <div className="h-[38px] rounded-xl skeleton w-full mt-1" />
+            {trees.length === 0 && (
+              <>
+                <div className="col-span-full flex flex-col items-center py-10 gap-2">
+                  <BrandedSpinner size={56} label="Loading catalog…" />
                 </div>
-              </div>
-            ))}
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} className="rounded-2xl overflow-hidden border border-forest-200/40 dark:border-forest-800/40 opacity-40">
+                    <div className="aspect-square skeleton" />
+                    <div className="px-3 pb-4 pt-3 space-y-2">
+                      <div className="h-[14px] rounded-full skeleton w-3/4" />
+                      <div className="h-[11px] rounded-full skeleton w-1/2" />
+                      <div className="h-[38px] rounded-xl skeleton w-full mt-1" />
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         </div>
       </section>

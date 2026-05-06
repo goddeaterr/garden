@@ -44,7 +44,7 @@ export const translations = {
       seeAll: 'See full catalog',
     },
     catalog: {
-      eyebrow: 'The catalog', title: "Twelve we'd plant ourselves.",
+      eyebrow: 'The catalog', title: "Handpicked for your garden.",
       countSingle: 'tree · all in stock', countPlural: 'trees · all in stock',
       sizeLabel: 'Size', upTo: 'Up to',
       allCats: 'All', fruit: 'Fruit', decorative: 'Decorative', evergreen: 'Evergreen', shrub: 'Shrub',
@@ -279,7 +279,7 @@ export const translations = {
       catalogEyebrow: 'Trys iš katalogo', catalogTitle: 'Žvilgsnis į tai, kas auga', seeAll: 'Žiūrėti visą katalogą',
     },
     catalog: {
-      eyebrow: 'Katalogas', title: 'Dvylika, kuriuos pasodintume patys.',
+      eyebrow: 'Katalogas', title: 'Atrinkti jūsų sodui.',
       countSingle: 'medis · visi yra sandėlyje', countPlural: 'medžiai · visi yra sandėlyje',
       sizeLabel: 'Dydis', upTo: 'Iki',
       allCats: 'Visi', fruit: 'Vaismedžiai', decorative: 'Dekoratyviniai', evergreen: 'Spygliuočiai', shrub: 'Krūmai',
@@ -514,7 +514,7 @@ export const translations = {
       catalogEyebrow: 'Три из каталога', catalogTitle: 'Взгляд на то, что растёт', seeAll: 'Смотреть весь каталог',
     },
     catalog: {
-      eyebrow: 'Каталог', title: 'Двенадцать, которые мы бы посадили сами.',
+      eyebrow: 'Каталог', title: 'Подобрано для вашего сада.',
       countSingle: 'дерево · всё в наличии', countPlural: 'деревьев · всё в наличии',
       sizeLabel: 'Размер', upTo: 'До',
       allCats: 'Все', fruit: 'Плодовые', decorative: 'Декоративные', evergreen: 'Хвойные', shrub: 'Кустарники',

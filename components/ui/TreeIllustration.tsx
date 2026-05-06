@@ -9,9 +9,7 @@ interface Props {
 }
 
 export function TreeIllustration({ svg, imagePath, className, flipped, alt = '' }: Props) {
-  const style: React.CSSProperties = {
-    transform: flipped ? 'scaleX(-1)' : undefined,
-  };
+  const flip: React.CSSProperties = flipped ? { transform: 'scaleX(-1)' } : {};
 
   if (imagePath) {
     return (
@@ -20,20 +18,22 @@ export function TreeIllustration({ svg, imagePath, className, flipped, alt = '' 
         src={imagePath}
         alt={alt}
         className={className}
+        draggable={false}
+        loading="lazy"
+        decoding="async"
         style={{
-          ...style,
+          ...flip,
           objectFit: 'contain',
           objectPosition: 'center bottom',
           display: 'block',
           width: '100%',
           height: '100%',
         }}
-        draggable={false}
       />
     );
   }
 
   return (
-    <div className={className} style={style} dangerouslySetInnerHTML={{ __html: svg ?? '' }} />
+    <div className={className} style={flip} dangerouslySetInnerHTML={{ __html: svg ?? '' }} />
   );
 }

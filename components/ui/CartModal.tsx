@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Minus, Plus, Trash2, ShoppingBag, Send, Loader2, ArrowRight } from 'lucide-react';
+import { X, Minus, Plus, Trash2, ShoppingBag, Send, ArrowRight } from 'lucide-react';
 import { useCart } from '@/lib/cartContext';
 import { TreeIllustration } from '@/components/ui/TreeIllustration';
+import { BrandedSpinner } from '@/components/ui/BrandedSpinner';
 
 const CAT_GRADIENT: Record<string, string> = {
   fruit:      'linear-gradient(135deg,#b45309,#92400e)',
@@ -99,10 +100,10 @@ export function CartModal() {
           onClick={e => { if (e.target === e.currentTarget) handleClose(); }}
         >
           <motion.div
-            initial={{ opacity:0, y:64, scale:0.96 }}
+            initial={{ opacity:0, y:56, scale:0.97 }}
             animate={{ opacity:1, y:0, scale:1 }}
-            exit={{ opacity:0, y:40, scale:0.97 }}
-            transition={{ duration:0.38, ease:[0.16,1,0.3,1] }}
+            exit={{ opacity:0, y:32, scale:0.98, transition:{ duration:0.2, ease:[0.4,0,1,1] } }}
+            transition={{ duration:0.34, ease:[0.16,1,0.3,1] }}
             className="relative w-full sm:max-w-xl bg-forest-50 dark:bg-forest-950 rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl max-h-[95svh] flex flex-col"
           >
             {/* Drag handle */}
@@ -171,11 +172,14 @@ export function CartModal() {
                       </div>
                     ) : items.map(({ tree, quantity }) => (
                       <div key={tree.id} className="flex items-center gap-3 p-3 rounded-2xl bg-white dark:bg-forest-900 border border-forest-200/60 dark:border-forest-800/60">
-                        {/* Mini illustration */}
-                        <div className="w-12 h-12 rounded-xl flex-shrink-0 flex items-center justify-center overflow-hidden"
-                          style={{ background:`radial-gradient(ellipse at 50% 80%,${tree.color}40,transparent 70%), rgb(8,18,10)` }}>
-                          <div style={tree.imagePath ? { mixBlendMode:'screen' as const, width:'100%', height:'100%' } : { width:'100%', height:'100%' }}>
-                            <TreeIllustration svg={tree.svg} imagePath={tree.builderImagePath || tree.imagePath} alt={tree.name} className="w-full h-full object-contain" />
+                        {/* Mini illustration — blend mode lives on the dark-bg container */}
+                        <div className="w-12 h-12 rounded-xl flex-shrink-0 overflow-hidden"
+                          style={{
+                            background: `radial-gradient(ellipse at 50% 80%,${tree.color}40,transparent 70%), rgb(8,18,10)`,
+                            mixBlendMode: (tree.builderImagePath || tree.imagePath) ? 'normal' : undefined,
+                          }}>
+                          <div style={(tree.builderImagePath || tree.imagePath) ? { mixBlendMode: 'screen', width: '100%', height: '100%' } : { width: '100%', height: '100%' }}>
+                            <TreeIllustration svg={tree.svg} imagePath={tree.builderImagePath || tree.imagePath} alt={tree.name} className="w-full h-full" />
                           </div>
                         </div>
                         {/* Info */}
@@ -254,12 +258,18 @@ export function CartModal() {
                 {/* ── Sticky footer ── */}
                 {items.length > 0 && (
                   <div className="flex-shrink-0 px-5 pb-6 pt-3 border-t border-forest-200/60 dark:border-forest-800/60 bg-forest-50 dark:bg-forest-950">
-                    <button type="submit" form="cart-form" disabled={sending}
-                      className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 text-[14px] font-bold tracking-tight hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 transition-transform">
-                      {sending ? <Loader2 size={16} className="animate-spin" /> : <Send size={15} />}
-                      {sending ? 'Sending…' : `Send Quote Request · €${subtotal}`}
-                    </button>
-                    <p className="text-center text-[11px] text-forest-400 dark:text-forest-600 mt-2">PDF quote emailed to you and us · Reply within 24 h</p>
+                    {sending ? (
+                      <div className="flex flex-col items-center py-3 gap-1">
+                        <BrandedSpinner size={48} label="Sending your quote…" />
+                      </div>
+                    ) : (
+                      <button type="submit" form="cart-form"
+                        className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 text-[14px] font-bold tracking-tight hover:scale-[1.01] active:scale-[0.99] transition-transform">
+                        <Send size={15} />
+                        {`Send Quote Request · €${subtotal}`}
+                      </button>
+                    )}
+                    {!sending && <p className="text-center text-[11px] text-forest-400 dark:text-forest-600 mt-2">PDF quote emailed to you and us · Reply within 24 h</p>}
                   </div>
                 )}
               </>

@@ -89,10 +89,6 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="relative inline-flex items-center justify-center mb-8"
         >
-          {/* Sonar rings */}
-          <span className="sonar-ring" aria-hidden style={{ animationDelay: '0s' }} />
-          <span className="sonar-ring" aria-hidden style={{ animationDelay: '1s' }} />
-          <span className="sonar-ring" aria-hidden style={{ animationDelay: '2s' }} />
           <div
             className="hero-badge-shine relative inline-flex items-center gap-2 px-4 py-1.5 rounded-full"
             style={{ background: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.7)' }}
@@ -105,13 +101,13 @@ export function Hero() {
         <h1 className="hero-title-depth text-[clamp(2.6rem,8.5vw,8rem)] font-bold tracking-[-0.04em] leading-[0.95] text-forest-950 dark:text-forest-50 mb-6">
           {words.map((word, i) => (
             <motion.span key={i}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.4 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 1.0, delay: 0.4 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
               className="inline-block mr-[0.22em]"
             >
               {i === words.length - 1 ? (
-                <span className="bg-gradient-to-br from-forest-700 via-moss-600 to-forest-900 dark:from-moss-300 dark:via-forest-200 dark:to-moss-400 bg-clip-text text-transparent italic font-light">
+                <span className="hero-word-drift bg-gradient-to-br from-forest-700 via-moss-600 to-forest-900 dark:from-moss-300 dark:via-forest-200 dark:to-moss-400 bg-clip-text text-transparent italic font-light">
                   {word}
                 </span>
               ) : word}
@@ -142,6 +138,28 @@ export function Hero() {
           <a href="#about" className="magnetic-button group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[15px] font-medium bg-white/60 dark:bg-forest-900/60 border border-white/70 dark:border-forest-700/50 text-forest-900 dark:text-forest-50 hover:scale-[1.02] active:scale-[0.98] transition-transform">
             {tr.hero.cta2}
           </a>
+        </motion.div>
+
+        {/* Trust badges */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-6"
+        >
+          {[
+            { icon: '🌿', label: '100+ Species' },
+            { icon: '⚡', label: 'Same-day Quote' },
+            { icon: '🚚', label: 'Nationwide Delivery' },
+          ].map((badge, i) => (
+            <div
+              key={badge.label}
+              className="trust-badge-pill flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-[12px] font-medium text-forest-800 dark:text-forest-200"
+              style={{ animationDelay: `${i * 0.4}s` }}
+            >
+              <span>{badge.icon}</span>
+              <span>{badge.label}</span>
+            </div>
+          ))}
         </motion.div>
 
       </div>

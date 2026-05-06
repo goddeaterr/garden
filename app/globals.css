@@ -24,6 +24,12 @@
 
 * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
+/* Custom cursor glow — desktop pointer devices only */
+.cursor-glow-orb { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .cursor-glow-orb { display: block; }
+}
+
 html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
 
 body {
@@ -200,6 +206,40 @@ body {
   border: 1px solid rgba(113,158,114,0.55);
   pointer-events: none;
   animation: sonar-ping 3s ease-out infinite;
+}
+
+/* Trust badge gentle bob */
+@keyframes trust-bob {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+.trust-badge-pill {
+  background: rgba(255,255,255,0.62);
+  border: 1px solid rgba(255,255,255,0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: trust-bob 3.2s ease-in-out infinite;
+  will-change: transform;
+}
+.dark .trust-badge-pill {
+  background: rgba(22,36,25,0.55);
+  border-color: rgba(60,80,64,0.45);
+}
+@media (prefers-reduced-motion: reduce) {
+  .trust-badge-pill { animation: none; }
+}
+
+/* Hero italic last-word gradient color drift */
+@keyframes hero-gradient-drift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+.hero-word-drift {
+  background-size: 220% 220% !important;
+  animation: hero-gradient-drift 5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-word-drift { animation: none; background-size: 100% !important; }
 }
 
 /* About feature card border glow */
@@ -569,6 +609,47 @@ input[type="range"].apple-slider::-moz-range-thumb {
 /* Safe area */
 .safe-top{padding-top:env(safe-area-inset-top,0px)}
 .safe-bottom{padding-bottom:env(safe-area-inset-bottom,0px)}
+
+/* ── Performance & GPU compositing hints ── */
+
+/* Promote animated cards to their own GPU layer */
+.catalog-plant-card {
+  will-change: box-shadow;
+  transform: translateZ(0);          /* force GPU layer */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+/* Inner hover-lift div */
+.will-change-transform { will-change: transform; }
+
+/* Isolate heavy sections so the browser can skip repaints */
+#catalog  { contain: layout style; }
+#about    { contain: layout style; }
+#services { contain: layout style; }
+
+/* Faster, butter-smooth transitions for interactive elements */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+button:not([disabled]) { cursor: pointer; }
+
+/* Nav pill — GPU layer so scrolled blur composites properly */
+nav { transform: translateZ(0); }
+
+/* ── Accessibility: respect reduced-motion preference ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .wave-slide,
+  .bokeh-float,
+  .ann-shimmer,
+  .cta-glow-ring { animation: none !important; }
+}
 
 /* Mobile — disable hover effects that flicker */
 @media (max-width:640px){

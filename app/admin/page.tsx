@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import type { Tree, TreeCategory, TreeSize } from '@/types';
 import { bustTreeCache } from '@/lib/useTrees';
+import { BrandedSpinner } from '@/components/ui/BrandedSpinner';
 
 const CATS: TreeCategory[] = ['fruit', 'decorative', 'evergreen', 'shrub'];
 const SIZES: TreeSize[] = ['small', 'medium', 'large'];
@@ -208,7 +209,7 @@ export default function AdminPage() {
           </div>
 
           {loadingTrees
-            ? <div className="flex justify-center py-16"><Loader2 size={28} className="animate-spin text-forest-500" /></div>
+            ? <div className="flex justify-center py-16"><BrandedSpinner size={56} label="Loading trees…" /></div>
             : trees.length === 0
               ? (
                 <div className="text-center py-20 text-forest-500">
