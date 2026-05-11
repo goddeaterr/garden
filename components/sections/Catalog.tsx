@@ -130,7 +130,7 @@ function TreeCard({ tree, onOpen }: {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
             </span>
-            <span className="text-[9px] font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400 leading-none">In Stock</span>
+            <span className="text-[9px] font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400 leading-none">{(tr.catalog as any).inStock}</span>
           </span>
         </div>
         <p className="text-[10px] sm:text-[11px] text-forest-500 dark:text-forest-400 italic mb-2 sm:mb-3 truncate">
@@ -149,7 +149,7 @@ function TreeCard({ tree, onOpen }: {
           )}
         >
           {inCart ? <Check size={11} /> : <ShoppingBag size={11} />}
-          {inCart ? 'Added — View Cart' : 'Add to Quote'}
+          {inCart ? (tr.catalog as any).addedViewCart : (tr.catalog as any).addToQuote}
         </button>
       </div>
     </motion.div>
@@ -228,7 +228,7 @@ export function Catalog() {
               <div className="ml-auto flex items-center gap-1.5">
                 {trees.length > 0 && (
                   <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-forest-100 dark:bg-forest-800 text-forest-500 dark:text-forest-400 tabular-nums">
-                    {filteredTrees.length} {filteredTrees.length === 1 ? 'tree' : 'trees'}
+                    {filteredTrees.length} {filteredTrees.length === 1 ? c.countSingle.split(' ')[0] : c.countPlural.split(' ')[0]}
                   </span>
                 )}
                 {hasActiveFilters && (

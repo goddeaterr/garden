@@ -147,9 +147,9 @@ export function Hero() {
           className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-6"
         >
           {[
-            { icon: '🌿', label: '100+ Species' },
-            { icon: '⚡', label: 'Same-day Quote' },
-            { icon: '🚚', label: 'Nationwide Delivery' },
+            { icon: '🌿', label: (tr.hero as any).trust1 },
+            { icon: '⚡', label: (tr.hero as any).trust2 },
+            { icon: '🚚', label: (tr.hero as any).trust3 },
           ].map((badge, i) => (
             <div
               key={badge.label}

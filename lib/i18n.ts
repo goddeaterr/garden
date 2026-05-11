@@ -24,12 +24,13 @@ export const translations = {
       saveUpTo: 'Save up to €',
       sellersLabel: 'sellers',
     },
-    nav: { trees: 'Trees', builder: 'Garden Builder', about: 'About', services: 'Services', garden: 'Garden', requestQuote: 'Request Quote' },
+    nav: { trees: 'Trees', builder: 'Garden Builder', about: 'About', services: 'Services', garden: 'Garden', requestQuote: 'Request Quote', getAQuote: 'Get a Quote', annText: 'Spring 2026 Collection is here —', annLink: 'browse new arrivals', annFree: 'Free delivery on orders over €200' },
     hero: {
       badge: 'Now in season — Spring 2026 collection',
       headline: ['Design', 'Your', 'Dream', 'Garden.'],
       sub: 'A premium nursery for trees that outlive us — and a planning studio to place every one of them, exactly where it belongs.',
       cta1: 'Explore Trees', cta2: 'Learn More', cta2badge: '', scroll: 'Scroll',
+      trust1: '100+ Species', trust2: 'Same-day Quote', trust3: 'Nationwide Delivery',
     },
     about: {
       eyebrow: 'What we do',
@@ -58,6 +59,7 @@ export const translations = {
       liveStats: 'plants from local nurseries',
       from: 'from', buy: 'Buy', bestPriceBtn: 'Best price',
       sellers: 'sellers', seller: 'seller', saveLabel: 'Save €',
+      addToQuote: 'Add to Quote', addedViewCart: 'Added — View Cart', inStock: 'In Stock',
     },
     builder: {
       badge: 'The Garden Builder', title: 'Plan it before you plant it.',
@@ -190,6 +192,17 @@ export const translations = {
       addToGarden: 'Add to garden',
       addedToGarden: 'Added to garden',
     },
+    services: {
+      soonBadge: 'Coming Soon',
+      title1: 'Complete', title2: 'garden care',
+      subtitle: 'From design to delivery and long-term care — building a full service ecosystem so you can grow with confidence.',
+      ctaNote: 'Interested in our services? Get notified when they go live.',
+      ctaButton: 'Contact us',
+      card1Title: 'Garden Design', card1Desc: 'Professional garden planning — tailored to your space, soil and vision.',
+      card2Title: 'Delivery', card2Desc: 'Fast and careful plant delivery across Lithuania. We handle the logistics.',
+      card3Title: 'Planting & Installation', card3Desc: 'Professional planting by our team. Correct depth, spacing and soil preparation.',
+      card4Title: 'Care Packages', card4Desc: 'Seasonal care — pruning, fertilising and health checks throughout the year.',
+    },
     footer: {
       tagline: 'A nursery and a studio. Since 2023 — planting trees that outlive the people who plant them.',
       openBuilder: 'Open Garden Builder', browse: 'Browse', visitContact: 'Visit & contact', open: 'Open',
@@ -262,12 +275,13 @@ export const translations = {
       saveUpTo: 'Sutaupykite iki €',
       sellersLabel: 'pardavėjai',
     },
-    nav: { trees: 'Medžiai', builder: 'Sodo kūrėjas', about: 'Apie', services: 'Paslaugos', garden: 'Sodas', requestQuote: 'Prašyti pasiūlymo' },
+    nav: { trees: 'Medžiai', builder: 'Sodo kūrėjas', about: 'Apie', services: 'Paslaugos', garden: 'Sodas', requestQuote: 'Prašyti pasiūlymo', getAQuote: 'Gauti pasiūlymą', annText: '2026 pavasario kolekcija čia —', annLink: 'peržiūrėti naujausius', annFree: 'Nemokamas pristatymas nuo €200' },
     hero: {
       badge: 'Sezonas prasidėjo — 2026 pavasario kolekcija',
       headline: ['Sukurkite', 'Savo', 'Svajonių', 'Sodą.'],
       sub: 'Aukščiausios kokybės medelynas — ir planavimo studija, kuri padeda surasti tinkamą vietą kiekvienam medžiui.',
       cta1: 'Peržiūrėti medžius', cta2: 'Sužinoti daugiau', cta2badge: '', scroll: 'Slinkti',
+      trust1: '100+ rūšių', trust2: 'Greitas pasiūlymas', trust3: 'Pristatymas visoje Lietuvoje',
     },
     about: {
       eyebrow: 'Ką mes darome', headline1: 'Du amatai.',
@@ -293,6 +307,7 @@ export const translations = {
       liveStats: 'augalų iš vietinių medelynų',
       from: 'nuo', buy: 'Pirkti', bestPriceBtn: 'Geriausia kaina',
       sellers: 'pardavėjai', seller: 'pardavėjas', saveLabel: 'Sutaupykite €',
+      addToQuote: 'Pridėti į pasiūlymą', addedViewCart: 'Pridėta — Peržiūrėti', inStock: 'Yra sandėlyje',
     },
     builder: {
       badge: 'Sodo kūrėjas', title: 'Planuokite prieš sodindami.',
@@ -425,6 +440,17 @@ export const translations = {
       addToGarden: 'Pridėti į sodą',
       addedToGarden: 'Pridėta į sodą',
     },
+    services: {
+      soonBadge: 'Netrukus',
+      title1: 'Visapusiška', title2: 'sodo priežiūra',
+      subtitle: 'Nuo projektavimo iki pristatymo ir ilgalaikės priežiūros — kuriame pilną paslaugų ekosistemą, kad galėtumėte augti užtikrintai.',
+      ctaNote: 'Domina mūsų paslaugos? Gaukite pranešimą, kai jos bus prieinamos.',
+      ctaButton: 'Susisiekite su mumis',
+      card1Title: 'Sodo projektavimas', card1Desc: 'Profesionalus sodo plano kūrimas — pritaikytas jūsų erdvei, dirvai ir vizijai.',
+      card2Title: 'Pristatymas', card2Desc: 'Greitas ir rūpestingas augalų pristatymas visoje Lietuvoje. Mes pasirūpiname logistika.',
+      card3Title: 'Sodinimas ir įrengimas', card3Desc: 'Profesionalus sodinimas mūsų komandos. Tinkamas gylis, tarpai ir dirvos paruošimas.',
+      card4Title: 'Priežiūros paketai', card4Desc: 'Sezoninė priežiūra — genėjimas, tręšimas ir sveikatos tikrinimas visus metus.',
+    },
     footer: {
       tagline: 'Medelynas ir studija. Nuo 2023 — sodiname medžius, kurie išgyvens mus.',
       openBuilder: 'Atidaryti sodo kūrėją', browse: 'Naršyti', visitContact: 'Aplankymas ir kontaktai', open: 'Darbo laikas',
@@ -497,12 +523,13 @@ export const translations = {
       saveUpTo: 'Сэкономьте до €',
       sellersLabel: 'продавцов',
     },
-    nav: { trees: 'Деревья', builder: 'Конструктор', about: 'О нас', services: 'Услуги', garden: 'Сад', requestQuote: 'Запрос цены' },
+    nav: { trees: 'Деревья', builder: 'Конструктор', about: 'О нас', services: 'Услуги', garden: 'Сад', requestQuote: 'Запрос цены', getAQuote: 'Запросить цену', annText: 'Коллекция весна 2026 здесь —', annLink: 'смотреть новинки', annFree: 'Бесплатная доставка от €200' },
     hero: {
       badge: 'Сезон открыт — коллекция весна 2026',
       headline: ['Создайте', 'Сад', 'Своей', 'Мечты.'],
       sub: 'Премиальный питомник деревьев — и студия планирования, чтобы разместить каждое дерево именно там, где оно нужно.',
       cta1: 'Смотреть деревья', cta2: 'Узнать больше', cta2badge: '', scroll: 'Прокрутить',
+      trust1: '100+ видов', trust2: 'Расчёт за день', trust3: 'Доставка по всей стране',
     },
     about: {
       eyebrow: 'Что мы делаем', headline1: 'Два ремесла.',
@@ -528,6 +555,7 @@ export const translations = {
       liveStats: 'растений из местных питомников',
       from: 'от', buy: 'Купить', bestPriceBtn: 'Лучшая цена',
       sellers: 'продавцов', seller: 'продавец', saveLabel: 'Сэкономьте €',
+      addToQuote: 'Добавить в запрос', addedViewCart: 'Добавлено — Посмотреть', inStock: 'В наличии',
     },
     builder: {
       badge: 'Конструктор сада', title: 'Спланируйте до посадки.',
@@ -659,6 +687,17 @@ export const translations = {
       careGuide: 'Руководство по уходу',
       addToGarden: 'Добавить в сад',
       addedToGarden: 'Добавлено в сад',
+    },
+    services: {
+      soonBadge: 'Скоро',
+      title1: 'Полный', title2: 'уход за садом',
+      subtitle: 'От проектирования до доставки и долгосрочного ухода — создаём полную экосистему услуг, чтобы вы росли уверенно.',
+      ctaNote: 'Интересуют наши услуги? Получите уведомление, когда они станут доступны.',
+      ctaButton: 'Связаться с нами',
+      card1Title: 'Проектирование сада', card1Desc: 'Профессиональное планирование сада — с учётом пространства, почвы и видения.',
+      card2Title: 'Доставка', card2Desc: 'Быстрая и бережная доставка растений по всей Литве. Мы занимаемся логистикой.',
+      card3Title: 'Посадка и обустройство', card3Desc: 'Профессиональная посадка нашей командой. Правильная глубина, расстояние и подготовка почвы.',
+      card4Title: 'Пакеты ухода', card4Desc: 'Сезонный уход — обрезка, удобрение и проверка состояния в течение всего года.',
     },
     footer: {
       tagline: 'Питомник и студия. С 2023 года — сажаем деревья, которые переживут нас.',

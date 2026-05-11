@@ -89,7 +89,7 @@ export function Nav() {
             whileHover={{ boxShadow: '0 20px 48px -8px rgba(22,40,24,0.45)' }}
           >
             <MessageSquare size={14} />
-            <span>Get a Quote</span>
+            <span>{(tr.nav as any).getAQuote}</span>
             <ArrowUpRight size={13} className="opacity-70" />
           </motion.a>
         )}
@@ -109,16 +109,16 @@ export function Nav() {
             {/* Shimmer sweep */}
             <span className="ann-shimmer absolute inset-0 pointer-events-none" aria-hidden />
             <span className="text-emerald-400 text-[13px]">🌱</span>
-            <span className="hidden sm:inline">Spring 2026 Collection is here —</span>
+            <span className="hidden sm:inline">{(tr.nav as any).annText}</span>
             <a
               href="#catalog"
               onClick={dismissBar}
               className="font-semibold text-white hover:text-emerald-300 transition-colors underline underline-offset-2 decoration-white/30"
             >
-              browse new arrivals
+              {(tr.nav as any).annLink}
             </a>
             <span className="hidden sm:inline text-white/40 mx-1">·</span>
-            <span className="hidden sm:inline text-white/50">Free delivery on orders over €200</span>
+            <span className="hidden sm:inline text-white/50">{(tr.nav as any).annFree}</span>
             <button
               onClick={dismissBar}
               aria-label="Dismiss"
