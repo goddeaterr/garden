@@ -9,9 +9,9 @@ import { useI18n } from '@/lib/i18nContext';
 const ICONS = [Shovel, Truck, Wrench, LeafyGreen];
 
 const CARD_ORIGINS = [
-  { x: -48, rotate: -4 },
-  { x: 0,   rotate:  3, y: 48 },
-  { x:  48, rotate:  4 },
+  { x: -48, y: 24, rotate: -4 },
+  { x: 0,   y: 48, rotate:  3 },
+  { x:  48, y: 24, rotate:  4 },
   { x: 0,   rotate: -3, y: 48 },
 ] as const;
 
@@ -106,7 +106,7 @@ export function Services() {
             return (
               <motion.div
                 key={svc.title}
-                initial={{ opacity: 0, x: CARD_ORIGINS[i].x, y: CARD_ORIGINS[i].y ?? 24, rotate: CARD_ORIGINS[i].rotate }}
+                initial={{ opacity: 0, x: CARD_ORIGINS[i].x, y: CARD_ORIGINS[i].y, rotate: CARD_ORIGINS[i].rotate }}
                 animate={inView ? { opacity: 1, x: 0, y: 0, rotate: 0 } : {}}
                 transition={{ duration: 0.75, delay: i * 0.1, ease: [0.16, 1, 0.3, 1], type: 'spring', stiffness: 180, damping: 22 }}
                 className="service-spotlight relative group rounded-2xl bg-white shadow-sm border border-forest-200 dark:bg-white/5 dark:border-white/[0.08] p-6 overflow-hidden hover:bg-forest-50 dark:hover:bg-white/[0.09] hover:border-emerald-500/40 dark:hover:border-emerald-500/25 transition-all duration-500"
