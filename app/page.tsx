@@ -11,6 +11,7 @@ import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { I18nProvider } from '@/lib/i18nContext';
 import { StickyMobileBar } from '@/components/ui/StickyMobileBar';
 import { CartModal, CartFAB } from '@/components/ui/CartModal';
+import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { CartProvider } from '@/lib/cartContext';
 
 export default function Home() {
@@ -44,6 +45,7 @@ export default function Home() {
         <StickyMobileBar />
         <CartFAB />
         <CartModal />
+        <ScrollProgress />
       </CartProvider>
     </I18nProvider>
   );

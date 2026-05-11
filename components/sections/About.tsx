@@ -2,6 +2,7 @@
 
 import { motion, useInView, useMotionValue, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import { useState } from 'react';
 import { useI18n } from '@/lib/i18nContext';
 import { Sprout, Compass, type LucideIcon } from 'lucide-react';
 import { Particles } from '@/components/ui/Particles';
@@ -13,6 +14,14 @@ function FeatureCard({
   const my = useMotionValue(0);
   const rotateX = useTransform(my, [-0.5, 0.5], [5, -5]);
   const rotateY = useTransform(mx, [-0.5, 0.5], [-5, 5]);
+  const [burst, setBurst] = useState(false);
+  const triggerBurst = () => {
+    setBurst(false);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setBurst(true));
+    });
+    setTimeout(() => setBurst(false), 700);
+  };
 
   return (
     <motion.div
@@ -29,8 +38,18 @@ function FeatureCard({
       whileHover={{ scale: 1.015 }}
       className="feature-tile group relative p-8 rounded-2xl bg-white/70 dark:bg-forest-900/50 backdrop-blur-xl border border-forest-200/50 dark:border-forest-800/50 hover:border-forest-300 dark:hover:border-forest-700 transition-colors cursor-default"
     >
-      <div className="feature-icon w-11 h-11 rounded-2xl bg-forest-100 dark:bg-forest-800 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+      <div
+        className="feature-icon relative w-11 h-11 rounded-2xl bg-forest-100 dark:bg-forest-800 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500"
+        onMouseEnter={triggerBurst}
+      >
         <Icon size={20} className="text-forest-700 dark:text-forest-200" />
+        {burst && [0,1,2,3,4,5,6,7].map(i => (
+          <span
+            key={i}
+            className="burst-leaf absolute left-1/2 top-1/2 pointer-events-none"
+            style={{ '--ba': `${i * 45}deg`, '--bd': `${26 + (i % 3) * 9}px` } as React.CSSProperties}
+          />
+        ))}
       </div>
       <h3 className="text-xl font-semibold text-forest-950 dark:text-forest-50 mb-3 tracking-tight">{title}</h3>
       <p className="text-[15px] leading-relaxed text-forest-700 dark:text-forest-300">{body}</p>

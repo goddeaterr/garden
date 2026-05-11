@@ -1,10 +1,80 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { useI18n } from '@/lib/i18nContext';
 import { Particles } from '@/components/ui/Particles';
+
+const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+function ScrambleWord({ word, className }: { word: string; className: string }) {
+  const [display, setDisplay] = useState(word);
+  const rafRef = useRef<number>(0);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  const runScramble = useCallback(() => {
+    cancelAnimationFrame(rafRef.current);
+    const framesPerChar = 3;   // how many random frames before each char locks in
+    const intervalMs   = 28;   // ms between frames → very snappy
+    let frame = 0;
+    let lastTime = 0;
+
+    const tick = (now: number) => {
+      if (now - lastTime < intervalMs) {
+        rafRef.current = requestAnimationFrame(tick);
+        return;
+      }
+      lastTime = now;
+
+      const resolved = Math.floor(frame / framesPerChar);
+      const out = word
+        .split('')
+        .map((ch, i) => {
+          if (i < resolved)               return ch;          // locked in
+          if (ch === '.' || ch === '!')   return ch;          // keep punctuation
+          return SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+        })
+        .join('');
+
+      setDisplay(out);
+      frame++;
+
+      if (frame <= word.replace(/[.! ]/g, '').length * framesPerChar) {
+        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        setDisplay(word);          // ensure final state is exact
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+  }, [word]);
+
+  useEffect(() => {
+    // First run shortly after the entrance animation settles (words blur-in at ~1.7s)
+    const firstTimer = setTimeout(() => {
+      runScramble();
+
+      const loop = () => {
+        // Random repeat every 10–40 seconds
+        const delay = 10_000 + Math.random() * 30_000;
+        timerRef.current = setTimeout(() => {
+          runScramble();
+          loop();
+        }, delay);
+      };
+      loop();
+    }, 3_200);
+
+    return () => {
+      clearTimeout(firstTimer);
+      clearTimeout(timerRef.current);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, [runScramble]);
+
+  return <span className={className}>{display}</span>;
+}
 
 
 export function Hero() {
@@ -55,30 +125,42 @@ export function Hero() {
               <stop offset="100%" stopColor="rgba(22,40,24,0.55)" />
             </linearGradient>
           </defs>
-          {[150,420,700,950,1220].map((cx,i) => {
-            const r = 90+(i%3)*28;
-            const dur = 7 + i * 1.9;
-            return (
-              <g key={i} style={{
-                animation: `tree-sway ${dur}s ease-in-out ${i * 0.7}s infinite ${i % 2 ? 'reverse' : 'normal'}`,
-                transformBox: 'fill-box', transformOrigin: 'bottom center',
-              }}>
-                <ellipse cx={cx} cy={400-r} rx={r*1.2} ry={r} fill="url(#t1)" />
-                <rect x={cx-10} y={400-r*0.18} width={20} height={r*0.22} fill="url(#t1)" />
-              </g>
-            );
-          })}
-          {[80,290,510,730,960,1160,1380].map((cx,i) => {
-            const h=180+(i%3)*50; const w=30+(i%3)*10;
-            const dur = 9 + i * 1.4;
-            return <path key={`p${i}`} fill="url(#t2)"
-              style={{
-                animation: `tree-sway ${dur}s ease-in-out ${i * 0.5}s infinite ${i % 2 ? 'normal' : 'reverse'}`,
-                transformBox: 'fill-box', transformOrigin: 'bottom center',
-              }}
-              d={`M${cx} 400 L${cx} ${400-h*0.28} L${cx-w*2} ${400-h*0.6} L${cx-w*1.4} ${400-h*0.6} L${cx-w*2.2} ${400-h*0.82} L${cx-w*1.4} ${400-h*0.82} L${cx-w*1.7} ${400-h} L${cx} ${400-h-18} L${cx+w*1.7} ${400-h} L${cx+w*1.4} ${400-h*0.82} L${cx+w*2.2} ${400-h*0.82} L${cx+w*1.4} ${400-h*0.6} L${cx+w*2} ${400-h*0.6} Z`} />;
-          })}
-          <ellipse cx={720} cy={400} rx={900} ry={100} fill="rgba(30,50,32,0.2)" />
+          <g style={{
+            transform: `translateX(${(mouse.x - 50) * -0.35}px)`,
+            transition: 'transform 2.2s cubic-bezier(0.16,1,0.3,1)',
+          }}>
+            {/* round trees */}
+            {[150,420,700,950,1220].map((cx,i) => {
+              const r = 90+(i%3)*28;
+              const dur = 7 + i * 1.9;
+              return (
+                <g key={i} style={{
+                  animation: `tree-sway ${dur}s ease-in-out ${i * 0.7}s infinite ${i % 2 ? 'reverse' : 'normal'}`,
+                  transformBox: 'fill-box', transformOrigin: 'bottom center',
+                }}>
+                  <ellipse cx={cx} cy={400-r} rx={r*1.2} ry={r} fill="url(#t1)" />
+                  <rect x={cx-10} y={400-r*0.18} width={20} height={r*0.22} fill="url(#t1)" />
+                </g>
+              );
+            })}
+          </g>
+          <g style={{
+            transform: `translateX(${(mouse.x - 50) * 0.55}px)`,
+            transition: 'transform 1.6s cubic-bezier(0.16,1,0.3,1)',
+          }}>
+            {/* pine trees + ground ellipse */}
+            {[80,290,510,730,960,1160,1380].map((cx,i) => {
+              const h=180+(i%3)*50; const w=30+(i%3)*10;
+              const dur = 9 + i * 1.4;
+              return <path key={`p${i}`} fill="url(#t2)"
+                style={{
+                  animation: `tree-sway ${dur}s ease-in-out ${i * 0.5}s infinite ${i % 2 ? 'normal' : 'reverse'}`,
+                  transformBox: 'fill-box', transformOrigin: 'bottom center',
+                }}
+                d={`M${cx} 400 L${cx} ${400-h*0.28} L${cx-w*2} ${400-h*0.6} L${cx-w*1.4} ${400-h*0.6} L${cx-w*2.2} ${400-h*0.82} L${cx-w*1.4} ${400-h*0.82} L${cx-w*1.7} ${400-h} L${cx} ${400-h-18} L${cx+w*1.7} ${400-h} L${cx+w*1.4} ${400-h*0.82} L${cx+w*2.2} ${400-h*0.82} L${cx+w*1.4} ${400-h*0.6} L${cx+w*2} ${400-h*0.6} Z`} />;
+            })}
+            <ellipse cx={720} cy={400} rx={900} ry={100} fill="rgba(30,50,32,0.2)" />
+          </g>
         </svg>
       </div>
 
@@ -107,9 +189,10 @@ export function Hero() {
               className="inline-block mr-[0.22em]"
             >
               {i === words.length - 1 ? (
-                <span className="hero-word-drift bg-gradient-to-br from-forest-700 via-moss-600 to-forest-900 dark:from-moss-300 dark:via-forest-200 dark:to-moss-400 bg-clip-text text-transparent italic font-light">
-                  {word}
-                </span>
+                <ScrambleWord
+                  word={word}
+                  className="hero-word-drift bg-gradient-to-br from-forest-700 via-moss-600 to-forest-900 dark:from-moss-300 dark:via-forest-200 dark:to-moss-400 bg-clip-text text-transparent italic font-light"
+                />
               ) : word}
             </motion.span>
           ))}

@@ -282,10 +282,10 @@ export function Catalog() {
               <motion.div
                 key={tree.id}
                 layout="position"
-                initial={{ opacity: 0, y: 24, scale: 0.94 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.15 } }}
-                transition={{ delay: Math.min(i * 0.035, 0.25), duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                initial={{ opacity: 0, y: 36, scale: 0.88, filter: 'blur(8px)' }}
+                animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, scale: 0.9, filter: 'blur(4px)', transition: { duration: 0.18 } }}
+                transition={{ delay: Math.min(i * 0.055, 0.32), duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
                 style={{ perspective: 900 }}
               >
                 <TreeCard
