@@ -164,7 +164,20 @@ export function Hero() {
         </svg>
       </div>
 
-      {/* Content */}
+      {/* Big company name — top-left, absolutely positioned */}
+      <motion.div
+        initial={{ opacity: 0, x: -32 }} animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1.0, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute top-24 left-8 xl:left-16 z-10 text-left pointer-events-none hidden sm:block"
+        aria-hidden
+      >
+        <span className="text-[11px] uppercase tracking-[0.25em] text-forest-600 dark:text-forest-400 font-medium block mb-3">Est. 2023</span>
+        <p className="text-[clamp(2.2rem,4.5vw,5rem)] font-bold leading-[0.88] tracking-[-0.04em] text-forest-900 dark:text-forest-50">
+          MB<br />Plant<br />House
+        </p>
+      </motion.div>
+
+      {/* Content — centered as before */}
       <div className="relative z-10 text-center px-5 max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}

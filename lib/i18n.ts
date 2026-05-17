@@ -211,6 +211,8 @@ export const translations = {
       privacy: 'Privacy', terms: 'Terms', cookies: 'Cookies',
       catalog: 'Tree catalog', builder: 'Garden Builder', aboutUs: 'About us',
       services: 'Services & pricing', care: 'Care guides',
+      aboutTitle: 'About', aboutDesc: 'A family-run nursery in the Klaipėda region growing trees on-site since 2023. Every specimen is documented, named, and nurtured for years before sale.',
+      followUs: 'Follow us',
       serviceItems: ['Garden design', 'Site visits', 'Plant delivery', 'Planting', 'Soil preparation'],
     },
     legal: {
@@ -459,6 +461,8 @@ export const translations = {
       privacy: 'Privatumas', terms: 'Sąlygos', cookies: 'Slapukai',
       catalog: 'Medžių katalogas', builder: 'Sodo kūrėjas', aboutUs: 'Apie mus',
       services: 'Paslaugos ir kainos', care: 'Priežiūros gidai',
+      aboutTitle: 'Apie mus', aboutDesc: 'Šeimos valdomas medelynas Klaipėdos regione, auginantis medžius nuo 2023 m. Kiekvienas egzempliorius dokumentuojamas, įvardinamas ir puoselėjamas kelerius metus prieš parduodant.',
+      followUs: 'Sekite mus',
       serviceItems: ['Sodo projektavimas', 'Vizitai į vietą', 'Augalų pristatymas', 'Sodinimas', 'Dirvos paruošimas'],
     },
     legal: {
@@ -707,6 +711,8 @@ export const translations = {
       privacy: 'Конфиденциальность', terms: 'Условия', cookies: 'Куки',
       catalog: 'Каталог деревьев', builder: 'Конструктор сада', aboutUs: 'О нас',
       services: 'Услуги и цены', care: 'Руководства по уходу',
+      aboutTitle: 'О нас', aboutDesc: 'Семейный питомник в Клайпедском регионе, выращивающий деревья с 2023 года. Каждый экземпляр задокументирован, назван и бережно выхожен в течение нескольких лет до продажи.',
+      followUs: 'Мы в соцсетях',
       serviceItems: ['Проектирование сада', 'Выезд на место', 'Доставка растений', 'Посадка', 'Подготовка почвы'],
     },
     legal: {
