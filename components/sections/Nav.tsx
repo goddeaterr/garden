@@ -60,9 +60,10 @@ export function Nav() {
   }, []);
 
   const links = [
-    { label: tr.nav.trees,    href: '#catalog',   section: 'catalog'  },
-    { label: tr.nav.about,    href: '#about',     section: 'about'    },
-    { label: tr.nav.services, href: '#services',  section: 'services' },
+    { label: tr.nav.trees,               href: '#catalog',  section: 'catalog'  },
+    { label: tr.nav.about,               href: '#about',    section: 'about'    },
+    { label: tr.nav.services,            href: '#services', section: 'services' },
+    { label: (tr.nav as any).news,       href: '#',         section: ''         },
   ];
 
   return (
@@ -170,6 +171,13 @@ export function Nav() {
         </div>
 
         <div className="flex items-center gap-1 sm:gap-1.5 ml-1 sm:ml-2">
+          <a
+            href="tel:+37061854758"
+            className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium text-forest-700 dark:text-forest-200 hover:text-forest-950 dark:hover:text-white transition-colors"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.4h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10a16 16 0 0 0 6 6l1.27-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.18z"/></svg>
+            +370 618 54758
+          </a>
           <LangSwitcher />
           <ThemeToggle />
           <a

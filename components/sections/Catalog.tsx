@@ -156,41 +156,52 @@ function TreeCard({ tree, onOpen }: {
   );
 }
 
+const CAT_STYLES: Record<string, { card: string; icon: string; dot: string }> = {
+  fruit:      { card: 'from-amber-50  to-amber-100/60  dark:from-amber-950/40  dark:to-amber-900/20  border-amber-200/60  dark:border-amber-700/30',  icon: 'bg-amber-100  dark:bg-amber-900/50  text-amber-600  dark:text-amber-300',  dot: 'bg-amber-500'  },
+  decorative: { card: 'from-[#f0f7ea] to-[#e8f2df]     dark:from-[#1a2e12]/40 dark:to-[#253d18]/20  border-[#c8ddb8]/60 dark:border-[#3a5c2a]/30', icon: 'bg-[#eaf4df] dark:bg-[#1e3414]/60 text-[#4a7c3a] dark:text-[#8ecb6e]', dot: 'bg-[#6a9a4a]' },
+  evergreen:  { card: 'from-emerald-50 to-emerald-100/60 dark:from-emerald-950/40 dark:to-emerald-900/20 border-emerald-200/60 dark:border-emerald-700/30', icon: 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300', dot: 'bg-emerald-500' },
+  shrub:      { card: 'from-violet-50 to-violet-100/60 dark:from-violet-950/40 dark:to-violet-900/20 border-violet-200/60 dark:border-violet-700/30', icon: 'bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-300', dot: 'bg-violet-500' },
+};
+
 /* ── Main Catalog ── */
 export function Catalog() {
   const trees = useTrees();
-  const [cat, setCat] = useState<TreeCategory | 'all'>('all');
+  const [activeCat, setActiveCat] = useState<TreeCategory | null>(null);
   const [size, setSize] = useState<TreeSize | 'all'>('all');
   const [maxPrice, setMaxPrice] = useState(PRICE_MAX);
   const [selectedTree, setSelectedTree] = useState<Tree | null>(null);
   const { tr } = useI18n();
   const c = tr.catalog;
 
-  const categories = [
-    { value: 'all' as const, label: c.allCats },
-    { value: 'fruit' as const, label: c.fruit },
-    { value: 'decorative' as const, label: c.decorative },
-    { value: 'evergreen' as const, label: c.evergreen },
-    { value: 'shrub' as const, label: c.shrub },
+  const categoryDefs = [
+    { value: 'fruit'      as TreeCategory, label: c.fruit,       icon: Apple    },
+    { value: 'decorative' as TreeCategory, label: c.decorative,  icon: Flower2  },
+    { value: 'evergreen'  as TreeCategory, label: c.evergreen,   icon: TreePine },
+    { value: 'shrub'      as TreeCategory, label: c.shrub,       icon: Sprout   },
   ];
 
   const filteredTrees = useMemo(() => {
+    if (!activeCat) return [];
     return trees.filter(t => {
-      if (cat !== 'all' && t.category !== cat) return false;
+      if (t.category !== activeCat) return false;
       if (size !== 'all' && t.size !== size) return false;
       if (t.price > maxPrice) return false;
       return true;
     });
-  }, [trees, cat, size, maxPrice]);
+  }, [trees, activeCat, size, maxPrice]);
 
-  const hasActiveFilters = cat !== 'all' || size !== 'all' || maxPrice < PRICE_MAX;
-  const clearFilters = () => { setCat('all'); setSize('all'); setMaxPrice(PRICE_MAX); };
+  const openCategory = (cat: TreeCategory) => {
+    setSize('all');
+    setMaxPrice(PRICE_MAX);
+    setActiveCat(cat);
+  };
+
+  const goBack = () => setActiveCat(null);
 
   return (
     <>
       <section id="catalog" className="botanical-section-texture relative py-16 sm:py-28 px-4 sm:px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-forest-50 via-white to-forest-50 dark:from-forest-950 dark:via-forest-900/80 dark:to-forest-950" />
-        {/* Organic animated blobs replace the old white grid */}
         <div aria-hidden className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="catalog-blob catalog-blob-1" />
           <div className="catalog-blob catalog-blob-2" />
@@ -205,117 +216,146 @@ export function Catalog() {
               <h2 className="shimmer-title text-headline text-[clamp(1.75rem,5vw,4rem)]">{c.title}</h2>
               <div className="mt-3 h-[2px] w-14 rounded-full bg-gradient-to-r from-forest-600 via-emerald-500 to-transparent" />
             </div>
-          </div>
-
-          {/* Filters */}
-          <div className="filter-panel bg-white/80 dark:bg-forest-950/80 rounded-2xl p-3 sm:p-4 border border-forest-200/60 dark:border-forest-800/60 mb-8">
-            {/* Category pills + count + clear */}
-            <div className="flex flex-wrap gap-1.5 mb-3 items-center">
-              {categories.map(cat_ => (
-                <button
-                  key={cat_.value}
-                  onClick={() => setCat(cat_.value)}
-                  className={cn(
-                    'px-3 py-1.5 text-[12px] sm:text-[13px] font-medium rounded-full transition-all duration-200',
-                    cat === cat_.value
-                      ? CAT_ACTIVE[cat_.value]
-                      : 'text-forest-700 dark:text-forest-300 bg-forest-100 dark:bg-forest-800 hover:bg-forest-200 dark:hover:bg-forest-700'
-                  )}
+            {/* Back button */}
+            <AnimatePresence>
+              {activeCat && (
+                <motion.button
+                  initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 12 }}
+                  onClick={goBack}
+                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-forest-200 dark:border-forest-700 text-[13px] font-medium text-forest-700 dark:text-forest-200 hover:bg-forest-100 dark:hover:bg-forest-800 transition-colors"
                 >
-                  {cat_.label}
-                </button>
-              ))}
-              <div className="ml-auto flex items-center gap-1.5">
-                {trees.length > 0 && (
-                  <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-forest-100 dark:bg-forest-800 text-forest-500 dark:text-forest-400 tabular-nums">
-                    {filteredTrees.length} {filteredTrees.length === 1 ? c.countSingle.split(' ')[0] : c.countPlural.split(' ')[0]}
-                  </span>
-                )}
-                {hasActiveFilters && (
-                  <button
-                    onClick={clearFilters}
-                    className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-forest-900/10 dark:bg-forest-100/10 text-forest-700 dark:text-forest-300 hover:bg-forest-900/20 dark:hover:bg-forest-100/20 transition-colors"
-                  >
-                    ✕ Clear
-                  </button>
-                )}
-              </div>
-            </div>
-
-            {/* Price slider + size — stacked on mobile, side-by-side on sm+ */}
-            <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-4">
-              <div className="flex items-center gap-2 sm:flex-1">
-                <label className="text-[12px] text-forest-600 dark:text-forest-400 font-medium whitespace-nowrap">{c.maxPrice}</label>
-                <input
-                  type="range" min={0} max={1000} step={10} value={maxPrice}
-                  onChange={e => setMaxPrice(Number(e.target.value))}
-                  className="apple-slider flex-1"
-                  style={{
-                    background: `linear-gradient(to right, #508153 0%, #508153 ${(maxPrice / 1000) * 100}%, rgba(60,80,64,0.2) ${(maxPrice / 1000) * 100}%, rgba(60,80,64,0.2) 100%)`,
-                  }}
-                />
-                <span className="text-[13px] font-semibold tabular-nums text-forest-900 dark:text-forest-100 w-14 text-right">€{maxPrice}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                {(['all','small','medium','large'] as const).map(s => (
-                  <button
-                    key={s}
-                    onClick={() => setSize(s)}
-                    className={cn(
-                      'px-2.5 py-1.5 text-[11px] sm:text-[12px] font-medium rounded-full transition-all',
-                      size === s
-                        ? 'bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900'
-                        : 'text-forest-600 dark:text-forest-400 bg-forest-100 dark:bg-forest-800 hover:bg-forest-200 dark:hover:bg-forest-700'
-                    )}
-                  >
-                    {s === 'all' ? c.sizeAll : s === 'small' ? c.sizeSmall : s === 'medium' ? c.sizeMedium : c.sizeLarge}
-                  </button>
-                ))}
-              </div>
-            </div>
+                  ← {c.allCats}
+                </motion.button>
+              )}
+            </AnimatePresence>
           </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
-            <AnimatePresence mode="popLayout">
-            {filteredTrees.map((tree, i) => (
+          <AnimatePresence mode="wait">
+            {/* ── Category cards view ── */}
+            {!activeCat && (
               <motion.div
-                key={tree.id}
-                layout="position"
-                initial={{ opacity: 0, y: 36, scale: 0.88, filter: 'blur(8px)' }}
-                animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, scale: 0.9, filter: 'blur(4px)', transition: { duration: 0.18 } }}
-                transition={{ delay: Math.min(i * 0.055, 0.32), duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                style={{ perspective: 900 }}
+                key="categories"
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
               >
-                <TreeCard
-                  tree={tree}
-                  onOpen={setSelectedTree}
-                />
+                {categoryDefs.map((cat, i) => {
+                  const count = trees.filter(t => t.category === cat.value).length;
+                  const Icon = cat.icon;
+                  const s = CAT_STYLES[cat.value];
+                  return (
+                    <motion.button
+                      key={cat.value}
+                      initial={{ opacity: 0, y: 32, scale: 0.94 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ delay: i * 0.07, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                      onClick={() => openCategory(cat.value)}
+                      className={cn(
+                        'group relative text-left rounded-2xl border bg-gradient-to-br p-6 overflow-hidden',
+                        'hover:scale-[1.02] hover:shadow-xl active:scale-[0.98] transition-all duration-300',
+                        s.card
+                      )}
+                    >
+                      {/* Icon */}
+                      <div className={cn('w-12 h-12 rounded-xl flex items-center justify-center mb-4', s.icon)}>
+                        <Icon size={22} />
+                      </div>
+                      {/* Name */}
+                      <h3 className="text-[18px] font-bold text-forest-900 dark:text-forest-50 mb-1 tracking-tight">{cat.label}</h3>
+                      {/* Count */}
+                      <p className="text-[13px] text-forest-500 dark:text-forest-400 flex items-center gap-1.5">
+                        <span className={cn('inline-block w-1.5 h-1.5 rounded-full', s.dot)} />
+                        {count} {count === 1 ? c.countSingle.split(' ')[0] : c.countPlural.split(' ')[0]}
+                      </p>
+                      {/* Arrow */}
+                      <div className="absolute bottom-4 right-4 text-forest-400 dark:text-forest-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                      </div>
+                    </motion.button>
+                  );
+                })}
               </motion.div>
-            ))}
-            </AnimatePresence>
-            {filteredTrees.length === 0 && trees.length > 0 && (
-              <div className="col-span-full text-center py-12 text-forest-500">{c.noResults}</div>
             )}
-            {trees.length === 0 && (
-              <>
-                <div className="col-span-full flex flex-col items-center py-10 gap-2">
-                  <BrandedSpinner size={56} label="Loading catalog…" />
-                </div>
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <div key={i} className="rounded-2xl overflow-hidden border border-forest-200/40 dark:border-forest-800/40 opacity-40">
-                    <div className="aspect-square skeleton" />
-                    <div className="px-3 pb-4 pt-3 space-y-2">
-                      <div className="h-[14px] rounded-full skeleton w-3/4" />
-                      <div className="h-[11px] rounded-full skeleton w-1/2" />
-                      <div className="h-[38px] rounded-xl skeleton w-full mt-1" />
+
+            {/* ── Tree grid view ── */}
+            {activeCat && (
+              <motion.div
+                key={activeCat}
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {/* Filters — price + size only */}
+                <div className="filter-panel bg-white/80 dark:bg-forest-950/80 rounded-2xl p-3 sm:p-4 border border-forest-200/60 dark:border-forest-800/60 mb-8">
+                  <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-4">
+                    <div className="flex items-center gap-2 sm:flex-1">
+                      <label className="text-[12px] text-forest-600 dark:text-forest-400 font-medium whitespace-nowrap">{c.maxPrice}</label>
+                      <input
+                        type="range" min={0} max={1000} step={10} value={maxPrice}
+                        onChange={e => setMaxPrice(Number(e.target.value))}
+                        className="apple-slider flex-1"
+                        style={{ background: `linear-gradient(to right, #508153 0%, #508153 ${(maxPrice / 1000) * 100}%, rgba(60,80,64,0.2) ${(maxPrice / 1000) * 100}%, rgba(60,80,64,0.2) 100%)` }}
+                      />
+                      <span className="text-[13px] font-semibold tabular-nums text-forest-900 dark:text-forest-100 w-14 text-right">€{maxPrice}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      {(['all','small','medium','large'] as const).map(s => (
+                        <button key={s} onClick={() => setSize(s)}
+                          className={cn('px-2.5 py-1.5 text-[11px] sm:text-[12px] font-medium rounded-full transition-all',
+                            size === s ? 'bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900'
+                              : 'text-forest-600 dark:text-forest-400 bg-forest-100 dark:bg-forest-800 hover:bg-forest-200 dark:hover:bg-forest-700'
+                          )}
+                        >
+                          {s === 'all' ? c.sizeAll : s === 'small' ? c.sizeSmall : s === 'medium' ? c.sizeMedium : c.sizeLarge}
+                        </button>
+                      ))}
+                      <span className="ml-3 text-[11px] font-medium px-2.5 py-1 rounded-full bg-forest-100 dark:bg-forest-800 text-forest-500 dark:text-forest-400 tabular-nums">
+                        {filteredTrees.length} {filteredTrees.length === 1 ? c.countSingle.split(' ')[0] : c.countPlural.split(' ')[0]}
+                      </span>
                     </div>
                   </div>
-                ))}
-              </>
+                </div>
+
+                {/* Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
+                  <AnimatePresence mode="popLayout">
+                    {filteredTrees.map((tree, i) => (
+                      <motion.div key={tree.id} layout="position"
+                        initial={{ opacity: 0, y: 36, scale: 0.88, filter: 'blur(8px)' }}
+                        animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, scale: 0.9, filter: 'blur(4px)', transition: { duration: 0.18 } }}
+                        transition={{ delay: Math.min(i * 0.055, 0.32), duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                        style={{ perspective: 900 }}
+                      >
+                        <TreeCard tree={tree} onOpen={setSelectedTree} />
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                  {filteredTrees.length === 0 && trees.length > 0 && (
+                    <div className="col-span-full text-center py-12 text-forest-500">{c.noResults}</div>
+                  )}
+                  {trees.length === 0 && (
+                    <>
+                      <div className="col-span-full flex flex-col items-center py-10 gap-2">
+                        <BrandedSpinner size={56} label="Loading catalog…" />
+                      </div>
+                      {Array.from({ length: 4 }).map((_, i) => (
+                        <div key={i} className="rounded-2xl overflow-hidden border border-forest-200/40 dark:border-forest-800/40 opacity-40">
+                          <div className="aspect-square skeleton" />
+                          <div className="px-3 pb-4 pt-3 space-y-2">
+                            <div className="h-[14px] rounded-full skeleton w-3/4" />
+                            <div className="h-[11px] rounded-full skeleton w-1/2" />
+                            <div className="h-[38px] rounded-xl skeleton w-full mt-1" />
+                          </div>
+                        </div>
+                      ))}
+                    </>
+                  )}
+                </div>
+              </motion.div>
             )}
-          </div>
+          </AnimatePresence>
         </div>
       </section>
 

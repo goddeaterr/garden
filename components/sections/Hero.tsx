@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Sparkles, TreePine, Flower2, Sprout } from 'lucide-react';
 import { useI18n } from '@/lib/i18nContext';
 import { Particles } from '@/components/ui/Particles';
 
@@ -97,6 +97,22 @@ export function Hero() {
       className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#e8f0e8] via-[#f0f4f0] to-[#e3ede3] dark:from-[#0c160e] dark:via-[#101f12] dark:to-[#0c160e]"
     >
 
+      {/* Photo background — placed first so it sits behind everything */}
+      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden>
+        <img
+          src="/hero-bg.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+        />
+        {/* Light mode: soft green tint at 45% so photo shows clearly */}
+        <div className="absolute inset-0 dark:hidden"
+          style={{ background: 'linear-gradient(to bottom, rgba(232,240,232,0.45), rgba(240,244,240,0.40), rgba(227,237,227,0.52))' }} />
+        {/* Dark mode: deep forest tint at 55% */}
+        <div className="absolute inset-0 hidden dark:block"
+          style={{ background: 'linear-gradient(to bottom, rgba(12,22,14,0.55), rgba(16,31,18,0.50), rgba(12,22,14,0.62))' }} />
+      </div>
+
       {/* Mouse spotlight */}
       <div
         aria-hidden
@@ -164,18 +180,55 @@ export function Hero() {
         </svg>
       </div>
 
-      {/* Big company name — top-left, absolutely positioned */}
-      <motion.div
-        initial={{ opacity: 0, x: -32 }} animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.0, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-24 left-8 xl:left-16 z-10 text-left pointer-events-none hidden sm:block"
-        aria-hidden
+
+      {/* Category side-cards — desktop only */}
+      {/* Left card: Evergreens */}
+      <motion.a
+        href="#catalog"
+        initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.9, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute left-6 xl:left-12 top-1/2 -translate-y-1/2 z-10 hidden xl:flex flex-col gap-3 w-[200px] p-5 rounded-2xl cursor-pointer group backdrop-blur-xl bg-white/60 dark:bg-forest-900/60 border border-white/70 dark:border-forest-700/50 hover:bg-white/75 dark:hover:bg-forest-800/70 transition-colors"
       >
-        <span className="text-[11px] uppercase tracking-[0.25em] text-forest-600 dark:text-forest-400 font-medium block mb-3">Est. 2023</span>
-        <p className="text-[clamp(2.2rem,4.5vw,5rem)] font-bold leading-[0.88] tracking-[-0.04em] text-forest-900 dark:text-forest-50">
-          MB<br />Plant<br />House
-        </p>
-      </motion.div>
+        <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center">
+          <TreePine size={20} className="text-emerald-700 dark:text-emerald-400" />
+        </div>
+        <div>
+          <p className="text-[15px] font-bold text-forest-900 dark:text-forest-50 leading-tight mb-1">{(tr.hero as any).cat1}</p>
+          <p className="text-[11px] text-forest-500 dark:text-forest-400 uppercase tracking-widest">→ {tr.catalog.evergreen}</p>
+        </div>
+      </motion.a>
+
+      {/* Left-lower card: Deciduous */}
+      <motion.a
+        href="#catalog"
+        initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.9, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute left-6 xl:left-12 top-[62%] z-10 hidden xl:flex flex-col gap-3 w-[200px] p-5 rounded-2xl cursor-pointer group backdrop-blur-xl bg-white/50 dark:bg-forest-900/50 border border-white/60 dark:border-forest-700/40 hover:bg-white/65 dark:hover:bg-forest-800/60 transition-colors"
+      >
+        <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center">
+          <Flower2 size={20} className="text-amber-700 dark:text-amber-400" />
+        </div>
+        <div>
+          <p className="text-[15px] font-bold text-forest-900 dark:text-forest-50 leading-tight mb-1">{(tr.hero as any).cat2}</p>
+          <p className="text-[11px] text-forest-500 dark:text-forest-400 uppercase tracking-widest">→ {tr.catalog.decorative}</p>
+        </div>
+      </motion.a>
+
+      {/* Right card: Other Plants */}
+      <motion.a
+        href="#catalog"
+        initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.9, delay: 1.3, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute right-6 xl:right-12 top-1/2 -translate-y-1/2 z-10 hidden xl:flex flex-col gap-3 w-[200px] p-5 rounded-2xl cursor-pointer group backdrop-blur-xl bg-white/60 dark:bg-forest-900/60 border border-white/70 dark:border-forest-700/50 hover:bg-white/75 dark:hover:bg-forest-800/70 transition-colors"
+      >
+        <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/40 flex items-center justify-center">
+          <Sprout size={20} className="text-violet-700 dark:text-violet-400" />
+        </div>
+        <div>
+          <p className="text-[15px] font-bold text-forest-900 dark:text-forest-50 leading-tight mb-1">{(tr.hero as any).cat3}</p>
+          <p className="text-[11px] text-forest-500 dark:text-forest-400 uppercase tracking-widest">→ {tr.catalog.shrub}</p>
+        </div>
+      </motion.a>
 
       {/* Content — centered as before */}
       <div className="relative z-10 text-center px-5 max-w-5xl">

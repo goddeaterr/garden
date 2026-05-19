@@ -24,13 +24,14 @@ export const translations = {
       saveUpTo: 'Save up to €',
       sellersLabel: 'sellers',
     },
-    nav: { trees: 'Trees', builder: 'Garden Builder', about: 'About', services: 'Services', garden: 'Garden', requestQuote: 'Request Quote', getAQuote: 'Get a Quote', annText: 'Spring 2026 Collection is here —', annLink: 'browse new arrivals', annFree: 'Free delivery on orders over €200' },
+    nav: { trees: 'Trees', builder: 'Garden Builder', about: 'About', services: 'Services', news: 'News', garden: 'Garden', requestQuote: 'Request Quote', getAQuote: 'Get a Quote', annText: 'Spring 2026 Collection is here —', annLink: 'browse new arrivals', annFree: 'Free delivery on orders over €200' },
     hero: {
       badge: 'Now in season — Spring 2026 collection',
       headline: ['Design', 'Your', 'Dream', 'Garden.'],
       sub: 'A premium nursery for trees that outlive us — and a planning studio to place every one of them, exactly where it belongs.',
       cta1: 'Explore Trees', cta2: 'Learn More', cta2badge: '', scroll: 'Scroll',
       trust1: '100+ Species', trust2: 'Same-day Quote', trust3: 'Nationwide Delivery',
+      cat1: 'Our Evergreens', cat2: 'Deciduous Trees', cat3: 'Other Plants',
     },
     about: {
       eyebrow: 'What we do',
@@ -277,13 +278,14 @@ export const translations = {
       saveUpTo: 'Sutaupykite iki €',
       sellersLabel: 'pardavėjai',
     },
-    nav: { trees: 'Medžiai', builder: 'Sodo kūrėjas', about: 'Apie', services: 'Paslaugos', garden: 'Sodas', requestQuote: 'Prašyti pasiūlymo', getAQuote: 'Gauti pasiūlymą', annText: '2026 pavasario kolekcija čia —', annLink: 'peržiūrėti naujausius', annFree: 'Nemokamas pristatymas nuo €200' },
+    nav: { trees: 'Medžiai', builder: 'Sodo kūrėjas', about: 'Apie', services: 'Paslaugos', news: 'Naujienos', garden: 'Sodas', requestQuote: 'Prašyti pasiūlymo', getAQuote: 'Gauti pasiūlymą', annText: '2026 pavasario kolekcija čia —', annLink: 'peržiūrėti naujausius', annFree: 'Nemokamas pristatymas nuo €200' },
     hero: {
       badge: 'Sezonas prasidėjo — 2026 pavasario kolekcija',
       headline: ['Sukurkite', 'Savo', 'Svajonių', 'Sodą.'],
       sub: 'Aukščiausios kokybės medelynas — ir planavimo studija, kuri padeda surasti tinkamą vietą kiekvienam medžiui.',
       cta1: 'Peržiūrėti medžius', cta2: 'Sužinoti daugiau', cta2badge: '', scroll: 'Slinkti',
       trust1: '100+ rūšių', trust2: 'Greitas pasiūlymas', trust3: 'Pristatymas visoje Lietuvoje',
+      cat1: 'Mūsų Spigliuočiai', cat2: 'Mūsų Lapuočiai', cat3: 'Kiti Augalai',
     },
     about: {
       eyebrow: 'Ką mes darome', headline1: 'Du amatai.',
@@ -527,13 +529,14 @@ export const translations = {
       saveUpTo: 'Сэкономьте до €',
       sellersLabel: 'продавцов',
     },
-    nav: { trees: 'Деревья', builder: 'Конструктор', about: 'О нас', services: 'Услуги', garden: 'Сад', requestQuote: 'Запрос цены', getAQuote: 'Запросить цену', annText: 'Коллекция весна 2026 здесь —', annLink: 'смотреть новинки', annFree: 'Бесплатная доставка от €200' },
+    nav: { trees: 'Деревья', builder: 'Конструктор', about: 'О нас', services: 'Услуги', news: 'Новости', garden: 'Сад', requestQuote: 'Запрос цены', getAQuote: 'Запросить цену', annText: 'Коллекция весна 2026 здесь —', annLink: 'смотреть новинки', annFree: 'Бесплатная доставка от €200' },
     hero: {
       badge: 'Сезон открыт — коллекция весна 2026',
       headline: ['Создайте', 'Сад', 'Своей', 'Мечты.'],
       sub: 'Премиальный питомник деревьев — и студия планирования, чтобы разместить каждое дерево именно там, где оно нужно.',
       cta1: 'Смотреть деревья', cta2: 'Узнать больше', cta2badge: '', scroll: 'Прокрутить',
       trust1: '100+ видов', trust2: 'Расчёт за день', trust3: 'Доставка по всей стране',
+      cat1: 'Наши хвойные', cat2: 'Лиственные деревья', cat3: 'Другие растения',
     },
     about: {
       eyebrow: 'Что мы делаем', headline1: 'Два ремесла.',
