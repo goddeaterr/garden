@@ -1,4 +1,4 @@
-export type TreeCategory = 'fruit' | 'decorative' | 'evergreen' | 'shrub';
+export type TreeCategory = 'trees' | 'shrubs' | 'perennial' | 'annual' | 'conifer' | 'climbing' | 'hedge' | 'potted' | 'grass';
 export type TreeSize = 'small' | 'medium' | 'large';
 
 export interface TreeCare {

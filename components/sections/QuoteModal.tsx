@@ -12,10 +12,15 @@ interface Props {
 }
 
 const CAT_GRADIENT: Record<string, string> = {
-  fruit:      'linear-gradient(135deg, #b45309 0%, #92400e 100%)',
-  decorative: 'linear-gradient(135deg, #4a7c3f 0%, #2d5a25 100%)',
-  evergreen:  'linear-gradient(135deg, #0a7055 0%, #064e3b 100%)',
-  shrub:      'linear-gradient(135deg, #6d3bb5 0%, #4c1d95 100%)',
+  trees:    'linear-gradient(135deg, #166534 0%, #14532d 100%)',
+  shrubs:   'linear-gradient(135deg, #6d3bb5 0%, #4c1d95 100%)',
+  perennial:'linear-gradient(135deg, #be185d 0%, #9d174d 100%)',
+  annual:   'linear-gradient(135deg, #c2410c 0%, #9a3412 100%)',
+  conifer:  'linear-gradient(135deg, #0f766e 0%, #115e59 100%)',
+  climbing: 'linear-gradient(135deg, #4d7c0f 0%, #3f6212 100%)',
+  hedge:    'linear-gradient(135deg, #15803d 0%, #166534 100%)',
+  potted:   'linear-gradient(135deg, #b45309 0%, #92400e 100%)',
+  grass:    'linear-gradient(135deg, #a16207 0%, #854d0e 100%)',
 };
 
 const CONFETTI_COLORS = ['#4ade80','#86efac','#fbbf24','#a78bfa','#f472b6','#34d399','#fff'];
@@ -88,7 +93,7 @@ export function QuoteModal({ tree, onClose }: Props) {
     onClose();
   };
 
-  const gradient = tree ? (CAT_GRADIENT[tree.category] || CAT_GRADIENT.decorative) : CAT_GRADIENT.decorative;
+  const gradient = tree ? (CAT_GRADIENT[tree.category] || CAT_GRADIENT.trees) : CAT_GRADIENT.trees;
 
   return (
     <AnimatePresence>

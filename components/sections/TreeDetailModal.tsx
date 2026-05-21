@@ -36,17 +36,27 @@ const careLabels: Record<string, { en: string; lt: string; ru: string }> = {
 };
 
 const categoryColors: Record<string, string> = {
-  fruit: 'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200',
-  decorative: 'bg-pink-100 dark:bg-pink-900/30 text-pink-800 dark:text-pink-200',
-  evergreen: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200',
-  shrub: 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200',
+  trees:    'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200',
+  shrubs:   'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200',
+  perennial:'bg-pink-100 dark:bg-pink-900/30 text-pink-800 dark:text-pink-200',
+  annual:   'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200',
+  conifer:  'bg-teal-100 dark:bg-teal-900/30 text-teal-800 dark:text-teal-200',
+  climbing: 'bg-lime-100 dark:bg-lime-900/30 text-lime-800 dark:text-lime-200',
+  hedge:    'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200',
+  potted:   'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200',
+  grass:    'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200',
 };
 
 const categoryLabels: Record<string, { en: string; lt: string; ru: string }> = {
-  fruit:      { en: 'Fruit tree',   lt: 'Vaismedis',        ru: 'Плодовое' },
-  decorative: { en: 'Decorative',   lt: 'Dekoratyvinis',    ru: 'Декоративное' },
-  evergreen:  { en: 'Evergreen',    lt: 'Spygliuotis',      ru: 'Хвойное' },
-  shrub:      { en: 'Shrub',        lt: 'Krūmas',           ru: 'Кустарник' },
+  trees:    { en: 'Trees',              lt: 'Medžiai',                    ru: 'Деревья' },
+  shrubs:   { en: 'Shrubs',             lt: 'Krūmai',                     ru: 'Кустарники' },
+  perennial:{ en: 'Perennials',         lt: 'Daugiamečiai augalai',        ru: 'Многолетние растения' },
+  annual:   { en: 'Annuals',            lt: 'Vienmečiai augalai',          ru: 'Однолетние растения' },
+  conifer:  { en: 'Conifers',           lt: 'Spygliuočiai',                ru: 'Хвойные' },
+  climbing: { en: 'Climbing plants',    lt: 'Vijokliniai augalai',         ru: 'Вьющиеся растения' },
+  hedge:    { en: 'Hedge plants',       lt: 'Gyvatvorių augalai',          ru: 'Растения для живой изгороди' },
+  potted:   { en: 'Potted / Terrace',   lt: 'Vazoniniai / terasiniai',     ru: 'Вазонные / террасные' },
+  grass:    { en: 'Grasses',            lt: 'Žolės / dekoratyvinės žolės', ru: 'Злаки / декоративные травы' },
 };
 
 const sizeLabels: Record<string, { en: string; lt: string; ru: string }> = {

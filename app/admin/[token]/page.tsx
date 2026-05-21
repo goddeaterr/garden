@@ -10,7 +10,7 @@ import {
 import type { Tree, TreeCategory, TreeSize } from '@/types';
 
 /* ── types ─────────────────────────────────────────────────── */
-const CATS: TreeCategory[] = ['fruit', 'decorative', 'evergreen', 'shrub'];
+const CATS: TreeCategory[] = ['trees', 'shrubs', 'perennial', 'annual', 'conifer', 'climbing', 'hedge', 'potted', 'grass'];
 const SIZES: TreeSize[] = ['small', 'medium', 'large'];
 const CARE_KEYS = ['watering','sunlight','soil','pruning','hardiness','spacing','growthRate','notes'] as const;
 const CARE_LABELS: Record<string, string> = { watering:'Watering', sunlight:'Sunlight', soil:'Soil', pruning:'Pruning', hardiness:'Hardiness', spacing:'Spacing', growthRate:'Growth Rate', notes:'Notes' };
@@ -26,7 +26,7 @@ interface ScrapedProduct {
 interface NurserySource { id: string; name: string; baseUrl: string; searchUrl: string; active: boolean; }
 
 function emptyForm(): Partial<Tree> & { care: Tree['care'] } {
-  return { id:'', name:'', latin:'', category:'fruit', size:'medium', price:0, height:'', description:'', color:'#508153', bloom:'',
+  return { id:'', name:'', latin:'', category:'trees', size:'medium', price:0, height:'', description:'', color:'#508153', bloom:'',
     care:{ watering:'', sunlight:'', soil:'', pruning:'', hardiness:'', spacing:'', growthRate:'', notes:'' } };
 }
 

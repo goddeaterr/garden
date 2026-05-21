@@ -1,8 +1,9 @@
 'use client';
 
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowUpRight, Sparkles, TreePine, Flower2, Sprout } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Trees, TreePine, Sprout, Flower, Flower2, Wind, Rows4, Sun, Wheat } from 'lucide-react';
 import { useI18n } from '@/lib/i18nContext';
 import { Particles } from '@/components/ui/Particles';
 
@@ -181,54 +182,41 @@ export function Hero() {
       </div>
 
 
-      {/* Category side-cards — desktop only */}
-      {/* Left card: Evergreens */}
-      <motion.a
-        href="#catalog"
-        initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.9, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute left-6 xl:left-12 top-1/2 -translate-y-1/2 z-10 hidden xl:flex flex-col gap-3 w-[200px] p-5 rounded-2xl cursor-pointer group backdrop-blur-xl bg-white/60 dark:bg-forest-900/60 border border-white/70 dark:border-forest-700/50 hover:bg-white/75 dark:hover:bg-forest-800/70 transition-colors"
+      {/* All 9 category quick-links — horizontal strip above the wave */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute bottom-20 left-0 right-0 z-10 px-4 overflow-x-auto scrollbar-none"
       >
-        <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center">
-          <TreePine size={20} className="text-emerald-700 dark:text-emerald-400" />
+        <div className="flex gap-2 min-w-max mx-auto w-fit">
+          {([
+            { href: '#catalog', icon: Trees,    label: (tr.hero as any).cat1,  bg: 'bg-forest-100/80 dark:bg-forest-800/70', ic: 'text-forest-700 dark:text-forest-300' },
+            { href: '#catalog', icon: Sprout,   label: (tr as any).catalog.shrubs,    bg: 'bg-teal-100/80   dark:bg-teal-900/50',   ic: 'text-teal-700   dark:text-teal-300'   },
+            { href: '#catalog', icon: Flower,   label: (tr as any).catalog.perennial, bg: 'bg-pink-100/80   dark:bg-pink-900/50',   ic: 'text-pink-600   dark:text-pink-300'   },
+            { href: '#catalog', icon: Flower2,  label: (tr as any).catalog.annual,    bg: 'bg-amber-100/80  dark:bg-amber-900/50',  ic: 'text-amber-700  dark:text-amber-300'  },
+            { href: '#catalog', icon: TreePine, label: (tr.hero as any).cat2,  bg: 'bg-emerald-100/80 dark:bg-emerald-900/50', ic: 'text-emerald-700 dark:text-emerald-300' },
+            { href: '#catalog', icon: Wind,     label: (tr as any).catalog.climbing,  bg: 'bg-violet-100/80 dark:bg-violet-900/50', ic: 'text-violet-600 dark:text-violet-300' },
+            { href: '#catalog', icon: Rows4,    label: (tr as any).catalog.hedge,     bg: 'bg-lime-100/80   dark:bg-lime-900/50',   ic: 'text-lime-700   dark:text-lime-300'   },
+            { href: '#catalog', icon: Sun,      label: (tr.hero as any).cat3,  bg: 'bg-orange-100/80 dark:bg-orange-900/50', ic: 'text-orange-600 dark:text-orange-300' },
+            { href: '#catalog', icon: Wheat,    label: (tr as any).catalog.grass,     bg: 'bg-yellow-100/80 dark:bg-yellow-900/50', ic: 'text-yellow-700 dark:text-yellow-300' },
+          ] as { href: string; icon: React.ElementType; label: string; bg: string; ic: string }[]).map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <motion.a
+                key={i} href={item.href}
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.4 + i * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className={`flex flex-col items-center gap-1.5 px-3 py-2.5 rounded-xl backdrop-blur-md border border-white/50 dark:border-forest-700/40 hover:scale-[1.06] active:scale-[0.97] transition-transform cursor-pointer min-w-[76px] ${item.bg}`}
+              >
+                <div className={`w-7 h-7 flex items-center justify-center ${item.ic}`}>
+                  <Icon size={18} />
+                </div>
+                <span className="text-[10px] font-semibold text-forest-900 dark:text-forest-50 text-center leading-tight">{item.label}</span>
+              </motion.a>
+            );
+          })}
         </div>
-        <div>
-          <p className="text-[15px] font-bold text-forest-900 dark:text-forest-50 leading-tight mb-1">{(tr.hero as any).cat1}</p>
-          <p className="text-[11px] text-forest-500 dark:text-forest-400 uppercase tracking-widest">→ {tr.catalog.evergreen}</p>
-        </div>
-      </motion.a>
-
-      {/* Left-lower card: Deciduous */}
-      <motion.a
-        href="#catalog"
-        initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.9, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute left-6 xl:left-12 top-[62%] z-10 hidden xl:flex flex-col gap-3 w-[200px] p-5 rounded-2xl cursor-pointer group backdrop-blur-xl bg-white/50 dark:bg-forest-900/50 border border-white/60 dark:border-forest-700/40 hover:bg-white/65 dark:hover:bg-forest-800/60 transition-colors"
-      >
-        <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center">
-          <Flower2 size={20} className="text-amber-700 dark:text-amber-400" />
-        </div>
-        <div>
-          <p className="text-[15px] font-bold text-forest-900 dark:text-forest-50 leading-tight mb-1">{(tr.hero as any).cat2}</p>
-          <p className="text-[11px] text-forest-500 dark:text-forest-400 uppercase tracking-widest">→ {tr.catalog.decorative}</p>
-        </div>
-      </motion.a>
-
-      {/* Right card: Other Plants */}
-      <motion.a
-        href="#catalog"
-        initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.9, delay: 1.3, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute right-6 xl:right-12 top-1/2 -translate-y-1/2 z-10 hidden xl:flex flex-col gap-3 w-[200px] p-5 rounded-2xl cursor-pointer group backdrop-blur-xl bg-white/60 dark:bg-forest-900/60 border border-white/70 dark:border-forest-700/50 hover:bg-white/75 dark:hover:bg-forest-800/70 transition-colors"
-      >
-        <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/40 flex items-center justify-center">
-          <Sprout size={20} className="text-violet-700 dark:text-violet-400" />
-        </div>
-        <div>
-          <p className="text-[15px] font-bold text-forest-900 dark:text-forest-50 leading-tight mb-1">{(tr.hero as any).cat3}</p>
-          <p className="text-[11px] text-forest-500 dark:text-forest-400 uppercase tracking-widest">→ {tr.catalog.shrub}</p>
-        </div>
-      </motion.a>
+      </motion.div>
 
       {/* Content — centered as before */}
       <div className="relative z-10 text-center px-5 max-w-5xl">
@@ -289,27 +277,6 @@ export function Hero() {
           </a>
         </motion.div>
 
-        {/* Trust badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.5, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-6"
-        >
-          {[
-            { icon: '🌿', label: (tr.hero as any).trust1 },
-            { icon: '⚡', label: (tr.hero as any).trust2 },
-            { icon: '🚚', label: (tr.hero as any).trust3 },
-          ].map((badge, i) => (
-            <div
-              key={badge.label}
-              className="trust-badge-pill flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-[12px] font-medium text-forest-800 dark:text-forest-200"
-              style={{ animationDelay: `${i * 0.4}s` }}
-            >
-              <span>{badge.icon}</span>
-              <span>{badge.label}</span>
-            </div>
-          ))}
-        </motion.div>
 
       </div>
 

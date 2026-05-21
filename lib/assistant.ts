@@ -70,13 +70,17 @@ function parseIntent(text: string): Intent {
   let conditions: string[] = [];
   let purpose: string | undefined;
 
-  if (/spygliuot|tuja|thuja|eglė|pušis|kadagys|evergreen|хвойн/.test(t)) category = 'evergreen';
-  else if (/vaismed|obelis|slyva|vyšnia|kriaušė|fruit|плодов/.test(t)) category = 'fruit';
-  else if (/krūm|shrub|rožė|hortenzija|кустарник/.test(t)) category = 'shrub';
-  else if (/dekorat|medis|klevas|beržas|декорат/.test(t)) category = 'decorative';
+  if (/spygliuot|tuja|thuja|eglė|pušis|kadagys|conifer|хвойн/.test(t)) category = 'conifer';
+  else if (/gyvatvor|hedge|живая изгородь|tvora/.test(t)) category = 'hedge';
+  else if (/vijokl|climbing|вьющ/.test(t)) category = 'climbing';
+  else if (/vazoni|terasin|potted|горшечн/.test(t)) category = 'potted';
+  else if (/daugiameti|perennial|многолетн/.test(t)) category = 'perennial';
+  else if (/vienmeti|annual|однолетн/.test(t)) category = 'annual';
+  else if (/žolė|grass|злак/.test(t)) category = 'grass';
+  else if (/krūm|shrubs?|rožė|hortenzija|кустарник/.test(t)) category = 'shrubs';
+  else if (/medis|trees?|klevas|beržas|дерево/.test(t)) category = 'trees';
 
-  if (/gyvatvorė|hedge|живая изгородь|tvora/.test(t)) purpose = 'hedge';
-  else if (/privatum|privacy|уединен/.test(t)) purpose = 'privacy';
+  if (/privatum|privacy|уединен/.test(t)) purpose = 'privacy';
   else if (/šešėl|shadow|shade|тень/.test(t)) purpose = 'shade';
   else if (/mažas sodas|small garden|небольш/.test(t)) purpose = 'small';
   else if (/greita|fast.grow|быстро/.test(t)) purpose = 'fast';

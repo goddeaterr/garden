@@ -10,7 +10,15 @@ interface QuotePayload {
 }
 
 const CAT_COLOR: Record<string, string> = {
-  fruit: '#c2710a', decorative: '#4a7c3f', evergreen: '#0a7055', shrub: '#6d3bb5',
+  trees:    '#166534',
+  shrubs:   '#6d3bb5',
+  perennial:'#be185d',
+  annual:   '#c2410c',
+  conifer:  '#0f766e',
+  climbing: '#4d7c0f',
+  hedge:    '#15803d',
+  potted:   '#b45309',
+  grass:    '#a16207',
 };
 
 // ─── PDF Generator ────────────────────────────────────────────────────────────

@@ -7,7 +7,7 @@ import type { Tree, TreeCategory, TreeSize } from '@/types';
 import { TreeIllustration } from '@/components/ui/TreeIllustration';
 import { useI18n } from '@/lib/i18nContext';
 import { formatPrice, cn } from '@/lib/utils';
-import { ShoppingBag, Check, Apple, Flower2, TreePine, Sprout } from 'lucide-react';
+import { ShoppingBag, Check, Trees, TreePine, Sprout, Flower, Flower2, Wind, Rows4, Sun, Wheat } from 'lucide-react';
 import { BrandedSpinner } from '@/components/ui/BrandedSpinner';
 import { TreeDetailModal } from './TreeDetailModal';
 import { useCart } from '@/lib/cartContext';
@@ -15,18 +15,27 @@ import { useCart } from '@/lib/cartContext';
 const PRICE_MAX = 1000;
 
 const CAT_ACTIVE: Record<string, string> = {
-  all:        'bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900',
-  fruit:      'bg-amber-500 text-white shadow-md shadow-amber-500/35',
-  decorative: 'bg-[#6a9a4a] text-white shadow-md shadow-[#6a9a4a]/35',
-  evergreen:  'bg-emerald-600 text-white shadow-md shadow-emerald-600/35',
-  shrub:      'bg-violet-500 text-white shadow-md shadow-violet-500/35',
+  trees:     'bg-forest-700  text-white shadow-md shadow-forest-700/35',
+  shrubs:    'bg-teal-600    text-white shadow-md shadow-teal-600/35',
+  perennial: 'bg-pink-500    text-white shadow-md shadow-pink-500/35',
+  annual:    'bg-amber-500   text-white shadow-md shadow-amber-500/35',
+  conifer:   'bg-emerald-700 text-white shadow-md shadow-emerald-700/35',
+  climbing:  'bg-violet-500  text-white shadow-md shadow-violet-500/35',
+  hedge:     'bg-lime-600    text-white shadow-md shadow-lime-600/35',
+  potted:    'bg-orange-500  text-white shadow-md shadow-orange-500/35',
+  grass:     'bg-yellow-600  text-white shadow-md shadow-yellow-600/35',
 };
 
 const CAT_ICON: Record<string, typeof Sprout> = {
-  fruit: Apple,
-  decorative: Flower2,
-  evergreen: TreePine,
-  shrub: Sprout,
+  trees:     Trees,
+  shrubs:    Sprout,
+  perennial: Flower,
+  annual:    Flower2,
+  conifer:   TreePine,
+  climbing:  Wind,
+  hedge:     Rows4,
+  potted:    Sun,
+  grass:     Wheat,
 };
 
 /* ── Tree card ── */
@@ -157,10 +166,15 @@ function TreeCard({ tree, onOpen }: {
 }
 
 const CAT_STYLES: Record<string, { card: string; icon: string; dot: string }> = {
-  fruit:      { card: 'from-amber-50  to-amber-100/60  dark:from-amber-950/40  dark:to-amber-900/20  border-amber-200/60  dark:border-amber-700/30',  icon: 'bg-amber-100  dark:bg-amber-900/50  text-amber-600  dark:text-amber-300',  dot: 'bg-amber-500'  },
-  decorative: { card: 'from-[#f0f7ea] to-[#e8f2df]     dark:from-[#1a2e12]/40 dark:to-[#253d18]/20  border-[#c8ddb8]/60 dark:border-[#3a5c2a]/30', icon: 'bg-[#eaf4df] dark:bg-[#1e3414]/60 text-[#4a7c3a] dark:text-[#8ecb6e]', dot: 'bg-[#6a9a4a]' },
-  evergreen:  { card: 'from-emerald-50 to-emerald-100/60 dark:from-emerald-950/40 dark:to-emerald-900/20 border-emerald-200/60 dark:border-emerald-700/30', icon: 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300', dot: 'bg-emerald-500' },
-  shrub:      { card: 'from-violet-50 to-violet-100/60 dark:from-violet-950/40 dark:to-violet-900/20 border-violet-200/60 dark:border-violet-700/30', icon: 'bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-300', dot: 'bg-violet-500' },
+  trees:     { card: 'from-forest-50 to-forest-100/60 dark:from-forest-950/40 dark:to-forest-900/20 border-forest-200/60 dark:border-forest-700/30',   icon: 'bg-forest-100 dark:bg-forest-900/50 text-forest-700 dark:text-forest-300',   dot: 'bg-forest-600'  },
+  shrubs:    { card: 'from-teal-50 to-teal-100/60 dark:from-teal-950/40 dark:to-teal-900/20 border-teal-200/60 dark:border-teal-700/30',               icon: 'bg-teal-100 dark:bg-teal-900/50 text-teal-700 dark:text-teal-300',           dot: 'bg-teal-500'    },
+  perennial: { card: 'from-pink-50 to-pink-100/60 dark:from-pink-950/40 dark:to-pink-900/20 border-pink-200/60 dark:border-pink-700/30',               icon: 'bg-pink-100 dark:bg-pink-900/50 text-pink-600 dark:text-pink-300',           dot: 'bg-pink-500'    },
+  annual:    { card: 'from-amber-50 to-amber-100/60 dark:from-amber-950/40 dark:to-amber-900/20 border-amber-200/60 dark:border-amber-700/30',         icon: 'bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-300',       dot: 'bg-amber-500'   },
+  conifer:   { card: 'from-emerald-50 to-emerald-100/60 dark:from-emerald-950/40 dark:to-emerald-900/20 border-emerald-200/60 dark:border-emerald-700/30', icon: 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300', dot: 'bg-emerald-600' },
+  climbing:  { card: 'from-violet-50 to-violet-100/60 dark:from-violet-950/40 dark:to-violet-900/20 border-violet-200/60 dark:border-violet-700/30',   icon: 'bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-300',   dot: 'bg-violet-500'  },
+  hedge:     { card: 'from-lime-50 to-lime-100/60 dark:from-lime-950/40 dark:to-lime-900/20 border-lime-200/60 dark:border-lime-700/30',               icon: 'bg-lime-100 dark:bg-lime-900/50 text-lime-700 dark:text-lime-300',           dot: 'bg-lime-600'    },
+  potted:    { card: 'from-orange-50 to-orange-100/60 dark:from-orange-950/40 dark:to-orange-900/20 border-orange-200/60 dark:border-orange-700/30',   icon: 'bg-orange-100 dark:bg-orange-900/50 text-orange-600 dark:text-orange-300',   dot: 'bg-orange-500'  },
+  grass:     { card: 'from-yellow-50 to-yellow-100/60 dark:from-yellow-950/40 dark:to-yellow-900/20 border-yellow-200/60 dark:border-yellow-700/30',   icon: 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300',   dot: 'bg-yellow-500'  },
 };
 
 /* ── Main Catalog ── */
@@ -174,10 +188,15 @@ export function Catalog() {
   const c = tr.catalog;
 
   const categoryDefs = [
-    { value: 'fruit'      as TreeCategory, label: c.fruit,       icon: Apple    },
-    { value: 'decorative' as TreeCategory, label: c.decorative,  icon: Flower2  },
-    { value: 'evergreen'  as TreeCategory, label: c.evergreen,   icon: TreePine },
-    { value: 'shrub'      as TreeCategory, label: c.shrub,       icon: Sprout   },
+    { value: 'trees'     as TreeCategory, label: (c as any).trees,     icon: Trees    },
+    { value: 'shrubs'    as TreeCategory, label: (c as any).shrubs,    icon: Sprout   },
+    { value: 'perennial' as TreeCategory, label: (c as any).perennial, icon: Flower   },
+    { value: 'annual'    as TreeCategory, label: (c as any).annual,    icon: Flower2  },
+    { value: 'conifer'   as TreeCategory, label: (c as any).conifer,   icon: TreePine },
+    { value: 'climbing'  as TreeCategory, label: (c as any).climbing,  icon: Wind     },
+    { value: 'hedge'     as TreeCategory, label: (c as any).hedge,     icon: Rows4    },
+    { value: 'potted'    as TreeCategory, label: (c as any).potted,    icon: Sun      },
+    { value: 'grass'     as TreeCategory, label: (c as any).grass,     icon: Wheat    },
   ];
 
   const filteredTrees = useMemo(() => {
@@ -222,7 +241,7 @@ export function Catalog() {
                 <motion.button
                   initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 12 }}
                   onClick={goBack}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-forest-200 dark:border-forest-700 text-[13px] font-medium text-forest-700 dark:text-forest-200 hover:bg-forest-100 dark:hover:bg-forest-800 transition-colors"
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 text-[13px] font-semibold hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-md"
                 >
                   ← {c.allCats}
                 </motion.button>
@@ -237,7 +256,7 @@ export function Catalog() {
                 key="categories"
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-9 gap-3"
               >
                 {categoryDefs.map((cat, i) => {
                   const count = trees.filter(t => t.category === cat.value).length;

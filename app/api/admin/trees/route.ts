@@ -31,7 +31,7 @@ function sanitizeTree(data: any): any {
   }
   if (typeof out.id !== 'string' || !/^[a-z0-9-]{1,40}$/.test(out.id)) throw new Error('Invalid id');
   if (typeof out.name !== 'string' || out.name.length > 100) throw new Error('Invalid name');
-  if (!['fruit','decorative','evergreen','shrub'].includes(out.category)) throw new Error('Invalid category');
+  if (!['trees','shrubs','perennial','annual','conifer','climbing','hedge','potted','grass'].includes(out.category)) throw new Error('Invalid category');
   if (!['small','medium','large'].includes(out.size)) throw new Error('Invalid size');
   out.price = Number(out.price);
   if (isNaN(out.price) || out.price < 0 || out.price > 99999) throw new Error('Invalid price');

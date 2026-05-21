@@ -56,7 +56,7 @@ export async function initDb(): Promise<void> {
       id          TEXT PRIMARY KEY,
       name        TEXT NOT NULL,
       latin       TEXT,
-      category    TEXT NOT NULL DEFAULT 'decorative',
+      category    TEXT NOT NULL DEFAULT 'trees',
       size        TEXT NOT NULL DEFAULT 'medium',
       price       NUMERIC NOT NULL DEFAULT 0,
       height      TEXT,
@@ -75,7 +75,7 @@ export async function getAllTrees(): Promise<Tree[]> {
   if (!DB_URL) return readJson();
   try {
     const pool = await getPool();
-    await pool.sql`CREATE TABLE IF NOT EXISTS trees (id TEXT PRIMARY KEY, name TEXT NOT NULL, latin TEXT, category TEXT NOT NULL DEFAULT 'decorative', size TEXT NOT NULL DEFAULT 'medium', price NUMERIC NOT NULL DEFAULT 0, height TEXT, description TEXT, image_path TEXT, color TEXT, bloom TEXT, care_json JSONB DEFAULT '{}', created_at TIMESTAMPTZ DEFAULT NOW(), updated_at TIMESTAMPTZ DEFAULT NOW())`;
+    await pool.sql`CREATE TABLE IF NOT EXISTS trees (id TEXT PRIMARY KEY, name TEXT NOT NULL, latin TEXT, category TEXT NOT NULL DEFAULT 'trees', size TEXT NOT NULL DEFAULT 'medium', price NUMERIC NOT NULL DEFAULT 0, height TEXT, description TEXT, image_path TEXT, color TEXT, bloom TEXT, care_json JSONB DEFAULT '{}', created_at TIMESTAMPTZ DEFAULT NOW(), updated_at TIMESTAMPTZ DEFAULT NOW())`;
     const { rows } = await pool.sql`SELECT * FROM trees ORDER BY created_at ASC`;
     return rows.map(rowToTree);
   } catch (e) {

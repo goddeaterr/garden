@@ -8,13 +8,19 @@ import { TreeIllustration } from '@/components/ui/TreeIllustration';
 import { BrandedSpinner } from '@/components/ui/BrandedSpinner';
 
 const CAT_GRADIENT: Record<string, string> = {
-  fruit:      'linear-gradient(135deg,#b45309,#92400e)',
-  decorative: 'linear-gradient(135deg,#4a7c3f,#2d5a25)',
-  evergreen:  'linear-gradient(135deg,#0a7055,#064e3b)',
-  shrub:      'linear-gradient(135deg,#6d3bb5,#4c1d95)',
+  trees:    'linear-gradient(135deg,#166534,#14532d)',
+  shrubs:   'linear-gradient(135deg,#6d3bb5,#4c1d95)',
+  perennial:'linear-gradient(135deg,#be185d,#9d174d)',
+  annual:   'linear-gradient(135deg,#c2410c,#9a3412)',
+  conifer:  'linear-gradient(135deg,#0f766e,#115e59)',
+  climbing: 'linear-gradient(135deg,#4d7c0f,#3f6212)',
+  hedge:    'linear-gradient(135deg,#15803d,#166534)',
+  potted:   'linear-gradient(135deg,#b45309,#92400e)',
+  grass:    'linear-gradient(135deg,#a16207,#854d0e)',
 };
 const CAT_COLOR: Record<string, string> = {
-  fruit:'#b45309', decorative:'#4a7c3f', evergreen:'#0a7055', shrub:'#6d3bb5',
+  trees:'#166534', shrubs:'#6d3bb5', perennial:'#be185d', annual:'#c2410c',
+  conifer:'#0f766e', climbing:'#4d7c0f', hedge:'#15803d', potted:'#b45309', grass:'#a16207',
 };
 const CONFETTI = ['#4ade80','#86efac','#fbbf24','#a78bfa','#f472b6','#34d399','#fff'];
 

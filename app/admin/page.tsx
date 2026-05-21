@@ -10,7 +10,7 @@ import type { Tree, TreeCategory, TreeSize } from '@/types';
 import { bustTreeCache } from '@/lib/useTrees';
 import { BrandedSpinner } from '@/components/ui/BrandedSpinner';
 
-const CATS: TreeCategory[] = ['fruit', 'decorative', 'evergreen', 'shrub'];
+const CATS: TreeCategory[] = ['trees', 'shrubs', 'perennial', 'annual', 'conifer', 'climbing', 'hedge', 'potted', 'grass'];
 const SIZES: TreeSize[] = ['small', 'medium', 'large'];
 const CARE_KEYS = ['watering','sunlight','soil','pruning','hardiness','spacing','growthRate','notes'] as const;
 const CARE_LABELS: Record<string, string> = {
@@ -20,7 +20,7 @@ const CARE_LABELS: Record<string, string> = {
 
 function emptyForm(): Partial<Tree> & { care: Tree['care'] } {
   return {
-    id: '', name: '', latin: '', category: 'fruit', size: 'medium', price: 0,
+    id: '', name: '', latin: '', category: 'trees', size: 'medium', price: 0,
     height: '', description: '', color: '#508153', bloom: '',
     care: { watering:'', sunlight:'', soil:'', pruning:'', hardiness:'', spacing:'', growthRate:'', notes:'' },
   };
