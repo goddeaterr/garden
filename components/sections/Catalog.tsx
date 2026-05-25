@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { useTrees } from '@/lib/useTrees';
 import type { Tree, TreeCategory, TreeSize } from '@/types';
@@ -217,6 +217,14 @@ export function Catalog() {
 
   const goBack = () => setActiveCat(null);
 
+  useEffect(() => {
+    const handler = (e: Event) => {
+      openCategory((e as CustomEvent).detail as TreeCategory);
+    };
+    window.addEventListener('heroCatSelect', handler);
+    return () => window.removeEventListener('heroCatSelect', handler);
+  }, []);
+
   return (
     <>
       <section id="catalog" className="botanical-section-texture relative py-16 sm:py-28 px-4 sm:px-6 overflow-hidden">
@@ -229,72 +237,26 @@ export function Catalog() {
 
         <div className="relative max-w-7xl mx-auto">
           {/* Header */}
-          <div className="flex items-end justify-between mb-6 flex-wrap gap-4">
-            <div>
-              <div className="text-[11px] tracking-[0.3em] uppercase text-forest-600 dark:text-forest-400 mb-2">{c.eyebrow}</div>
-              <h2 className="shimmer-title text-headline text-[clamp(1.75rem,5vw,4rem)]">{c.title}</h2>
-              <div className="mt-3 h-[2px] w-14 rounded-full bg-gradient-to-r from-forest-600 via-emerald-500 to-transparent" />
-            </div>
-            {/* Back button */}
-            <AnimatePresence>
-              {activeCat && (
-                <motion.button
-                  initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 12 }}
-                  onClick={goBack}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 text-[13px] font-semibold hover:scale-[1.03] active:scale-[0.97] transition-transform shadow-md"
-                >
-                  ← {c.allCats}
-                </motion.button>
-              )}
-            </AnimatePresence>
+          <div className="mb-6">
+            <div className="text-[11px] tracking-[0.3em] uppercase text-forest-600 dark:text-forest-400 mb-2">{c.eyebrow}</div>
+            <h2 className="shimmer-title text-headline text-[clamp(1.75rem,5vw,4rem)]">
+              {activeCat ? categoryDefs.find(d => d.value === activeCat)?.label ?? c.title : c.title}
+            </h2>
+            <div className="mt-3 h-[2px] w-14 rounded-full bg-gradient-to-r from-forest-600 via-emerald-500 to-transparent" />
           </div>
 
           <AnimatePresence mode="wait">
-            {/* ── Category cards view ── */}
+            {/* ── No category selected placeholder ── */}
             {!activeCat && (
               <motion.div
-                key="categories"
-                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-9 gap-3"
+                key="empty"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                className="flex flex-col items-center justify-center py-24 gap-4 text-forest-400 dark:text-forest-600"
               >
-                {categoryDefs.map((cat, i) => {
-                  const count = trees.filter(t => t.category === cat.value).length;
-                  const Icon = cat.icon;
-                  const s = CAT_STYLES[cat.value];
-                  return (
-                    <motion.button
-                      key={cat.value}
-                      initial={{ opacity: 0, y: 32, scale: 0.94 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      transition={{ delay: i * 0.07, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                      onClick={() => openCategory(cat.value)}
-                      className={cn(
-                        'group relative text-left rounded-2xl border bg-gradient-to-br p-6 overflow-hidden',
-                        'hover:scale-[1.02] hover:shadow-xl active:scale-[0.98] transition-all duration-300',
-                        s.card
-                      )}
-                    >
-                      {/* Icon */}
-                      <div className={cn('w-12 h-12 rounded-xl flex items-center justify-center mb-4', s.icon)}>
-                        <Icon size={22} />
-                      </div>
-                      {/* Name */}
-                      <h3 className="text-[18px] font-bold text-forest-900 dark:text-forest-50 mb-1 tracking-tight">{cat.label}</h3>
-                      {/* Count */}
-                      <p className="text-[13px] text-forest-500 dark:text-forest-400 flex items-center gap-1.5">
-                        <span className={cn('inline-block w-1.5 h-1.5 rounded-full', s.dot)} />
-                        {count} {count === 1 ? c.countSingle.split(' ')[0] : c.countPlural.split(' ')[0]}
-                      </p>
-                      {/* Arrow */}
-                      <div className="absolute bottom-4 right-4 text-forest-400 dark:text-forest-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 17L17 7M17 7H7M17 7V17"/>
-                        </svg>
-                      </div>
-                    </motion.button>
-                  );
-                })}
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-50">
+                  <path d="M12 19V5M5 12l7-7 7 7"/>
+                </svg>
+                <p className="text-[14px] font-medium">Select a category above to browse plants</p>
               </motion.div>
             )}
 

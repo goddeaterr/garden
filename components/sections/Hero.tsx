@@ -182,37 +182,68 @@ export function Hero() {
       </div>
 
 
-      {/* All 9 category quick-links — horizontal strip above the wave */}
+      {/* Category selection cards — prominent, with picture areas */}
       <motion.div
         initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute bottom-20 left-0 right-0 z-10 px-4 overflow-x-auto scrollbar-none"
+        className="absolute bottom-20 left-0 right-0 z-[25] px-4 overflow-x-auto scrollbar-none"
       >
-        <div className="flex gap-2 min-w-max mx-auto w-fit">
+        <div className="flex gap-3 min-w-max mx-auto w-fit pb-1">
           {([
-            { href: '#catalog', icon: Trees,    label: (tr.hero as any).cat1,  bg: 'bg-forest-100/80 dark:bg-forest-800/70', ic: 'text-forest-700 dark:text-forest-300' },
-            { href: '#catalog', icon: Sprout,   label: (tr as any).catalog.shrubs,    bg: 'bg-teal-100/80   dark:bg-teal-900/50',   ic: 'text-teal-700   dark:text-teal-300'   },
-            { href: '#catalog', icon: Flower,   label: (tr as any).catalog.perennial, bg: 'bg-pink-100/80   dark:bg-pink-900/50',   ic: 'text-pink-600   dark:text-pink-300'   },
-            { href: '#catalog', icon: Flower2,  label: (tr as any).catalog.annual,    bg: 'bg-amber-100/80  dark:bg-amber-900/50',  ic: 'text-amber-700  dark:text-amber-300'  },
-            { href: '#catalog', icon: TreePine, label: (tr.hero as any).cat2,  bg: 'bg-emerald-100/80 dark:bg-emerald-900/50', ic: 'text-emerald-700 dark:text-emerald-300' },
-            { href: '#catalog', icon: Wind,     label: (tr as any).catalog.climbing,  bg: 'bg-violet-100/80 dark:bg-violet-900/50', ic: 'text-violet-600 dark:text-violet-300' },
-            { href: '#catalog', icon: Rows4,    label: (tr as any).catalog.hedge,     bg: 'bg-lime-100/80   dark:bg-lime-900/50',   ic: 'text-lime-700   dark:text-lime-300'   },
-            { href: '#catalog', icon: Sun,      label: (tr.hero as any).cat3,  bg: 'bg-orange-100/80 dark:bg-orange-900/50', ic: 'text-orange-600 dark:text-orange-300' },
-            { href: '#catalog', icon: Wheat,    label: (tr as any).catalog.grass,     bg: 'bg-yellow-100/80 dark:bg-yellow-900/50', ic: 'text-yellow-700 dark:text-yellow-300' },
-          ] as { href: string; icon: React.ElementType; label: string; bg: string; ic: string }[]).map((item, i) => {
+            { key: 'trees',     icon: Trees,    label: (tr.hero as any).cat1,          bg: 'bg-forest-900/80',   ic: 'text-forest-300',  border: 'border-forest-500/50'  },
+            { key: 'shrubs',    icon: Sprout,   label: (tr as any).catalog.shrubs,     bg: 'bg-teal-900/80',     ic: 'text-teal-300',    border: 'border-teal-500/50'    },
+            { key: 'perennial', icon: Flower,   label: (tr as any).catalog.perennial,  bg: 'bg-pink-950/80',     ic: 'text-pink-300',    border: 'border-pink-500/50'    },
+            { key: 'annual',    icon: Flower2,  label: (tr as any).catalog.annual,     bg: 'bg-amber-950/80',    ic: 'text-amber-300',   border: 'border-amber-500/50'   },
+            { key: 'conifer',   icon: TreePine, label: (tr.hero as any).cat2,          bg: 'bg-emerald-950/80',  ic: 'text-emerald-300', border: 'border-emerald-500/50' },
+            { key: 'climbing',  icon: Wind,     label: (tr as any).catalog.climbing,   bg: 'bg-violet-950/80',   ic: 'text-violet-300',  border: 'border-violet-500/50'  },
+            { key: 'hedge',     icon: Rows4,    label: (tr as any).catalog.hedge,      bg: 'bg-lime-950/80',     ic: 'text-lime-300',    border: 'border-lime-500/50'    },
+            { key: 'potted',    icon: Sun,      label: (tr.hero as any).cat3,          bg: 'bg-orange-950/80',   ic: 'text-orange-300',  border: 'border-orange-500/50'  },
+            { key: 'grass',     icon: Wheat,    label: (tr as any).catalog.grass,      bg: 'bg-yellow-950/80',   ic: 'text-yellow-300',  border: 'border-yellow-500/50'  },
+          ] as { key: string; icon: React.ElementType; label: string; bg: string; ic: string; border: string }[]).map((item, i) => {
             const Icon = item.icon;
             return (
-              <motion.a
-                key={i} href={item.href}
+              <motion.button
+                key={i}
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.4 + i * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className={`flex flex-col items-center gap-1.5 px-3 py-2.5 rounded-xl backdrop-blur-md border border-white/50 dark:border-forest-700/40 hover:scale-[1.06] active:scale-[0.97] transition-transform cursor-pointer min-w-[76px] ${item.bg}`}
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent('heroCatSelect', { detail: item.key }));
+                  setTimeout(() => document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' }), 80);
+                }}
+                className={`group flex flex-col items-center rounded-2xl backdrop-blur-md border border-white/10 hover:border-white/25 hover:scale-[1.06] active:scale-[0.97] transition-all duration-200 cursor-pointer overflow-hidden ${item.bg} min-w-[130px] shadow-md hover:shadow-xl`}
               >
-                <div className={`w-7 h-7 flex items-center justify-center ${item.ic}`}>
-                  <Icon size={18} />
+                {/* Picture area — full bleed, fades into card bg at bottom */}
+                <div className="relative w-full h-[120px] overflow-hidden flex-shrink-0">
+                  {/* Placeholder icon shown when no image */}
+                  <div className={`absolute inset-0 flex items-center justify-center ${item.ic} opacity-15`}>
+                    <Icon size={56} />
+                  </div>
+                  {/* Image fills the area, object-cover, bottom-fade into card color */}
+                  <img
+                    src={`/categories/${item.key}.jpg`}
+                    alt={item.label}
+                    className="absolute inset-0 w-full h-full object-cover object-center"
+                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                  {/* Gradient fade at bottom blending image into card background */}
+                  <div
+                    className="absolute inset-x-0 bottom-0 h-12 pointer-events-none"
+                    style={{ background: 'linear-gradient(to bottom, transparent, var(--card-fade, rgba(0,0,0,0.7)))' }}
+                  />
+                  {/* Subtle left+right edge vignette */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.18) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.18) 100%)' }}
+                  />
                 </div>
-                <span className="text-[10px] font-semibold text-forest-900 dark:text-forest-50 text-center leading-tight">{item.label}</span>
-              </motion.a>
+                {/* Icon + label */}
+                <div className="flex flex-col items-center gap-1.5 px-3 pt-2 pb-3">
+                  <div className={`w-6 h-6 flex items-center justify-center ${item.ic}`}>
+                    <Icon size={15} />
+                  </div>
+                  <span className="text-[11px] font-semibold text-white/90 text-center leading-tight">{item.label}</span>
+                </div>
+              </motion.button>
             );
           })}
         </div>

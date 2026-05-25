@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { Nav } from '@/components/sections/Nav';
 import { Hero } from '@/components/sections/Hero';
-import { Catalog } from '@/components/sections/Catalog';
 import { Services } from '@/components/sections/Services';
 import { News } from '@/components/sections/News';
 import { Footer } from '@/components/sections/Footer';
@@ -37,7 +36,6 @@ export default function Home() {
         <Nav />
         <main className="relative">
           <Hero />
-          <Catalog />
           <Services />
           <News />
           <Footer />
