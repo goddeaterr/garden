@@ -4,9 +4,9 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Plus, Pencil, Trash2, Upload, Eye, EyeOff, LogOut, TreePine, Check, X,
-  Loader2, AlertCircle, Image as ImageIcon, Save,
+  Loader2, AlertCircle, Image as ImageIcon, Save, Newspaper, Tag,
 } from 'lucide-react';
-import type { Tree, TreeCategory, TreeSize } from '@/types';
+import type { Tree, TreeCategory, TreeSize, NewsItem } from '@/types';
 import { bustTreeCache } from '@/lib/useTrees';
 import { BrandedSpinner } from '@/components/ui/BrandedSpinner';
 
@@ -37,6 +37,9 @@ export default function AdminPage() {
   const [authLoading, setAuthLoading] = useState(false);
   const [session, setSession] = useState('');
 
+  /* tab */
+  const [tab, setTab] = useState<'trees' | 'news'>('trees');
+
   /* trees */
   const [trees, setTrees] = useState<Tree[]>([]);
   const [loadingTrees, setLoadingTrees] = useState(false);
@@ -47,6 +50,17 @@ export default function AdminPage() {
   const [imagePreview, setImagePreview] = useState('');
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  /* news */
+  const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
+  const [loadingNews, setLoadingNews] = useState(false);
+  const [editNews, setEditNews] = useState<Partial<NewsItem> | null>(null);
+  const [isNewNews, setIsNewNews] = useState(false);
+  const [savingNews, setSavingNews] = useState(false);
+  const [newsImageFile, setNewsImageFile] = useState<File | null>(null);
+  const [newsImagePreview, setNewsImagePreview] = useState('');
+  const [deleteNewsConfirm, setDeleteNewsConfirm] = useState<string | null>(null);
+  const newsFileRef = useRef<HTMLInputElement>(null);
 
   /* alerts */
   const [error, setError] = useState('');
@@ -80,7 +94,50 @@ export default function AdminPage() {
     } catch {} finally { setLoadingTrees(false); }
   };
 
-  useEffect(() => { if (authed && session) fetchTrees(); }, [authed, session]);
+  useEffect(() => { if (authed && session) { fetchTrees(); fetchNews(); } }, [authed, session]);
+
+  /* ── news ── */
+  const fetchNews = async () => {
+    setLoadingNews(true);
+    try {
+      const r = await fetch('/api/admin/news', { headers: { 'Authorization': `Bearer ${session}` } });
+      if (r.ok) setNewsItems(await r.json());
+    } catch {} finally { setLoadingNews(false); }
+  };
+
+  const handleSaveNews = async () => {
+    if (!editNews) return;
+    setSavingNews(true); setError(''); setSuccess('');
+    try {
+      const id = editNews.id?.trim().toLowerCase().replace(/\s+/g, '-') || '';
+      if (!id) throw new Error('ID is required');
+      if (!editNews.title?.trim()) throw new Error('Title is required');
+      let imagePath = editNews.imagePath || undefined;
+      if (newsImageFile) imagePath = await compressImage(newsImageFile);
+      const payload: NewsItem = {
+        id, title: editNews.title, content: editNews.content || '',
+        imagePath, tag: editNews.tag || undefined,
+        publishedAt: editNews.publishedAt || new Date().toISOString(),
+      };
+      const r = await fetch('/api/admin/news', { method: isNewNews ? 'POST' : 'PUT', headers: ah(), body: JSON.stringify(payload) });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || 'Save failed');
+      setSuccess(isNewNews ? 'News added!' : 'News updated!');
+      setEditNews(null); setNewsImageFile(null); setNewsImagePreview('');
+      fetchNews();
+    } catch (e: any) { setError(e.message); } finally { setSavingNews(false); }
+  };
+
+  const handleDeleteNews = async (id: string) => {
+    if (deleteNewsConfirm !== id) { setDeleteNewsConfirm(id); return; }
+    const r = await fetch(`/api/admin/news?id=${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${session}` } });
+    if (!r.ok) { setError((await r.json()).error); return; }
+    setSuccess('Deleted.'); setDeleteNewsConfirm(null); fetchNews();
+  };
+
+  const emptyNews = (): Partial<NewsItem> => ({
+    id: '', title: '', content: '', tag: '', publishedAt: new Date().toISOString().slice(0, 10),
+  });
 
   /* ── tree CRUD ── */
   const handleImageChange = (file: File) => {
@@ -182,7 +239,21 @@ export default function AdminPage() {
             <div className="w-7 h-7 rounded-lg bg-forest-700 flex items-center justify-center"><TreePine size={16} className="text-forest-100" /></div>
             <span className="font-bold text-white text-sm">MB Plant House</span>
           </div>
-          <span className="text-forest-500 text-[12px] hidden sm:inline">Tree Catalog</span>
+          {/* Tab switcher */}
+          <div className="flex items-center gap-1 ml-2 bg-forest-900 rounded-xl p-0.5">
+            <button
+              onClick={() => setTab('trees')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium transition-colors ${tab === 'trees' ? 'bg-forest-700 text-white' : 'text-forest-400 hover:text-white'}`}
+            >
+              <TreePine size={12} />Trees
+            </button>
+            <button
+              onClick={() => setTab('news')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium transition-colors ${tab === 'news' ? 'bg-forest-700 text-white' : 'text-forest-400 hover:text-white'}`}
+            >
+              <Newspaper size={12} />News
+            </button>
+          </div>
         </div>
         <button onClick={logout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-forest-400 hover:text-white text-[12px] transition-colors"><LogOut size={13} />Logout</button>
       </div>
@@ -196,60 +267,123 @@ export default function AdminPage() {
       </div>
 
       <div className="px-6 pb-10">
-        {/* Trees */}
-        <div>
-          <div className="flex items-center justify-between mb-5 pt-2">
-            <h2 className="text-lg font-bold">{trees.length} tree{trees.length !== 1 ? 's' : ''} in catalog</h2>
-            <button
-              onClick={() => { setEditTree(emptyForm()); setIsNew(true); setImageFile(null); setImagePreview(''); }}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-forest-600 hover:bg-forest-500 text-white text-[13px] font-semibold transition-colors"
-            >
-              <Plus size={15} />Add tree
-            </button>
-          </div>
+        {/* ── Trees tab ── */}
+        {tab === 'trees' && (
+          <div>
+            <div className="flex items-center justify-between mb-5 pt-2">
+              <h2 className="text-lg font-bold">{trees.length} tree{trees.length !== 1 ? 's' : ''} in catalog</h2>
+              <button
+                onClick={() => { setEditTree(emptyForm()); setIsNew(true); setImageFile(null); setImagePreview(''); }}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-forest-600 hover:bg-forest-500 text-white text-[13px] font-semibold transition-colors"
+              >
+                <Plus size={15} />Add tree
+              </button>
+            </div>
 
-          {loadingTrees
-            ? <div className="flex justify-center py-16"><BrandedSpinner size={56} label="Loading trees…" /></div>
-            : trees.length === 0
-              ? (
-                <div className="text-center py-20 text-forest-500">
-                  <TreePine size={40} className="mx-auto mb-3 opacity-30" />
-                  <p>No trees yet. Add one using the button above.</p>
-                </div>
-              )
-              : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {trees.map(tree => (
-                    <div key={tree.id} className="bg-forest-900 rounded-2xl border border-forest-800 overflow-hidden">
-                      <div className="h-28 flex items-center justify-center relative" style={{ background: `linear-gradient(135deg,${tree.color}22,${tree.color}08)` }}>
-                        {tree.imagePath
-                          ? <img src={tree.imagePath} alt={tree.name} className="h-full w-full object-contain p-2" />
-                          : <div className="text-4xl">🌳</div>}
-                        <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider" style={{ background: `${tree.color}33`, color: tree.color }}>{tree.category}</span>
-                      </div>
-                      <div className="p-3">
-                        <div className="flex items-start justify-between mb-1">
-                          <h3 className="font-semibold text-white text-[13px] leading-tight">{tree.name}</h3>
-                          <span className="text-white font-bold text-[13px] tabular-nums">{fmt(tree.price)}</span>
+            {loadingTrees
+              ? <div className="flex justify-center py-16"><BrandedSpinner size={56} label="Loading trees…" /></div>
+              : trees.length === 0
+                ? (
+                  <div className="text-center py-20 text-forest-500">
+                    <TreePine size={40} className="mx-auto mb-3 opacity-30" />
+                    <p>No trees yet. Add one using the button above.</p>
+                  </div>
+                )
+                : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    {trees.map(tree => (
+                      <div key={tree.id} className="bg-forest-900 rounded-2xl border border-forest-800 overflow-hidden">
+                        <div className="h-28 flex items-center justify-center relative" style={{ background: `linear-gradient(135deg,${tree.color}22,${tree.color}08)` }}>
+                          {tree.imagePath
+                            ? <img src={tree.imagePath} alt={tree.name} className="h-full w-full object-contain p-2" />
+                            : <div className="text-4xl">🌳</div>}
+                          <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider" style={{ background: `${tree.color}33`, color: tree.color }}>{tree.category}</span>
                         </div>
-                        <p className="text-forest-400 text-[11px] leading-snug line-clamp-2">{tree.description}</p>
-                        <div className="flex gap-2 mt-2.5">
-                          <button
-                            onClick={() => { setEditTree({ ...tree, care: tree.care || emptyForm().care }); setIsNew(false); setImagePreview(tree.imagePath || ''); setImageFile(null); }}
-                            className="flex-1 flex items-center justify-center gap-1 py-1.5 rounded-lg bg-forest-800 hover:bg-forest-700 text-[11px] text-forest-200 transition-colors"
-                          ><Pencil size={11} />Edit</button>
-                          <button
-                            onClick={() => handleDelete(tree.id)}
-                            className={`flex-1 flex items-center justify-center gap-1 py-1.5 rounded-lg text-[11px] transition-colors ${deleteConfirm === tree.id ? 'bg-red-700 text-white' : 'bg-forest-800 hover:bg-red-900/50 text-forest-200 hover:text-red-300'}`}
-                          ><Trash2 size={11} />{deleteConfirm === tree.id ? 'Confirm' : 'Delete'}</button>
+                        <div className="p-3">
+                          <div className="flex items-start justify-between mb-1">
+                            <h3 className="font-semibold text-white text-[13px] leading-tight">{tree.name}</h3>
+                            <span className="text-white font-bold text-[13px] tabular-nums">{fmt(tree.price)}</span>
+                          </div>
+                          <p className="text-forest-400 text-[11px] leading-snug line-clamp-2">{tree.description}</p>
+                          <div className="flex gap-2 mt-2.5">
+                            <button
+                              onClick={() => { setEditTree({ ...tree, care: tree.care || emptyForm().care }); setIsNew(false); setImagePreview(tree.imagePath || ''); setImageFile(null); }}
+                              className="flex-1 flex items-center justify-center gap-1 py-1.5 rounded-lg bg-forest-800 hover:bg-forest-700 text-[11px] text-forest-200 transition-colors"
+                            ><Pencil size={11} />Edit</button>
+                            <button
+                              onClick={() => handleDelete(tree.id)}
+                              className={`flex-1 flex items-center justify-center gap-1 py-1.5 rounded-lg text-[11px] transition-colors ${deleteConfirm === tree.id ? 'bg-red-700 text-white' : 'bg-forest-800 hover:bg-red-900/50 text-forest-200 hover:text-red-300'}`}
+                            ><Trash2 size={11} />{deleteConfirm === tree.id ? 'Confirm' : 'Delete'}</button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              )
-          }
-        </div>
+                    ))}
+                  </div>
+                )
+            }
+          </div>
+        )}
+
+        {/* ── News tab ── */}
+        {tab === 'news' && (
+          <div>
+            <div className="flex items-center justify-between mb-5 pt-2">
+              <h2 className="text-lg font-bold">{newsItems.length} news item{newsItems.length !== 1 ? 's' : ''}</h2>
+              <button
+                onClick={() => { setEditNews(emptyNews()); setIsNewNews(true); setNewsImageFile(null); setNewsImagePreview(''); }}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-forest-600 hover:bg-forest-500 text-white text-[13px] font-semibold transition-colors"
+              >
+                <Plus size={15} />Add news
+              </button>
+            </div>
+
+            {loadingNews
+              ? <div className="flex justify-center py-16"><BrandedSpinner size={56} label="Loading news…" /></div>
+              : newsItems.length === 0
+                ? (
+                  <div className="text-center py-20 text-forest-500">
+                    <Newspaper size={40} className="mx-auto mb-3 opacity-30" />
+                    <p>No news yet. Add one using the button above.</p>
+                  </div>
+                )
+                : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {newsItems.map(item => (
+                      <div key={item.id} className="bg-forest-900 rounded-2xl border border-forest-800 overflow-hidden">
+                        {item.imagePath && (
+                          <div className="h-28 overflow-hidden">
+                            <img src={item.imagePath} alt={item.title} className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                        <div className="p-3">
+                          <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                            {item.tag && (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-forest-700 text-forest-300">
+                                <Tag size={8} />{item.tag}
+                              </span>
+                            )}
+                            <span className="text-[10px] text-forest-500">{item.publishedAt.slice(0, 10)}</span>
+                          </div>
+                          <h3 className="font-semibold text-white text-[13px] leading-tight mb-1">{item.title}</h3>
+                          <p className="text-forest-400 text-[11px] leading-snug line-clamp-2">{item.content}</p>
+                          <div className="flex gap-2 mt-2.5">
+                            <button
+                              onClick={() => { setEditNews({ ...item }); setIsNewNews(false); setNewsImagePreview(item.imagePath || ''); setNewsImageFile(null); }}
+                              className="flex-1 flex items-center justify-center gap-1 py-1.5 rounded-lg bg-forest-800 hover:bg-forest-700 text-[11px] text-forest-200 transition-colors"
+                            ><Pencil size={11} />Edit</button>
+                            <button
+                              onClick={() => handleDeleteNews(item.id)}
+                              className={`flex-1 flex items-center justify-center gap-1 py-1.5 rounded-lg text-[11px] transition-colors ${deleteNewsConfirm === item.id ? 'bg-red-700 text-white' : 'bg-forest-800 hover:bg-red-900/50 text-forest-200 hover:text-red-300'}`}
+                            ><Trash2 size={11} />{deleteNewsConfirm === item.id ? 'Confirm' : 'Delete'}</button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )
+            }
+          </div>
+        )}
       </div>
 
       {/* Edit modal */}
@@ -345,6 +479,81 @@ export default function AdminPage() {
                     {saving ? 'Saving…' : isNew ? 'Add to catalog' : 'Save changes'}
                   </button>
                   <button onClick={() => { setEditTree(null); setImageFile(null); setImagePreview(''); }} className="px-5 py-3 rounded-xl bg-forest-800 hover:bg-forest-700 text-forest-300 text-[14px]">Cancel</button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* News edit modal */}
+      <AnimatePresence>
+        {editNews && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-start justify-center p-4 sm:p-8 overflow-y-auto"
+            style={{ background: 'rgba(5,12,6,0.85)', backdropFilter: 'blur(8px)' }}
+            onClick={e => { if (e.target === e.currentTarget) setEditNews(null); }}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full max-w-2xl bg-forest-900 rounded-3xl border border-forest-800 shadow-2xl my-4"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between px-6 py-4 border-b border-forest-800">
+                <div>
+                  <h2 className="text-white font-bold text-base">{isNewNews ? 'Add news post' : `Edit: ${editNews.title}`}</h2>
+                  <p className="text-forest-400 text-[11px]">{isNewNews ? 'Write your news post and publish.' : 'Changes save immediately to the news feed.'}</p>
+                </div>
+                <button onClick={() => setEditNews(null)} className="w-8 h-8 rounded-full bg-forest-800 flex items-center justify-center text-forest-400 hover:text-white"><X size={15} /></button>
+              </div>
+              <div className="p-6 space-y-4">
+                {/* Image upload */}
+                <div>
+                  <label className="block text-[10px] uppercase tracking-wider text-forest-400 mb-2">Cover image (optional)</label>
+                  <div
+                    className="relative h-32 rounded-2xl border-2 border-dashed border-forest-700 hover:border-forest-500 flex items-center justify-center cursor-pointer overflow-hidden"
+                    onClick={() => newsFileRef.current?.click()}
+                  >
+                    {newsImagePreview
+                      ? (<><img src={newsImagePreview} alt="preview" className="h-full w-full object-cover" /><div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center"><span className="text-white text-[12px] flex items-center gap-1"><Upload size={13} />Change</span></div></>)
+                      : (<div className="text-center text-forest-500"><ImageIcon size={24} className="mx-auto mb-1.5 opacity-40" /><p className="text-[11px]">Click to upload PNG, JPG, WebP</p></div>)
+                    }
+                    <input ref={newsFileRef} type="file" accept="image/png,image/jpeg,image/webp" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) { setNewsImageFile(f); const r = new FileReader(); r.onload = ev => setNewsImagePreview(ev.target?.result as string); r.readAsDataURL(f); } }} />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <F label="News ID (slug)" value={editNews.id || ''} onChange={v => setEditNews(n => n ? { ...n, id: v.toLowerCase().replace(/\s/g, '-') } : n)} placeholder="spring-sale-2026" disabled={!isNewNews} />
+                  <div>
+                    <label className="block text-[10px] uppercase tracking-wider text-forest-400 mb-1.5">Tag (optional)</label>
+                    <input type="text" value={editNews.tag || ''} onChange={e => setEditNews(n => n ? { ...n, tag: e.target.value } : n)} placeholder="Seasonal, Offer…"
+                      className="w-full bg-forest-800 border border-forest-700 rounded-xl px-3 py-2 text-white text-[13px] outline-none focus:ring-2 focus:ring-forest-500 placeholder:text-forest-600" />
+                  </div>
+                </div>
+
+                <F label="Title" value={editNews.title || ''} onChange={v => setEditNews(n => n ? { ...n, title: v } : n)} placeholder="Spring collection has arrived!" />
+
+                <div>
+                  <label className="block text-[10px] uppercase tracking-wider text-forest-400 mb-1.5">Date published</label>
+                  <input type="date" value={(editNews.publishedAt || '').slice(0, 10)} onChange={e => setEditNews(n => n ? { ...n, publishedAt: e.target.value } : n)}
+                    className="w-full bg-forest-800 border border-forest-700 rounded-xl px-3 py-2 text-white text-[13px] outline-none focus:ring-2 focus:ring-forest-500" />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] uppercase tracking-wider text-forest-400 mb-1.5">Content</label>
+                  <textarea value={editNews.content || ''} onChange={e => setEditNews(n => n ? { ...n, content: e.target.value } : n)} rows={6}
+                    placeholder="Write the news content here…"
+                    className="w-full bg-forest-800 border border-forest-700 rounded-xl px-3 py-2 text-white text-[13px] outline-none focus:ring-2 focus:ring-forest-500 resize-none" />
+                </div>
+
+                <div className="flex gap-3 pt-1">
+                  <button onClick={handleSaveNews} disabled={savingNews} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-forest-600 hover:bg-forest-500 text-white font-semibold text-[14px] disabled:opacity-60">
+                    {savingNews ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
+                    {savingNews ? 'Saving…' : isNewNews ? 'Publish post' : 'Save changes'}
+                  </button>
+                  <button onClick={() => { setEditNews(null); setNewsImageFile(null); setNewsImagePreview(''); }} className="px-5 py-3 rounded-xl bg-forest-800 hover:bg-forest-700 text-forest-300 text-[14px]">Cancel</button>
                 </div>
               </div>
             </motion.div>

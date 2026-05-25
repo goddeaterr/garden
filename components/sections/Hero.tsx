@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowUpRight, Sparkles, Trees, TreePine, Sprout, Flower, Flower2, Wind, Rows4, Sun, Wheat } from 'lucide-react';
+import { Sparkles, Trees, TreePine, Sprout, Flower, Flower2, Wind, Rows4, Sun, Wheat } from 'lucide-react';
 import { useI18n } from '@/lib/i18nContext';
 import { Particles } from '@/components/ui/Particles';
 
@@ -95,7 +95,7 @@ export function Hero() {
     <section
       id="hero"
       onMouseMove={handleMouseMove}
-      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#e8f0e8] via-[#f0f4f0] to-[#e3ede3] dark:from-[#0c160e] dark:via-[#101f12] dark:to-[#0c160e]"
+      className="relative min-h-[100svh] flex items-start justify-center overflow-hidden bg-gradient-to-b from-[#e8f0e8] via-[#f0f4f0] to-[#e3ede3] dark:from-[#0c160e] dark:via-[#101f12] dark:to-[#0c160e]"
     >
 
       {/* Photo background — placed first so it sits behind everything */}
@@ -218,28 +218,28 @@ export function Hero() {
         </div>
       </motion.div>
 
-      {/* Content — centered as before */}
-      <div className="relative z-10 text-center px-5 max-w-5xl">
+      {/* Content — top-left, smaller title */}
+      <div className="relative z-10 w-full px-5 sm:px-10 pt-[max(7rem,16svh)] max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="relative inline-flex items-center justify-center mb-8"
+          className="relative inline-flex items-center mb-5"
         >
           <div
             className="hero-badge-shine relative inline-flex items-center gap-2 px-4 py-1.5 rounded-full"
             style={{ background: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.7)' }}
           >
-            <Sparkles size={14} className="text-forest-700 dark:text-forest-300" />
-            <span className="text-xs font-medium tracking-wide text-forest-800 dark:text-forest-200">{tr.hero.badge}</span>
+            <Sparkles size={13} className="text-forest-700 dark:text-forest-300" />
+            <span className="text-[11px] font-medium tracking-wide text-forest-800 dark:text-forest-200">{tr.hero.badge}</span>
           </div>
         </motion.div>
 
-        <h1 className="hero-title-depth text-[clamp(2.6rem,8.5vw,8rem)] font-bold tracking-[-0.04em] leading-[0.95] text-forest-950 dark:text-forest-50 mb-6">
+        <h1 className="hero-title-depth text-[clamp(1.9rem,4.8vw,4.2rem)] font-bold tracking-[-0.03em] leading-[1.05] text-forest-950 dark:text-forest-50 mb-4 max-w-2xl">
           {words.map((word, i) => (
             <motion.span key={i}
-              initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+              initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ duration: 1.0, delay: 0.4 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.9, delay: 0.4 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="inline-block mr-[0.22em]"
             >
               {i === words.length - 1 ? (
@@ -253,31 +253,12 @@ export function Hero() {
         </h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[clamp(0.95rem,2vw,1.25rem)] text-forest-700 dark:text-forest-200 max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-[clamp(0.9rem,1.6vw,1.1rem)] text-forest-700 dark:text-forest-200 max-w-xl leading-relaxed"
         >
           {tr.hero.sub}
         </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row gap-3 justify-center"
-        >
-          <div className="relative group/cta">
-            <span className="cta-glow-ring absolute -inset-[3px] rounded-full opacity-0 group-hover/cta:opacity-100 transition-opacity duration-500" aria-hidden />
-            <a href="#catalog" className="relative magnetic-button group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[15px] font-semibold bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 hover:scale-[1.02] active:scale-[0.98] transition-transform">
-              {tr.hero.cta1}
-              <ArrowUpRight size={16} className="group-hover:rotate-45 transition-transform duration-500" />
-            </a>
-          </div>
-          <a href="#about" className="magnetic-button group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[15px] font-medium bg-white/60 dark:bg-forest-900/60 border border-white/70 dark:border-forest-700/50 text-forest-900 dark:text-forest-50 hover:scale-[1.02] active:scale-[0.98] transition-transform">
-            {tr.hero.cta2}
-          </a>
-        </motion.div>
-
-
       </div>
 
       {/* Animated wave divider — slides infinitely into next section */}

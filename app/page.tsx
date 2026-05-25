@@ -5,6 +5,7 @@ import { Nav } from '@/components/sections/Nav';
 import { Hero } from '@/components/sections/Hero';
 import { Catalog } from '@/components/sections/Catalog';
 import { Services } from '@/components/sections/Services';
+import { News } from '@/components/sections/News';
 import { Footer } from '@/components/sections/Footer';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { I18nProvider } from '@/lib/i18nContext';
@@ -38,6 +39,7 @@ export default function Home() {
           <Hero />
           <Catalog />
           <Services />
+          <News />
           <Footer />
         </main>
         <StickyMobileBar />

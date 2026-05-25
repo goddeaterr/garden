@@ -1,8 +1,9 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
-import type { Tree } from '@/types';
+import type { Tree, NewsItem } from '@/types';
 
 const DATA_FILE = join(process.cwd(), 'public', 'trees-data.json');
+const NEWS_FILE = join(process.cwd(), 'public', 'news-data.json');
 
 // Vercel Postgres creates different variable names depending on prefix config.
 // Support all common variants so it works regardless of what was set.
@@ -21,6 +22,12 @@ function readJson(): Tree[] {
 }
 function writeJson(trees: Tree[]) {
   writeFileSync(DATA_FILE, JSON.stringify(trees, null, 2), 'utf-8');
+}
+function readNewsJson(): NewsItem[] {
+  try { return JSON.parse(readFileSync(NEWS_FILE, 'utf-8')); } catch { return []; }
+}
+function writeNewsJson(items: NewsItem[]) {
+  writeFileSync(NEWS_FILE, JSON.stringify(items, null, 2), 'utf-8');
 }
 
 // ─── Row → Tree mapping ───────────────────────────────────────────────────────
@@ -147,5 +154,89 @@ export async function deleteTree(id: string): Promise<boolean> {
   }
   const pool = await getPool();
   const { rowCount } = await pool.sql`DELETE FROM trees WHERE id = ${id}`;
+  return (rowCount ?? 0) > 0;
+}
+
+// ─── News CRUD ────────────────────────────────────────────────────────────────
+async function initNewsTable(pool: any) {
+  await pool.sql`
+    CREATE TABLE IF NOT EXISTS news (
+      id           TEXT PRIMARY KEY,
+      title        TEXT NOT NULL,
+      content      TEXT NOT NULL DEFAULT '',
+      image_path   TEXT,
+      tag          TEXT,
+      published_at TIMESTAMPTZ DEFAULT NOW(),
+      created_at   TIMESTAMPTZ DEFAULT NOW()
+    )
+  `;
+}
+
+function rowToNews(row: any): NewsItem {
+  return {
+    id: row.id,
+    title: row.title,
+    content: row.content || '',
+    imagePath: row.image_path || undefined,
+    tag: row.tag || undefined,
+    publishedAt: row.published_at ? new Date(row.published_at).toISOString() : new Date().toISOString(),
+  };
+}
+
+export async function getAllNews(): Promise<NewsItem[]> {
+  if (!DB_URL) return readNewsJson().sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+  const pool = await getPool();
+  await initNewsTable(pool);
+  const { rows } = await pool.sql`SELECT * FROM news ORDER BY published_at DESC`;
+  return rows.map(rowToNews);
+}
+
+export async function createNews(item: NewsItem): Promise<NewsItem> {
+  if (!DB_URL) {
+    const items = readNewsJson();
+    items.unshift(item);
+    writeNewsJson(items);
+    return item;
+  }
+  const pool = await getPool();
+  await initNewsTable(pool);
+  await pool.sql`
+    INSERT INTO news (id, title, content, image_path, tag, published_at)
+    VALUES (${item.id}, ${item.title}, ${item.content || ''}, ${item.imagePath || null}, ${item.tag || null}, ${item.publishedAt})
+  `;
+  return item;
+}
+
+export async function updateNews(item: NewsItem): Promise<NewsItem> {
+  if (!DB_URL) {
+    const items = readNewsJson();
+    const idx = items.findIndex(n => n.id === item.id);
+    if (idx === -1) throw new Error('Not found');
+    items[idx] = item;
+    writeNewsJson(items);
+    return item;
+  }
+  const pool = await getPool();
+  const { rowCount } = await pool.sql`
+    UPDATE news SET
+      title = ${item.title}, content = ${item.content || ''},
+      image_path = ${item.imagePath || null}, tag = ${item.tag || null},
+      published_at = ${item.publishedAt}
+    WHERE id = ${item.id}
+  `;
+  if (!rowCount) throw new Error('Not found');
+  return item;
+}
+
+export async function deleteNews(id: string): Promise<boolean> {
+  if (!DB_URL) {
+    const items = readNewsJson();
+    const filtered = items.filter(n => n.id !== id);
+    if (filtered.length === items.length) return false;
+    writeNewsJson(filtered);
+    return true;
+  }
+  const pool = await getPool();
+  const { rowCount } = await pool.sql`DELETE FROM news WHERE id = ${id}`;
   return (rowCount ?? 0) > 0;
 }
