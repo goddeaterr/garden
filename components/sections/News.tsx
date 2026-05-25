@@ -86,10 +86,13 @@ export function News() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/news')
-      .then(r => r.ok ? r.json() : [])
-      .then(setItems)
-      .catch(() => setItems([]))
+    fetch('/api/news', { cache: 'no-store' })
+      .then(r => {
+        if (!r.ok) { console.error('[News] API error', r.status); return []; }
+        return r.json();
+      })
+      .then((data: NewsItem[]) => setItems(Array.isArray(data) ? data : []))
+      .catch(err => { console.error('[News] fetch failed', err); setItems([]); })
       .finally(() => setLoading(false));
   }, []);
 

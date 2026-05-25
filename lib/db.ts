@@ -185,10 +185,15 @@ function rowToNews(row: any): NewsItem {
 
 export async function getAllNews(): Promise<NewsItem[]> {
   if (!DB_URL) return readNewsJson().sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
-  const pool = await getPool();
-  await initNewsTable(pool);
-  const { rows } = await pool.sql`SELECT * FROM news ORDER BY published_at DESC`;
-  return rows.map(rowToNews);
+  try {
+    const pool = await getPool();
+    await initNewsTable(pool);
+    const { rows } = await pool.sql`SELECT * FROM news ORDER BY published_at DESC`;
+    return rows.map(rowToNews);
+  } catch (e) {
+    console.error('[db] getAllNews error:', e);
+    throw e;
+  }
 }
 
 export async function createNews(item: NewsItem): Promise<NewsItem> {
@@ -198,13 +203,18 @@ export async function createNews(item: NewsItem): Promise<NewsItem> {
     writeNewsJson(items);
     return item;
   }
-  const pool = await getPool();
-  await initNewsTable(pool);
-  await pool.sql`
-    INSERT INTO news (id, title, content, image_path, tag, published_at)
-    VALUES (${item.id}, ${item.title}, ${item.content || ''}, ${item.imagePath || null}, ${item.tag || null}, ${item.publishedAt})
-  `;
-  return item;
+  try {
+    const pool = await getPool();
+    await initNewsTable(pool);
+    await pool.sql`
+      INSERT INTO news (id, title, content, image_path, tag, published_at)
+      VALUES (${item.id}, ${item.title}, ${item.content || ''}, ${item.imagePath || null}, ${item.tag || null}, ${item.publishedAt})
+    `;
+    return item;
+  } catch (e) {
+    console.error('[db] createNews error:', e);
+    throw e;
+  }
 }
 
 export async function updateNews(item: NewsItem): Promise<NewsItem> {

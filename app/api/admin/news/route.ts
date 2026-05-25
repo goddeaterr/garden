@@ -3,6 +3,9 @@ import { createHash } from 'crypto';
 import { getAllNews, createNews, updateNews, deleteNews } from '@/lib/db';
 import type { NewsItem } from '@/types';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 function getSessionToken() {
   const adminToken = process.env.ADMIN_TOKEN;
   const adminHash = process.env.ADMIN_PASSWORD_HASH;
