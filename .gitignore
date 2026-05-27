@@ -26,3 +26,10 @@ Thumbs.db
 
 # Claude local config (contains API keys / tokens)
 .claude/
+
+# Scraped images & stale scraper data (too large for Vercel bundle)
+public/scraped-images/
+public/scraped-data.json
+public/marketplace.json
+public/plant-builder-images.json
+public/scrape-log.json
