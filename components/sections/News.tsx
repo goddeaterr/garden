@@ -6,6 +6,24 @@ import { Newspaper, Tag, ChevronDown, ChevronUp, Calendar } from 'lucide-react';
 import type { NewsItem } from '@/types';
 import { useI18n } from '@/lib/i18nContext';
 
+function normalizeImagePath(path: string | undefined): string | undefined {
+  if (!path?.trim()) return undefined;
+  const value = path.trim();
+  if (value.startsWith('http://') || value.startsWith('https://') || value.startsWith('/')) return value;
+  return `/${value}`;
+}
+
+function fallbackImageFor(item: NewsItem): string {
+  const text = `${item.title} ${item.tag || ''} ${item.content}`.toLowerCase();
+  if (text.includes('juodoji') || text.includes('puš') || text.includes('pus')) {
+    return '/scraped-images/pusis-juodoji-builder.png';
+  }
+  if (text.includes('med') || text.includes('gamt') || text.includes('lietuv')) {
+    return '/categories/trees.jpg';
+  }
+  return '/hero-bg.jpg';
+}
+
 function formatDate(iso: string, locale: string): string {
   try {
     return new Date(iso).toLocaleDateString(
@@ -17,8 +35,14 @@ function formatDate(iso: string, locale: string): string {
 
 function NewsCard({ item, locale }: { item: NewsItem; locale: string }) {
   const [expanded, setExpanded] = useState(false);
+  const fallbackImage = fallbackImageFor(item);
+  const [imageSrc, setImageSrc] = useState(() => normalizeImagePath(item.imagePath) || fallbackImage);
   const preview = item.content.length > 220 ? item.content.slice(0, 220).replace(/\s+\S*$/, '') + '…' : item.content;
   const needsExpand = item.content.length > 220;
+
+  useEffect(() => {
+    setImageSrc(normalizeImagePath(item.imagePath) || fallbackImage);
+  }, [fallbackImage, item.imagePath]);
 
   return (
     <motion.article
@@ -29,12 +53,15 @@ function NewsCard({ item, locale }: { item: NewsItem; locale: string }) {
       className="group bg-white/70 dark:bg-forest-900/60 border border-white/80 dark:border-forest-700/40 rounded-2xl overflow-hidden hover:shadow-lg hover:shadow-forest-900/8 transition-shadow duration-300"
     >
       {/* Image */}
-      {item.imagePath && (
+      {imageSrc && (
         <div className="relative h-44 overflow-hidden bg-forest-100 dark:bg-forest-800">
           <img
-            src={item.imagePath}
+            src={imageSrc}
             alt={item.title}
             className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+            onError={() => {
+              setImageSrc(current => current === fallbackImage ? '' : fallbackImage);
+            }}
           />
         </div>
       )}
