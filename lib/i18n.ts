@@ -286,8 +286,8 @@ export const translations = {
     news: { eyebrow: 'Naujienos', title: 'Naujiausios žinios iš medelyno.', readMore: 'Skaityti daugiau', showLess: 'Sutraukti' },
     hero: {
       badge: 'Sezonas prasidėjo — 2026 pavasario kolekcija',
-      headline: ['Sukurkite', 'Savo', 'Svajonių', 'Sodą.'],
-      sub: 'Aukščiausios kokybės medelynas — ir planavimo studija, kuri padeda surasti tinkamą vietą kiekvienam medžiui.',
+      headline: ['Kurkite', 'sodą,', 'kuriame', 'gamta', 'tampa', 'menu.'],
+      sub: 'Medelynas ir planavimo studija, padedanti pasirinkti augalus, kurie dera jūsų erdvėje.',
       cta1: 'Peržiūrėti medžius', cta2: 'Sužinoti daugiau', cta2badge: '', scroll: 'Slinkti',
       trust1: '100+ rūšių', trust2: 'Greitas pasiūlymas', trust3: 'Pristatymas visoje Lietuvoje',
       cat1: 'Mūsų Spigliuočiai', cat2: 'Mūsų Lapuočiai', cat3: 'Kiti Augalai',

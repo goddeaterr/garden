@@ -180,6 +180,7 @@ const CAT_STYLES: Record<string, { card: string; icon: string; dot: string }> = 
 /* ── Main Catalog ── */
 export function Catalog() {
   const trees = useTrees();
+  const { addItem, openCart } = useCart();
   const [activeCat, setActiveCat] = useState<TreeCategory | null>(null);
   const [size, setSize] = useState<TreeSize | 'all'>('all');
   const [maxPrice, setMaxPrice] = useState(PRICE_MAX);
@@ -343,7 +344,11 @@ export function Catalog() {
       <TreeDetailModal
         tree={selectedTree}
         onClose={() => setSelectedTree(null)}
-        onQuote={() => setSelectedTree(null)}
+        onQuote={() => {
+          if (selectedTree) addItem(selectedTree);
+          setSelectedTree(null);
+          window.setTimeout(openCart, 80);
+        }}
       />
     </>
   );

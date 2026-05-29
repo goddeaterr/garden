@@ -7,6 +7,7 @@ import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { LangSwitcher } from '@/components/ui/LangSwitcher';
 import { useI18n } from '@/lib/i18nContext';
 import { MessageSquare, X } from 'lucide-react';
+import { useCart } from '@/lib/cartContext';
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -14,6 +15,7 @@ export function Nav() {
   const [barVisible, setBarVisible] = useState(false);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const { tr } = useI18n();
+  const { itemCount, openCart } = useCart();
 
   useEffect(() => {
     if (!localStorage.getItem('ann-spring2026')) setBarVisible(true);
@@ -64,6 +66,22 @@ export function Nav() {
     { label: (tr.nav as any).news,       href: '#news',     section: 'news'     },
   ];
 
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.history.replaceState(null, '', `#${id}`);
+  };
+
+  const handleQuoteClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (itemCount > 0) {
+      openCart();
+      return;
+    }
+    scrollToSection('catalog');
+  };
+
   return (
     <>
       {/* Scroll progress line */}
@@ -93,7 +111,11 @@ export function Nav() {
             <span className="hidden sm:inline">{(tr.nav as any).annText}</span>
             <a
               href="#catalog"
-              onClick={dismissBar}
+              onClick={(e) => {
+                e.preventDefault();
+                dismissBar();
+                scrollToSection('catalog');
+              }}
               className="font-semibold text-white hover:text-emerald-300 transition-colors underline underline-offset-2 decoration-white/30"
             >
               {(tr.nav as any).annLink}
@@ -136,6 +158,10 @@ export function Nav() {
             <a
               key={l.href}
               href={l.href}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection(l.section);
+              }}
               className="relative px-3 py-1.5 text-[13px] font-medium text-forest-700 dark:text-forest-200 hover:text-forest-900 dark:hover:text-white rounded-full transition-colors"
             >
               {l.label}
@@ -162,6 +188,7 @@ export function Nav() {
           <ThemeToggle />
           <a
             href="#catalog"
+            onClick={handleQuoteClick}
             className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 text-[13px] font-medium hover:scale-[1.03] active:scale-[0.97] transition-transform"
           >
             <MessageSquare size={13} />
