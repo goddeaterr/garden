@@ -5,7 +5,6 @@ import { Nav } from '@/components/sections/Nav';
 import { Hero } from '@/components/sections/Hero';
 import { Catalog } from '@/components/sections/Catalog';
 import { About } from '@/components/sections/About';
-import { Services } from '@/components/sections/Services';
 import { News } from '@/components/sections/News';
 import { Footer } from '@/components/sections/Footer';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
@@ -40,7 +39,6 @@ export default function Home() {
           <Hero />
           <Catalog />
           <About />
-          <Services />
           <News />
           <Footer />
         </main>

@@ -44,7 +44,7 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
-    const ids = ['catalog', 'about', 'services', 'news'];
+    const ids = ['catalog', 'about', 'news'];
     const observers: IntersectionObserver[] = [];
     ids.forEach(id => {
       const el = document.getElementById(id);
@@ -62,7 +62,6 @@ export function Nav() {
   const links = [
     { label: tr.nav.trees,               href: '#catalog',  section: 'catalog'  },
     { label: tr.nav.about,               href: '#about',    section: 'about'    },
-    { label: tr.nav.services,            href: '#services', section: 'services' },
     { label: (tr.nav as any).news,       href: '#news',     section: 'news'     },
   ];
 

@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Sparkles, Trees, TreePine, Sprout, Flower, Flower2, Wind, Rows4, Sun, Wheat } from 'lucide-react';
+import { Trees, TreePine, Sprout, Flower, Flower2, Wind, Rows4, Sun, Wheat } from 'lucide-react';
 import { useI18n } from '@/lib/i18nContext';
 import { Particles } from '@/components/ui/Particles';
 
@@ -251,20 +251,6 @@ export function Hero() {
 
       {/* Content — top-left, smaller title */}
       <div className="relative z-10 w-full px-5 sm:px-10 pt-[max(7rem,16svh)] max-w-5xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="relative inline-flex items-center mb-5"
-        >
-          <div
-            className="hero-badge-shine relative inline-flex items-center gap-2 px-4 py-1.5 rounded-full"
-            style={{ background: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.7)' }}
-          >
-            <Sparkles size={13} className="text-forest-700 dark:text-forest-300" />
-            <span className="text-[11px] font-medium tracking-wide text-forest-800 dark:text-forest-200">{tr.hero.badge}</span>
-          </div>
-        </motion.div>
-
         <h1 className="hero-title-depth text-[clamp(1.9rem,4.8vw,4.2rem)] font-bold tracking-[-0.03em] leading-[1.05] text-forest-950 dark:text-forest-50 mb-4 max-w-2xl">
           {words.map((word, i) => (
             <motion.span key={i}
@@ -283,13 +269,6 @@ export function Hero() {
           ))}
         </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[clamp(0.9rem,1.6vw,1.1rem)] text-forest-700 dark:text-forest-200 max-w-xl leading-relaxed"
-        >
-          {tr.hero.sub}
-        </motion.p>
       </div>
 
       {/* Animated wave divider — slides infinitely into next section */}
