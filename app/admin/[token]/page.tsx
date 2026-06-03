@@ -627,7 +627,7 @@ export default function AdminPage({ params }: { params: Promise<{ token: string 
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h3 className="text-[14px] font-bold text-white mb-1 flex items-center gap-2"><Wand2 size={15} className="text-amber-400"/>Auto Plant Images + BG Remove</h3>
-                  <p className="text-forest-400 text-[12px]">Searches DuckDuckGo and Bing for "{'{'}plant name{'}'} without background" — no API keys. Downloads the result and strips the background with local AI. These images appear <strong className="text-forest-200">only in the garden builder</strong>, not in the catalog.</p>
+                  <p className="text-forest-400 text-[12px]">Searches DuckDuckGo and Bing for "{'{'}plant name{'}'} without background" — no API keys. Downloads the result and strips the background with local AI.</p>
                 </div>
                 <div className="flex-shrink-0 flex flex-col items-end gap-2">
                   <button onClick={handleGoogleBulk} disabled={googleBulking}

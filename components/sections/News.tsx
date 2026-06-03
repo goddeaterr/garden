@@ -9,18 +9,12 @@ import { useI18n } from '@/lib/i18nContext';
 function normalizeImagePath(path: string | undefined): string | undefined {
   if (!path?.trim()) return undefined;
   const value = path.trim();
-  if (value.startsWith('http://') || value.startsWith('https://') || value.startsWith('/')) return value;
+  // base64 data URLs, absolute URLs and root-relative paths are all valid as-is
+  if (value.startsWith('data:') || value.startsWith('http://') || value.startsWith('https://') || value.startsWith('/')) return value;
   return `/${value}`;
 }
 
-function fallbackImageFor(item: NewsItem): string {
-  const text = `${item.title} ${item.tag || ''} ${item.content}`.toLowerCase();
-  if (text.includes('juodoji') || text.includes('puš') || text.includes('pus')) {
-    return '/scraped-images/pusis-juodoji-builder.png';
-  }
-  if (text.includes('med') || text.includes('gamt') || text.includes('lietuv')) {
-    return '/categories/trees.jpg';
-  }
+function fallbackImageFor(_item: NewsItem): string {
   return '/hero-bg.jpg';
 }
 

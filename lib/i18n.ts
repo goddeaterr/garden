@@ -29,7 +29,7 @@ export const translations = {
     hero: {
       badge: 'Now in season — Spring 2026 collection',
       headline: ['Design', 'Your', 'Dream', 'Garden.'],
-      sub: 'A premium nursery for trees that outlive us — and a planning studio to place every one of them, exactly where it belongs.',
+      sub: 'A premium nursery for trees that outlive us. Every specimen grown on-site, named, documented, and ready for its next century.',
       cta1: 'Explore Trees', cta2: 'Learn More', cta2badge: '', scroll: 'Scroll',
       trust1: '100+ Species', trust2: 'Same-day Quote', trust3: 'Nationwide Delivery',
       cat1: 'Our Evergreens', cat2: 'Deciduous Trees', cat3: 'Other Plants',
@@ -41,7 +41,7 @@ export const translations = {
       card1Title: 'A nursery, not a warehouse',
       card1Body: 'We grow on-site for years before sale — fruit trees, decorative species, evergreens, ornamental shrubs. Every specimen is named, documented, and ready for its next century.',
       card2Title: 'Landscape design with our team',
-      card2Body: 'A site visit, a plan drawn to scale, and a delivery + planting service. Or use our online Garden Builder to compose your own layout, then send it to us for a quote.',
+      card2Body: 'A site visit, a plan drawn to scale, and a full delivery + planting service. Browse our catalog, pick your trees, and request a quote online in minutes.',
       catalogEyebrow: 'Three from the catalog',
       catalogTitle: "A glance at what's growing",
       seeAll: 'See full catalog',
@@ -287,7 +287,7 @@ export const translations = {
     hero: {
       badge: 'Sezonas prasidėjo — 2026 pavasario kolekcija',
       headline: ['Kurkite', 'sodą,', 'kuriame', 'gamta', 'tampa', 'menu.'],
-      sub: 'Medelynas ir planavimo studija, padedanti pasirinkti augalus, kurie dera jūsų erdvėje.',
+      sub: 'Aukščiausios kokybės medelynas — kiekvienas egzempliorius auginamas vietoje, pavadintas ir paruoštas jūsų sodui.',
       cta1: 'Peržiūrėti medžius', cta2: 'Sužinoti daugiau', cta2badge: '', scroll: 'Slinkti',
       trust1: '100+ rūšių', trust2: 'Greitas pasiūlymas', trust3: 'Pristatymas visoje Lietuvoje',
       cat1: 'Mūsų Spigliuočiai', cat2: 'Mūsų Lapuočiai', cat3: 'Kiti Augalai',
@@ -298,7 +298,7 @@ export const translations = {
       card1Title: 'Medelynas, ne sandėlis',
       card1Body: 'Auginame vietoje kelis metus prieš pardavimą — vaismedžiai, dekoratyvinės rūšys, spygliuočiai, dekoratyviniai krūmai. Kiekvienas egzempliorius pavadintas, dokumentuotas ir paruoštas ateinančiam šimtmečiui.',
       card2Title: 'Kraštovaizdžio dizainas su mūsų komanda',
-      card2Body: 'Vizitas į vietą, planas braižytas pagal mastelį ir pristatymo + sodinimo paslauga. Arba naudokite mūsų sodo kūrėją ir siųskite mums pasiūlymui.',
+      card2Body: 'Vizitas į vietą, planas braižytas pagal mastelį ir pristatymo + sodinimo paslauga. Peržiūrėkite katalogą, pasirinkite medžius ir paprašykite pasiūlymo internetu per kelias minutes.',
       catalogEyebrow: 'Trys iš katalogo', catalogTitle: 'Žvilgsnis į tai, kas auga', seeAll: 'Žiūrėti visą katalogą',
     },
     catalog: {
@@ -542,7 +542,7 @@ export const translations = {
     hero: {
       badge: 'Сезон открыт — коллекция весна 2026',
       headline: ['Создайте', 'Сад', 'Своей', 'Мечты.'],
-      sub: 'Премиальный питомник деревьев — и студия планирования, чтобы разместить каждое дерево именно там, где оно нужно.',
+      sub: 'Премиальный питомник деревьев. Каждый экземпляр выращен на месте, именован и готов украсить ваш сад.',
       cta1: 'Смотреть деревья', cta2: 'Узнать больше', cta2badge: '', scroll: 'Прокрутить',
       trust1: '100+ видов', trust2: 'Расчёт за день', trust3: 'Доставка по всей стране',
       cat1: 'Наши хвойные', cat2: 'Лиственные деревья', cat3: 'Другие растения',
@@ -553,7 +553,7 @@ export const translations = {
       card1Title: 'Питомник, а не склад',
       card1Body: 'Мы выращиваем на месте годами до продажи — плодовые деревья, декоративные виды, хвойные, декоративные кустарники. Каждый экземпляр именован, задокументирован и готов к следующему веку.',
       card2Title: 'Ландшафтный дизайн с нашей командой',
-      card2Body: 'Выезд на место, план в масштабе и услуга доставки + посадки. Или используйте наш онлайн конструктор сада, затем отправьте нам для расчёта.',
+      card2Body: 'Выезд на место, план в масштабе и полный комплекс доставки + посадки. Просмотрите каталог, выберите деревья и запросите цену онлайн за несколько минут.',
       catalogEyebrow: 'Три из каталога', catalogTitle: 'Взгляд на то, что растёт', seeAll: 'Смотреть весь каталог',
     },
     catalog: {

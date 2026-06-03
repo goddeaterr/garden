@@ -3,7 +3,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'MB Plant House — Design Your Dream Garden',
-  description: 'Premium tree nursery & landscape design. Explore our catalog, then arrange your garden with our interactive builder.',
+  description: 'Premium tree nursery in Lithuania. Browse our catalog of trees, shrubs, and plants, and request a quote online.',
 };
 
 export const viewport: Viewport = {

@@ -113,13 +113,13 @@ function TreeCard({ tree, onOpen }: {
             regardless of what transforms happen inside */}
         <div
           className="w-full max-w-[120px] sm:max-w-[150px] mx-auto"
-          style={(tree.builderImagePath || tree.imagePath) ? { mixBlendMode: 'screen' } : undefined}
+          style={tree.imagePath ? { mixBlendMode: 'screen' } : undefined}
         >
           {/* Inner: owns the hover lift — transform here can't break the blend context above */}
           <div className="transition-all duration-700 ease-out group-hover:-translate-y-3 group-hover:scale-[1.13] group-hover:brightness-110 will-change-transform">
             <TreeIllustration
               svg={tree.svg}
-              imagePath={tree.builderImagePath || tree.imagePath}
+              imagePath={tree.imagePath}
               alt={tree.name}
               className="w-full"
             />

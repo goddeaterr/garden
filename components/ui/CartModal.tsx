@@ -182,10 +182,10 @@ export function CartModal() {
                         <div className="w-12 h-12 rounded-xl flex-shrink-0 overflow-hidden"
                           style={{
                             background: `radial-gradient(ellipse at 50% 80%,${tree.color}40,transparent 70%), rgb(8,18,10)`,
-                            mixBlendMode: (tree.builderImagePath || tree.imagePath) ? 'normal' : undefined,
+                            mixBlendMode: tree.imagePath ? 'normal' : undefined,
                           }}>
-                          <div style={(tree.builderImagePath || tree.imagePath) ? { mixBlendMode: 'screen', width: '100%', height: '100%' } : { width: '100%', height: '100%' }}>
-                            <TreeIllustration svg={tree.svg} imagePath={tree.builderImagePath || tree.imagePath} alt={tree.name} className="w-full h-full" />
+                          <div style={tree.imagePath ? { mixBlendMode: 'screen', width: '100%', height: '100%' } : { width: '100%', height: '100%' }}>
+                            <TreeIllustration svg={tree.svg} imagePath={tree.imagePath} alt={tree.name} className="w-full h-full" />
                           </div>
                         </div>
                         {/* Info */}

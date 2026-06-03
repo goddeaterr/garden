@@ -32,7 +32,6 @@ export interface Tree {
   description: string;
   svg?: string;
   imagePath?: string;
-  builderImagePath?: string;
   color: string;
   bloom?: string;
   care: TreeCare;

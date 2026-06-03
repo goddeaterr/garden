@@ -4,7 +4,6 @@ import type { Tree, NewsItem } from '@/types';
 
 const DATA_FILE = join(process.cwd(), 'public', 'trees-data.json');
 const NEWS_FILE = join(process.cwd(), 'public', 'news-data.json');
-const MARKETPLACE_FILE = join(process.cwd(), 'public', 'marketplace.json');
 
 // Vercel Postgres creates different variable names depending on prefix config.
 // Support all common variants so it works regardless of what was set.
@@ -22,52 +21,12 @@ function emptyCare() {
   return { watering:'', sunlight:'', soil:'', pruning:'', hardiness:'', spacing:'', growthRate:'', notes:'' };
 }
 
-function normalizeCategory(raw: string | undefined, name: string): Tree['category'] {
-  const category = (raw || '').toLowerCase();
-  const text = name.toLowerCase();
-  if (category.includes('evergreen') || /tuja|puš|pus|pinus|picea|kadag|juniper|egl|kėn|ken|maumed/.test(text)) return 'conifer';
-  if (category.includes('shrub') || /krūm|krum|hortenz|lonicera|putinas|seivamed/.test(text)) return 'shrubs';
-  if (category.includes('fruit') || /obelis|kriauš|kriaus|slyv|vyš|vys|medis/.test(text)) return 'trees';
-  if (/miskant|miscanthus|pennisetum|stipa|sesleria|žol|zol/.test(text)) return 'grass';
-  if (/vijok|vynvyt|visterij|ragan/.test(text)) return 'climbing';
-  if (/gyvatvor|buksmed|ligustr/.test(text)) return 'hedge';
-  if (/vazon|teras/.test(text)) return 'potted';
-  if (/begon|petun|verbena|sanvitalia/.test(text)) return 'annual';
-  return 'perennial';
-}
-
-function marketplaceToTrees(): Tree[] {
-  try {
-    const data = JSON.parse(readFileSync(MARKETPLACE_FILE, 'utf-8'));
-    if (!Array.isArray(data.groups)) return [];
-    return data.groups.map((group: any): Tree => {
-      const offer = Array.isArray(group.offers) ? group.offers[0] : null;
-      const name = String(group.canonicalName || group.slug || 'Plant');
-      return {
-        id: String(group.slug || offer?.productId || name.toLowerCase().replace(/[^a-z0-9]+/g, '-')).slice(0, 80),
-        name,
-        latin: String(group.latinName || ''),
-        category: normalizeCategory(group.category, name),
-        size: 'medium',
-        price: Number(group.bestPrice || offer?.price || 0),
-        height: String(offer?.height || ''),
-        description: String(group.latinName || name),
-        imagePath: offer?.localImagePath || undefined,
-        color: '#508153',
-        care: emptyCare(),
-      };
-    }).filter((tree: Tree) => tree.name && tree.price >= 0);
-  } catch {
-    return [];
-  }
-}
-
 function readJson(): Tree[] {
   try {
     const trees = JSON.parse(readFileSync(DATA_FILE, 'utf-8'));
     if (Array.isArray(trees) && trees.length > 0) return trees;
   } catch {}
-  return marketplaceToTrees();
+  return [];
 }
 function writeJson(trees: Tree[]) {
   writeFileSync(DATA_FILE, JSON.stringify(trees, null, 2), 'utf-8');
@@ -93,7 +52,6 @@ function rowToTree(row: any): Tree {
     imagePath: row.image_path || undefined,
     color: row.color || '#508153',
     bloom: row.bloom || undefined,
-    builderImagePath: row.builder_image_path || undefined,
     care: row.care_json ?? emptyCare(),
   };
 }
