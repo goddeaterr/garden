@@ -240,7 +240,7 @@ export function Catalog() {
           {/* Header */}
           <div className="mb-6">
             <div className="text-[11px] tracking-[0.3em] uppercase text-forest-600 dark:text-forest-400 mb-2">{c.eyebrow}</div>
-            <h2 className="shimmer-title text-headline text-[clamp(1.75rem,5vw,4rem)] pb-1">
+            <h2 className="shimmer-title text-headline text-[clamp(1.75rem,5vw,4rem)] leading-[1.2] pb-3">
               {activeCat ? categoryDefs.find(d => d.value === activeCat)?.label ?? c.title : c.title}
             </h2>
             <div className="mt-3 h-[2px] w-14 rounded-full bg-gradient-to-r from-forest-600 via-emerald-500 to-transparent" />
