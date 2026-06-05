@@ -13,6 +13,8 @@ import { StickyMobileBar } from '@/components/ui/StickyMobileBar';
 import { CartModal, CartFAB } from '@/components/ui/CartModal';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { CartProvider } from '@/lib/cartContext';
+import { CursorGlow } from '@/components/ui/CursorGlow';
+import { AmbientOrbs } from '@/components/ui/AmbientOrbs';
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -33,6 +35,8 @@ export default function Home() {
   return (
     <I18nProvider>
       <CartProvider>
+        <AmbientOrbs />
+        <CursorGlow />
         <LoadingScreen visible={loading} />
         <Nav />
         <main className="relative">

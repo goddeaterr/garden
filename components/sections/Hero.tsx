@@ -126,8 +126,9 @@ export function Hero() {
       <div className="absolute inset-0 hero-sun-rake" aria-hidden />
       <div className="absolute inset-x-0 bottom-0 h-[36%] hero-meadow-haze" aria-hidden />
 
-      {/* Particles */}
-      <Particles density={64} type="mixed" />
+      {/* Particles — botanical mix + firefly layer */}
+      <Particles density={55} type="mixed" />
+      <Particles density={14} type="firefly" />
 
       {/* Background tree silhouettes — static, no parallax */}
       <div className="absolute bottom-0 left-0 right-0 pointer-events-none" aria-hidden>
@@ -223,6 +224,9 @@ export function Hero() {
                     src={`/categories/${item.key}.jpg`}
                     alt={item.label}
                     className="absolute inset-0 w-full h-full object-cover object-center"
+                    style={{
+                      animation: `${i % 3 === 0 ? 'ken-burns-a' : i % 3 === 1 ? 'ken-burns-b' : 'ken-burns-c'} ${13 + i * 1.8}s ease-in-out ${i * 0.9}s infinite alternate`,
+                    }}
                     onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
                   />
                   {/* Gradient fade at bottom blending image into card background */}

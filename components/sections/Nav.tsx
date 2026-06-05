@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useSpring } from 'framer-motion';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { LangSwitcher } from '@/components/ui/LangSwitcher';
 import { useI18n } from '@/lib/i18nContext';
@@ -16,6 +16,16 @@ export function Nav() {
   const progressBarRef = useRef<HTMLDivElement>(null);
   const { tr } = useI18n();
   const { itemCount, openCart } = useCart();
+
+  // Magnetic CTA button — spring-physics attract toward cursor
+  const btnX = useSpring(0, { stiffness: 240, damping: 18 });
+  const btnY = useSpring(0, { stiffness: 240, damping: 18 });
+  const handleMagnet = (e: React.MouseEvent<HTMLElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    btnX.set((e.clientX - (r.left + r.width  / 2)) * 0.32);
+    btnY.set((e.clientY - (r.top  + r.height / 2)) * 0.32);
+  };
+  const resetMagnet = () => { btnX.set(0); btnY.set(0); };
 
   useEffect(() => {
     if (!localStorage.getItem('ann-spring2026')) setBarVisible(true);
@@ -185,14 +195,17 @@ export function Nav() {
           </a>
           <LangSwitcher />
           <ThemeToggle />
-          <a
+          <motion.a
             href="#catalog"
             onClick={handleQuoteClick}
-            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 text-[13px] font-medium hover:scale-[1.03] active:scale-[0.97] transition-transform"
+            style={{ x: btnX, y: btnY }}
+            onMouseMove={handleMagnet}
+            onMouseLeave={resetMagnet}
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-forest-900 dark:bg-forest-50 text-forest-50 dark:text-forest-900 text-[13px] font-medium active:scale-[0.97] transition-transform cursor-pointer select-none"
           >
             <MessageSquare size={13} />
             <span className="hidden sm:inline">{(tr.nav as any).requestQuote || 'Quote'}</span>
-          </a>
+          </motion.a>
         </div>
       </nav>
     </motion.header>

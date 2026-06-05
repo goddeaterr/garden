@@ -10,7 +10,7 @@ interface Particle {
   size: number;
   rotation: number;
   rotationSpeed: number;
-  type: 'leaf' | 'pollen' | 'seed' | 'spore' | 'petal';
+  type: 'leaf' | 'pollen' | 'seed' | 'spore' | 'petal' | 'firefly';
   opacity: number;
   opacitySpeed: number;
   phase: number;
@@ -41,6 +41,13 @@ const PETAL_COLORS: [number, number, number][] = [
   [255, 215, 220],
   [230, 170, 185],
 ];
+const FIREFLY_COLORS: [number, number, number][] = [
+  [130, 230, 150],
+  [160, 245, 145],
+  [200, 240, 130],
+  [110, 210, 175],
+  [180, 250, 160],
+];
 
 function randomFrom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -51,7 +58,7 @@ export function Particles({
   type = 'mixed',
 }: {
   density?: number;
-  type?: 'mixed' | 'leaves' | 'pollen';
+  type?: 'mixed' | 'leaves' | 'pollen' | 'firefly';
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animRef = useRef<number>();
@@ -83,48 +90,58 @@ export function Particles({
       let pType: Particle['type'];
       if (type === 'leaves') pType = 'leaf';
       else if (type === 'pollen') pType = roll > 0.3 ? 'pollen' : 'spore';
+      else if (type === 'firefly') pType = 'firefly';
       else {
-        // leaf 35%, pollen 22%, petal 19%, seed 14%, spore 10%
-        if (roll < 0.35) pType = 'leaf';
-        else if (roll < 0.57) pType = 'pollen';
-        else if (roll < 0.76) pType = 'petal';
-        else if (roll < 0.90) pType = 'seed';
-        else pType = 'spore';
+        // leaf 32%, pollen 20%, petal 18%, seed 13%, spore 9%, firefly 8%
+        if (roll < 0.32) pType = 'leaf';
+        else if (roll < 0.52) pType = 'pollen';
+        else if (roll < 0.70) pType = 'petal';
+        else if (roll < 0.83) pType = 'seed';
+        else if (roll < 0.92) pType = 'spore';
+        else pType = 'firefly';
       }
 
       const color =
-        pType === 'leaf'   ? randomFrom(LEAF_COLORS)   :
-        pType === 'pollen' ? randomFrom(POLLEN_COLORS) :
-        pType === 'petal'  ? randomFrom(PETAL_COLORS)  :
-        pType === 'seed'   ? randomFrom(SEED_COLORS)   :
+        pType === 'leaf'     ? randomFrom(LEAF_COLORS)     :
+        pType === 'pollen'   ? randomFrom(POLLEN_COLORS)   :
+        pType === 'petal'    ? randomFrom(PETAL_COLORS)     :
+        pType === 'seed'     ? randomFrom(SEED_COLORS)      :
+        pType === 'firefly'  ? randomFrom(FIREFLY_COLORS)   :
         randomFrom(POLLEN_COLORS);
 
       const size =
-        pType === 'leaf'   ? 5 + Math.random() * 9   :
-        pType === 'pollen' ? 1.5 + Math.random() * 2.5 :
-        pType === 'petal'  ? 4 + Math.random() * 7   :
-        pType === 'seed'   ? 3 + Math.random() * 5   :
+        pType === 'leaf'    ? 5 + Math.random() * 9     :
+        pType === 'pollen'  ? 1.5 + Math.random() * 2.5 :
+        pType === 'petal'   ? 4 + Math.random() * 7     :
+        pType === 'seed'    ? 3 + Math.random() * 5     :
+        pType === 'firefly' ? 0.9 + Math.random() * 1.4 :
         1 + Math.random() * 2;
+
+      const isFirefly = pType === 'firefly';
 
       return {
         x: Math.random() * W,
-        y: randomY ? Math.random() * H : -size * 2,
-        vx: (Math.random() - 0.5) * 0.4,
+        y: randomY ? Math.random() * H : (isFirefly ? Math.random() * H : -size * 2),
+        vx: (Math.random() - 0.5) * (isFirefly ? 0.22 : 0.4),
         vy:
-          pType === 'pollen' || pType === 'spore' ? 0.05 + Math.random() * 0.2 :
-          pType === 'petal'                        ? 0.15 + Math.random() * 0.3 :
+          isFirefly                                ? (Math.random() - 0.5) * 0.25 :
+          pType === 'pollen' || pType === 'spore'  ? 0.05 + Math.random() * 0.2  :
+          pType === 'petal'                        ? 0.15 + Math.random() * 0.3  :
           0.25 + Math.random() * 0.55,
         size,
         rotation: Math.random() * Math.PI * 2,
         rotationSpeed: (Math.random() - 0.5) * (pType === 'leaf' ? 0.025 : pType === 'petal' ? 0.012 : 0.008),
         type: pType,
         opacity:
+          isFirefly          ? Math.random() * 0.55       :
           pType === 'pollen' ? 0.10 + Math.random() * 0.30 :
           pType === 'petal'  ? 0.20 + Math.random() * 0.50 :
           0.30 + Math.random() * 0.45,
-        opacitySpeed: (Math.random() - 0.5) * 0.002,
+        opacitySpeed: isFirefly
+          ? (Math.random() > 0.5 ? 1 : -1) * (0.014 + Math.random() * 0.020)
+          : (Math.random() - 0.5) * 0.002,
         phase: Math.random() * Math.PI * 2,
-        wobble: 0.15 + Math.random() * 0.55,
+        wobble: isFirefly ? 0.08 + Math.random() * 0.18 : 0.15 + Math.random() * 0.55,
         color,
       };
     };
@@ -209,6 +226,25 @@ export function Particles({
       ctx.fill();
     };
 
+    const drawFirefly = (p: Particle) => {
+      const [r, g, b] = p.color;
+      // Outer ethereal glow halo
+      const glow = ctx.createRadialGradient(0, 0, 0, 0, 0, p.size * 14);
+      glow.addColorStop(0,    `rgba(${r},${g},${b},${p.opacity * 0.55})`);
+      glow.addColorStop(0.22, `rgba(${r},${g},${b},${p.opacity * 0.28})`);
+      glow.addColorStop(0.55, `rgba(${r},${g},${b},${p.opacity * 0.08})`);
+      glow.addColorStop(1,    `rgba(${r},${g},${b},0)`);
+      ctx.beginPath();
+      ctx.arc(0, 0, p.size * 14, 0, Math.PI * 2);
+      ctx.fillStyle = glow;
+      ctx.fill();
+      // Bright core dot
+      ctx.beginPath();
+      ctx.arc(0, 0, p.size * 1.1, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${Math.min(1, p.opacity * 2.2)})`;
+      ctx.fill();
+    };
+
     const drawPetal = (p: Particle) => {
       const [r, g, b] = p.color;
       ctx.save();
@@ -241,23 +277,36 @@ export function Particles({
         p.y += p.vy + Math.sin(time * 1.1 + p.phase * 1.3) * (p.wobble * 0.3);
         p.rotation += p.rotationSpeed;
         p.opacity += p.opacitySpeed;
-        if (p.opacity > 0.82 || p.opacity < 0.06) p.opacitySpeed *= -1;
-
-        if (p.y > H + p.size * 3) {
-          particles[idx] = mkParticle(false);
-          return;
+        if (p.type === 'firefly') {
+          if (p.opacity > 0.95 || p.opacity < 0.02) p.opacitySpeed *= -1;
+        } else {
+          if (p.opacity > 0.82 || p.opacity < 0.06) p.opacitySpeed *= -1;
         }
-        if (p.x > W + 30) p.x = -30;
-        if (p.x < -30) p.x = W + 30;
+
+        // Fireflies drift freely — wrap all edges
+        if (p.type === 'firefly') {
+          if (p.y > H + 20) p.y = -20;
+          if (p.y < -20) p.y = H + 20;
+          if (p.x > W + 20) p.x = -20;
+          if (p.x < -20) p.x = W + 20;
+        } else {
+          if (p.y > H + p.size * 3) {
+            particles[idx] = mkParticle(false);
+            return;
+          }
+          if (p.x > W + 30) p.x = -30;
+          if (p.x < -30) p.x = W + 30;
+        }
 
         ctx.save();
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rotation);
 
-        if (p.type === 'leaf')   drawLeaf(p);
-        else if (p.type === 'pollen') drawPollen(p);
-        else if (p.type === 'seed')   drawSeed(p);
-        else if (p.type === 'petal')  drawPetal(p);
+        if (p.type === 'leaf')       drawLeaf(p);
+        else if (p.type === 'pollen')   drawPollen(p);
+        else if (p.type === 'seed')     drawSeed(p);
+        else if (p.type === 'petal')    drawPetal(p);
+        else if (p.type === 'firefly')  drawFirefly(p);
         else drawSpore(p);
 
         ctx.restore();

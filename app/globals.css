@@ -314,6 +314,64 @@ body {
   -webkit-background-clip: text;
 }
 
+/* ── Ken Burns (cinematic zoom/pan on hero category card images) ──────── */
+@keyframes ken-burns-a {
+  0%   { transform: scale(1)    translate(0%,   0%); }
+  100% { transform: scale(1.13) translate(-2.5%, -1.5%); }
+}
+@keyframes ken-burns-b {
+  0%   { transform: scale(1)    translate(0%,  0%); }
+  100% { transform: scale(1.13) translate(2%,  -2%); }
+}
+@keyframes ken-burns-c {
+  0%   { transform: scale(1)    translate(0%,  0%); }
+  100% { transform: scale(1.11) translate(-1%, 2%); }
+}
+
+/* ── Ambient background orbs ──────────────────────────────────────────── */
+@keyframes ambient-drift-1 {
+  0%,100% { transform: translate(0px,    0px)   scale(1);    opacity: 0.65; }
+  30%     { transform: translate(110px, -70px)  scale(1.18); opacity: 0.85; }
+  65%     { transform: translate(-55px,  95px)  scale(0.92); opacity: 0.50; }
+}
+@keyframes ambient-drift-2 {
+  0%,100% { transform: translate(0px,   0px)    scale(1);    opacity: 0.55; }
+  40%     { transform: translate(-90px, 70px)   scale(1.22); opacity: 0.75; }
+  72%     { transform: translate(75px,  -85px)  scale(0.88); opacity: 0.40; }
+}
+@keyframes ambient-drift-3 {
+  0%,100% { transform: translate(0px,   0px)   scale(1);    opacity: 0.45; }
+  50%     { transform: translate(55px,  105px) scale(1.12); opacity: 0.65; }
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+.ambient-orb-1 {
+  width: 760px; height: 620px;
+  top: 5%; left: -12%;
+  background: radial-gradient(circle, rgba(55,130,75,0.18) 0%, transparent 70%);
+  filter: blur(110px);
+  animation: ambient-drift-1 38s ease-in-out infinite;
+}
+.ambient-orb-2 {
+  width: 680px; height: 680px;
+  bottom: 8%; right: -10%;
+  background: radial-gradient(circle, rgba(100,175,85,0.13) 0%, transparent 70%);
+  filter: blur(100px);
+  animation: ambient-drift-2 45s ease-in-out infinite;
+}
+.ambient-orb-3 {
+  width: 560px; height: 480px;
+  top: 45%; left: 28%;
+  background: radial-gradient(circle, rgba(210,192,145,0.10) 0%, transparent 70%);
+  filter: blur(90px);
+  animation: ambient-drift-3 30s ease-in-out infinite;
+}
+
 /* Service card halo */
 @keyframes halo-pulse {
   0%, 100% { opacity: 0; transform: scale(0.85); }
