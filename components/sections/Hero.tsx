@@ -237,11 +237,11 @@ export function Hero() {
                   />
                 </div>
                 {/* Icon + label */}
-                <div className="flex flex-col items-center gap-1.5 px-3 pt-2 pb-3">
+                <div className="flex flex-col items-center gap-1.5 px-3 pt-2 pb-4">
                   <div className={`w-6 h-6 flex items-center justify-center ${item.ic}`}>
                     <Icon size={15} />
                   </div>
-                  <span className="text-[11px] font-semibold text-white/90 text-center leading-tight">{item.label}</span>
+                  <span className="text-[11px] font-semibold text-white/90 text-center leading-normal pb-0.5">{item.label}</span>
                 </div>
               </motion.button>
             );

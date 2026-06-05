@@ -24,7 +24,7 @@ export const translations = {
       saveUpTo: 'Save up to €',
       sellersLabel: 'sellers',
     },
-    nav: { trees: 'Trees', builder: 'Garden Builder', about: 'About', services: 'Services', news: 'News', garden: 'Garden', requestQuote: 'Request Quote', getAQuote: 'Get a Quote', annText: 'Spring 2026 Collection is here —', annLink: 'browse new arrivals', annFree: 'Free delivery on orders over €200' },
+    nav: { trees: 'Catalog', builder: 'Garden Builder', about: 'About', services: 'Services', news: 'News', garden: 'Garden', requestQuote: 'Request Quote', getAQuote: 'Get a Quote', annText: 'Spring 2026 Collection is here —', annLink: 'browse new arrivals', annFree: 'Free delivery on orders over €200' },
     news: { eyebrow: 'News', title: 'Latest from the nursery.', readMore: 'Read more', showLess: 'Show less' },
     hero: {
       badge: 'Now in season — Spring 2026 collection',
@@ -282,7 +282,7 @@ export const translations = {
       saveUpTo: 'Sutaupykite iki €',
       sellersLabel: 'pardavėjai',
     },
-    nav: { trees: 'Medžiai', builder: 'Sodo kūrėjas', about: 'Apie', services: 'Paslaugos', news: 'Naujienos', garden: 'Sodas', requestQuote: 'Prašyti pasiūlymo', getAQuote: 'Gauti pasiūlymą', annText: '2026 pavasario kolekcija čia —', annLink: 'peržiūrėti naujausius', annFree: 'Nemokamas pristatymas nuo €200' },
+    nav: { trees: 'Katalogas', builder: 'Sodo kūrėjas', about: 'Apie', services: 'Paslaugos', news: 'Naujienos', garden: 'Sodas', requestQuote: 'Prašyti pasiūlymo', getAQuote: 'Gauti pasiūlymą', annText: '2026 pavasario kolekcija čia —', annLink: 'peržiūrėti naujausius', annFree: 'Nemokamas pristatymas nuo €200' },
     news: { eyebrow: 'Naujienos', title: 'Naujiausios žinios iš medelyno.', readMore: 'Skaityti daugiau', showLess: 'Sutraukti' },
     hero: {
       badge: 'Sezonas prasidėjo — 2026 pavasario kolekcija',
@@ -537,7 +537,7 @@ export const translations = {
       saveUpTo: 'Сэкономьте до €',
       sellersLabel: 'продавцов',
     },
-    nav: { trees: 'Деревья', builder: 'Конструктор', about: 'О нас', services: 'Услуги', news: 'Новости', garden: 'Сад', requestQuote: 'Запрос цены', getAQuote: 'Запросить цену', annText: 'Коллекция весна 2026 здесь —', annLink: 'смотреть новинки', annFree: 'Бесплатная доставка от €200' },
+    nav: { trees: 'Каталог', builder: 'Конструктор', about: 'О нас', services: 'Услуги', news: 'Новости', garden: 'Сад', requestQuote: 'Запрос цены', getAQuote: 'Запросить цену', annText: 'Коллекция весна 2026 здесь —', annLink: 'смотреть новинки', annFree: 'Бесплатная доставка от €200' },
     news: { eyebrow: 'Новости', title: 'Последние новости питомника.', readMore: 'Читать далее', showLess: 'Свернуть' },
     hero: {
       badge: 'Сезон открыт — коллекция весна 2026',
@@ -563,7 +563,7 @@ export const translations = {
       allCats: 'Категории',
       trees: 'Деревья', shrubs: 'Кустарники', perennial: 'Многолетние растения', annual: 'Однолетние растения',
       conifer: 'Хвойные', climbing: 'Вьющиеся растения', hedge: 'Растения для живой изгороди',
-      potted: 'Вазонные / террасные', grass: 'Злаки / декоративные травы',
+      potted: 'Вазонные / террасные', grass: 'Травы / декоративные злаки',
       sizeAll: 'Все размеры', sizeSmall: 'Маленькое', sizeMedium: 'Среднее', sizeLarge: 'Большое',
       addToGarden: 'Добавить в сад', added: 'Добавлено', noResults: 'Деревья не найдены по фильтрам.', requestQuote: 'Запросить цену',
       comparePrices: 'Сравнить цены', ourNursery: 'Наш питомник', maxPrice: 'Макс. цена',
