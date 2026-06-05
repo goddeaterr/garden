@@ -27,7 +27,7 @@ function formatDate(iso: string, locale: string): string {
   } catch { return iso.slice(0, 10); }
 }
 
-function NewsCard({ item, locale }: { item: NewsItem; locale: string }) {
+function NewsCard({ item, locale, index = 0 }: { item: NewsItem; locale: string; index?: number }) {
   const [expanded, setExpanded] = useState(false);
   const fallbackImage = fallbackImageFor(item);
   const [imageSrc, setImageSrc] = useState(() => normalizeImagePath(item.imagePath) || fallbackImage);
@@ -40,11 +40,12 @@ function NewsCard({ item, locale }: { item: NewsItem; locale: string }) {
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="group bg-white/70 dark:bg-forest-900/60 border border-white/80 dark:border-forest-700/40 rounded-2xl overflow-hidden hover:shadow-lg hover:shadow-forest-900/8 transition-shadow duration-300"
+      initial={{ opacity: 0, y: 28, scale: 0.97, filter: 'blur(6px)' }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+      viewport={{ once: true, margin: '-30px' }}
+      transition={{ duration: 0.65, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -4, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
+      className="group bg-white/70 dark:bg-forest-900/60 border border-white/80 dark:border-forest-700/40 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-forest-900/10 transition-shadow duration-500"
     >
       {/* Image */}
       {imageSrc && (
@@ -151,8 +152,8 @@ export function News() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {items.map(item => (
-              <NewsCard key={item.id} item={item} locale={locale} />
+            {items.map((item, idx) => (
+              <NewsCard key={item.id} item={item} locale={locale} index={idx} />
             ))}
           </div>
         )}

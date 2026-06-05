@@ -112,24 +112,47 @@ export function About() {
           {a.eyebrow}
         </motion.div>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-headline text-[clamp(2.25rem,5vw,4.5rem)] text-forest-950 dark:text-forest-50 max-w-4xl mb-20"
-        >
-          {a.headline1}{' '}
-          <span className="relative inline-block">
-            <span className="text-forest-600 dark:text-forest-400">{a.headline2}</span>
+        <h2 className="text-headline text-[clamp(2.25rem,5vw,4.5rem)] text-forest-950 dark:text-forest-50 max-w-4xl mb-20 overflow-hidden">
+          {/* Line 1 — slides up from clip mask */}
+          <motion.span
+            className="block overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.01, delay: 0.1 }}
+          >
             <motion.span
-              initial={{ scaleX: 0 }}
-              animate={inView ? { scaleX: 1 } : {}}
-              transition={{ duration: 1.1, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute -bottom-1 left-0 h-[2.5px] w-full rounded-full bg-gradient-to-r from-forest-600 via-emerald-500 to-transparent"
-              style={{ transformOrigin: 'left' }}
-            />
-          </span>
-        </motion.h2>
+              className="block"
+              initial={{ y: '105%' }}
+              animate={inView ? { y: '0%' } : {}}
+              transition={{ duration: 0.82, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {a.headline1}
+            </motion.span>
+          </motion.span>
+          {/* Line 2 — slight delay, with underline */}
+          <motion.span
+            className="block overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.01, delay: 0.22 }}
+          >
+            <motion.span
+              className="block relative"
+              initial={{ y: '105%' }}
+              animate={inView ? { y: '0%' } : {}}
+              transition={{ duration: 0.82, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className="text-forest-600 dark:text-forest-400">{a.headline2}</span>
+              <motion.span
+                initial={{ scaleX: 0 }}
+                animate={inView ? { scaleX: 1 } : {}}
+                transition={{ duration: 1.1, delay: 0.72, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute -bottom-1 left-0 h-[2.5px] w-full rounded-full bg-gradient-to-r from-forest-600 via-emerald-500 to-transparent"
+                style={{ transformOrigin: 'left' }}
+              />
+            </motion.span>
+          </motion.span>
+        </h2>
 
         <div className="grid md:grid-cols-2 gap-6 mb-24">
           <FeatureCard icon={Sprout}  title={a.card1Title} body={a.card1Body} delay={0.2}  inView={inView} />

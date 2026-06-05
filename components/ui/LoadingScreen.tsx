@@ -1,247 +1,291 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const LETTERS = 'MB PLANT HOUSE'.split('');
+const BRAND = 'MB PLANT HOUSE'.split('');
 
-const PARTICLES = [
-  { ox: -16, oy: 6,  delay: 0.9,  dur: 1.4 },
-  { ox:  18, oy: 9,  delay: 1.1,  dur: 1.6 },
-  { ox:  -7, oy: 14, delay: 1.3,  dur: 1.25 },
-  { ox:  22, oy: 3,  delay: 1.0,  dur: 1.5 },
-  { ox: -24, oy: 7,  delay: 1.2,  dur: 1.7 },
-  { ox:   9, oy: 11, delay: 0.95, dur: 1.35 },
-  { ox: -13, oy: 1,  delay: 1.15, dur: 1.45 },
-  { ox:  28, oy: 5,  delay: 1.05, dur: 1.55 },
-];
-
-// Crown sparkle burst (fires at t≈1.85s after tree path completes)
 const SPARKLES = [
-  { angle: -70,  dist: 32 },
-  { angle: -20,  dist: 28 },
-  { angle:  20,  dist: 34 },
-  { angle:  65,  dist: 30 },
-  { angle: -110, dist: 26 },
-  { angle:  110, dist: 28 },
+  { angle: -80,  dist: 30 }, { angle: -30,  dist: 26 },
+  { angle:  18,  dist: 32 }, { angle:  68,  dist: 28 },
+  { angle: -130, dist: 24 }, { angle:  118, dist: 27 },
+  { angle:  170, dist: 22 }, { angle: -168, dist: 29 },
 ];
 
-// Corner botanical ornaments (top-left, top-right, bottom-left, bottom-right)
-const CORNERS = [
-  { cls: 'top-6 left-6',     rotate: '0deg'   },
-  { cls: 'top-6 right-6',    rotate: '90deg'  },
-  { cls: 'bottom-6 left-6',  rotate: '270deg' },
-  { cls: 'bottom-6 right-6', rotate: '180deg' },
-];
+/** Counts up from 0 → target over ~duration seconds using easeInOut */
+function useCounter(target: number, duration: number) {
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min((now - start) / (duration * 1000), 1);
+      const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      setVal(Math.round(eased * target));
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [target, duration]);
+  return val;
+}
 
 export function LoadingScreen({ visible }: { visible: boolean }) {
+  const progress = useCounter(100, 1.35);
+
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.04 }}
-          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[500] flex items-center justify-center overflow-hidden"
-          style={{ background: 'rgb(10, 19, 11)' }}
+          exit={{ opacity: 0, scale: 1.07, filter: 'blur(18px)' }}
+          transition={{ duration: 1.0, ease: [0.76, 0, 0.24, 1] }}
+          className="fixed inset-0 z-[500] flex items-center justify-center overflow-hidden select-none"
+          style={{ background: 'rgb(7, 14, 9)' }}
         >
-          {/* Radial ambient glow */}
-          <div className="absolute inset-0 pointer-events-none"
-            style={{ background: 'radial-gradient(ellipse 58% 48% at 50% 50%, rgba(45,110,53,0.30) 0%, transparent 70%)' }} />
+          {/* Slow-breathing ambient glow — shifts position gently */}
+          <motion.div
+            aria-hidden
+            className="absolute pointer-events-none"
+            style={{
+              width: '140%', height: '140%',
+              top: '-20%', left: '-20%',
+              background: 'radial-gradient(ellipse 52% 44% at 52% 50%, rgba(38,102,48,0.38) 0%, transparent 65%)',
+            }}
+            animate={{ scale: [1, 1.08, 1], opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
+          />
 
-          {/* Faint dot grid */}
-          <div className="absolute inset-0 pointer-events-none opacity-[0.022]"
-            style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(200,218,201,1) 1px, transparent 0)', backgroundSize: '36px 36px' }} />
+          {/* Second, offset glow for depth */}
+          <motion.div
+            aria-hidden
+            className="absolute pointer-events-none"
+            style={{
+              width: '90%', height: '80%',
+              top: '10%', left: '5%',
+              background: 'radial-gradient(ellipse 40% 35% at 60% 40%, rgba(20,80,30,0.22) 0%, transparent 70%)',
+            }}
+            animate={{ scale: [1, 1.12, 1], opacity: [0.5, 0.8, 0.5] }}
+            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}
+          />
 
-          {/* Corner botanical ornaments */}
-          {CORNERS.map(({ cls, rotate }, i) => (
-            <motion.div
-              key={i}
-              className={`absolute ${cls} pointer-events-none`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 + i * 0.1 }}
-            >
-              <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style={{ transform: `rotate(${rotate})`, opacity: 0.1 }}>
-                <path d="M4 48 L4 14 Q4 4 14 4" stroke="rgba(113,158,114,1)" strokeWidth="1" strokeLinecap="round" fill="none" />
-                <path d="M4 30 Q14 22 20 14" stroke="rgba(113,158,114,0.7)" strokeWidth="0.8" strokeLinecap="round" fill="none" />
-                <path d="M4 38 Q16 34 22 28" stroke="rgba(113,158,114,0.5)" strokeWidth="0.7" strokeLinecap="round" fill="none" />
-                <circle cx="22" cy="12" r="2.5" fill="rgba(113,158,114,0.6)" />
-                <circle cx="22" cy="26" r="1.8" fill="rgba(113,158,114,0.4)" />
-              </svg>
-            </motion.div>
-          ))}
+          {/* Subtle dot-grid texture */}
+          <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.016]"
+            style={{
+              backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(200,218,201,1) 1px, transparent 0)',
+              backgroundSize: '38px 38px',
+            }}
+          />
 
-          {/* ── Center group ── */}
+          {/* ── Centre stage ── */}
           <div className="relative flex flex-col items-center">
 
-            {/* Logo stage */}
-            <div className="relative w-40 h-40 flex items-center justify-center mb-10">
+            {/* Orbit + tree container */}
+            <div className="relative w-[148px] h-[148px] flex items-center justify-center mb-9">
 
-              {/* Breathing glow */}
-              <motion.div
+              {/* Breathing glow behind tree */}
+              <motion.div aria-hidden
                 className="absolute inset-0 rounded-full"
-                style={{ background: 'radial-gradient(circle, rgba(80,129,83,0.40) 0%, transparent 68%)' }}
-                animate={{ scale: [1, 1.20, 1], opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 3.0, repeat: Infinity, ease: 'easeInOut', delay: 1.1 }}
+                style={{ background: 'radial-gradient(circle, rgba(60,140,72,0.50) 0%, transparent 62%)' }}
+                animate={{ scale: [0.82, 1.22, 0.82], opacity: [0.35, 0.85, 0.35] }}
+                transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
               />
 
-              {/* Outer spinning dashed orbit (clockwise) */}
-              <motion.svg className="absolute inset-0 w-full h-full" viewBox="0 0 160 160"
+              {/* Outer orbit — slow clockwise */}
+              <motion.svg aria-hidden className="absolute inset-0 w-full h-full" viewBox="0 0 148 148"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, rotate: 360 }}
-                transition={{ opacity: { duration: 0.5, delay: 0.5 }, rotate: { duration: 24, repeat: Infinity, ease: 'linear', delay: 0.5 } }}
+                transition={{ opacity: { duration: 0.7, delay: 0.25 }, rotate: { duration: 30, repeat: Infinity, ease: 'linear' } }}
               >
-                <circle cx="80" cy="80" r="74" stroke="rgba(113,158,114,0.20)" strokeWidth="1" fill="none" strokeDasharray="3 16" />
+                <circle cx="74" cy="74" r="70" stroke="rgba(100,170,108,0.16)" strokeWidth="1" fill="none" strokeDasharray="4 20" />
               </motion.svg>
 
-              {/* Inner counter-rotating ring (anti-clockwise) */}
-              <motion.svg className="absolute inset-0 w-full h-full" viewBox="0 0 160 160"
+              {/* Middle orbit — counter-clockwise, faster */}
+              <motion.svg aria-hidden className="absolute inset-0 w-full h-full" viewBox="0 0 148 148"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, rotate: -360 }}
-                transition={{ opacity: { duration: 0.5, delay: 0.7 }, rotate: { duration: 18, repeat: Infinity, ease: 'linear', delay: 0.7 } }}
+                transition={{ opacity: { duration: 0.7, delay: 0.4 }, rotate: { duration: 22, repeat: Infinity, ease: 'linear' } }}
               >
-                <circle cx="80" cy="80" r="58" stroke="rgba(113,158,114,0.14)" strokeWidth="1" fill="none" strokeDasharray="2 10" />
+                <circle cx="74" cy="74" r="54" stroke="rgba(100,170,108,0.09)" strokeWidth="0.8" fill="none" strokeDasharray="2 13" />
               </motion.svg>
 
-              {/* Arc that draws itself */}
-              <motion.svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 160 160"
+              {/* Arc that draws itself (progress arc) */}
+              <motion.svg aria-hidden className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 148 148"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.4 }}
+                transition={{ duration: 0.4, delay: 0.35 }}
               >
-                <motion.circle cx="80" cy="80" r="50"
-                  stroke="rgba(113,158,114,0.32)" strokeWidth="1.5"
+                <motion.circle
+                  cx="74" cy="74" r="44"
+                  stroke="rgba(100,170,108,0.28)" strokeWidth="1.5"
                   fill="none" strokeLinecap="round"
-                  initial={{ pathLength: 0 }} animate={{ pathLength: 0.76 }}
-                  transition={{ duration: 1.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 0.82 }}
+                  transition={{ duration: 1.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 />
               </motion.svg>
 
-              {/* 3 sonar pulse rings */}
-              {[0, 0.6, 1.2].map((delay, i) => (
-                <motion.span key={i}
-                  className="absolute rounded-full border border-emerald-500/20"
-                  style={{ inset: -i * 3 }}
-                  initial={{ scale: 1, opacity: 0.55 }}
-                  animate={{ scale: 2.0, opacity: 0 }}
-                  transition={{ duration: 2.6, delay: 1.1 + delay, repeat: Infinity, ease: 'easeOut' }}
+              {/* Sonar pulses — staggered */}
+              {[0, 0.65, 1.3].map((delay, i) => (
+                <motion.div key={i} aria-hidden
+                  className="absolute inset-0 rounded-full border border-emerald-500/[0.12]"
+                  initial={{ scale: 0.7, opacity: 0.5 }}
+                  animate={{ scale: 2.4, opacity: 0 }}
+                  transition={{ duration: 3.2, delay: 0.85 + delay, repeat: Infinity, ease: 'easeOut' }}
                 />
               ))}
 
-              {/* Tree SVG — trunk + crown + 2 branches + roots */}
-              <motion.svg width="62" height="78" viewBox="0 0 62 78"
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              {/* ── Tree SVG — draws path-by-path ── */}
+              <motion.svg
+                width="58" height="74" viewBox="0 0 58 74"
+                initial={{ opacity: 0, scale: 0.78, y: 5 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
-                {/* Crown + trunk */}
+                {/* Trunk */}
                 <motion.path
-                  d="M31 72 L31 40 M31 40 Q17 26 17 14 Q17 4 31 4 Q45 4 45 14 Q45 26 31 40"
-                  stroke="rgba(181,218,182,0.93)" strokeWidth="2.2" strokeLinecap="round" fill="none"
+                  d="M29 68 L29 36"
+                  stroke="rgba(155,210,162,0.65)" strokeWidth="2.2" strokeLinecap="round" fill="none"
                   initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-                  transition={{ duration: 1.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.45, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                />
+                {/* Crown */}
+                <motion.path
+                  d="M29 36 Q14 23 14 12 Q14 2 29 2 Q44 2 44 12 Q44 23 29 36"
+                  stroke="rgba(185,230,188,0.96)" strokeWidth="2.4" strokeLinecap="round" fill="none"
+                  initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+                  transition={{ duration: 1.25, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
                 />
                 {/* Left branch */}
-                <motion.path d="M31 48 Q21 42 18 35"
-                  stroke="rgba(181,218,182,0.52)" strokeWidth="1.5" strokeLinecap="round" fill="none"
+                <motion.path
+                  d="M29 44 Q19 37 16 30"
+                  stroke="rgba(155,210,162,0.52)" strokeWidth="1.6" strokeLinecap="round" fill="none"
                   initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.55, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.42, delay: 1.12, ease: [0.16, 1, 0.3, 1] }}
                 />
                 {/* Right branch */}
-                <motion.path d="M31 54 Q41 48 44 41"
-                  stroke="rgba(181,218,182,0.52)" strokeWidth="1.5" strokeLinecap="round" fill="none"
+                <motion.path
+                  d="M29 52 Q39 45 42 38"
+                  stroke="rgba(155,210,162,0.52)" strokeWidth="1.6" strokeLinecap="round" fill="none"
                   initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.55, delay: 1.25, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.42, delay: 1.28, ease: [0.16, 1, 0.3, 1] }}
                 />
                 {/* Root left */}
-                <motion.path d="M31 72 Q22 76 16 74"
-                  stroke="rgba(113,158,114,0.35)" strokeWidth="1.2" strokeLinecap="round" fill="none"
+                <motion.path
+                  d="M29 68 Q20 72 14 70"
+                  stroke="rgba(96,148,102,0.36)" strokeWidth="1.2" strokeLinecap="round" fill="none"
                   initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.5, delay: 1.55, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.46, delay: 1.52, ease: [0.16, 1, 0.3, 1] }}
                 />
                 {/* Root right */}
-                <motion.path d="M31 72 Q40 76 46 74"
-                  stroke="rgba(113,158,114,0.35)" strokeWidth="1.2" strokeLinecap="round" fill="none"
+                <motion.path
+                  d="M29 68 Q38 72 44 70"
+                  stroke="rgba(96,148,102,0.36)" strokeWidth="1.2" strokeLinecap="round" fill="none"
                   initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.5, delay: 1.65, ease: [0.16, 1, 0.3, 1] }}
-                />
-                {/* Root center deep */}
-                <motion.path d="M31 72 L31 78"
-                  stroke="rgba(113,158,114,0.25)" strokeWidth="1" strokeLinecap="round" fill="none"
-                  initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.35, delay: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.46, delay: 1.62, ease: [0.16, 1, 0.3, 1] }}
                 />
               </motion.svg>
 
-              {/* Crown sparkle burst — fires when tree drawing finishes */}
+              {/* Sparkle burst — fires after crown finishes ~1.85s */}
               {SPARKLES.map((s, i) => {
                 const rad = (s.angle * Math.PI) / 180;
                 return (
-                  <motion.span key={i}
+                  <motion.span key={i} aria-hidden
                     className="absolute rounded-full bg-emerald-300"
-                    style={{ width: 3, height: 3, top: '50%', left: '50%', marginTop: -28, marginLeft: -1.5 }}
+                    style={{ width: 2.5, height: 2.5, top: '50%', left: '50%', marginTop: -24, marginLeft: -1.25 }}
                     initial={{ x: 0, y: 0, opacity: 0, scale: 0 }}
                     animate={{
                       x: Math.cos(rad) * s.dist,
                       y: Math.sin(rad) * s.dist,
-                      opacity: [0, 1, 0],
-                      scale: [0, 1.4, 0],
+                      opacity: [0, 0.95, 0],
+                      scale: [0, 1.3, 0],
                     }}
-                    transition={{ duration: 0.7, delay: 1.85 + i * 0.04, ease: 'easeOut' }}
+                    transition={{ duration: 0.68, delay: 1.82 + i * 0.032, ease: 'easeOut' }}
                   />
                 );
               })}
 
-              {/* Floating pollen particles */}
-              {PARTICLES.map((p, i) => (
-                <motion.span key={i}
-                  className="absolute w-1 h-1 rounded-full bg-emerald-400"
-                  style={{ left: `calc(50% + ${p.ox}px)`, top: `calc(60% + ${p.oy}px)` }}
+              {/* Tiny floating pollen dots */}
+              {[
+                { ox: -14, oy: 8,  delay: 0.9,  dur: 1.5 },
+                { ox:  17, oy: 10, delay: 1.05, dur: 1.65 },
+                { ox:  -6, oy: 15, delay: 1.2,  dur: 1.3 },
+                { ox:  21, oy: 4,  delay: 0.95, dur: 1.55 },
+                { ox: -22, oy: 6,  delay: 1.15, dur: 1.7 },
+                { ox:   8, oy: 12, delay: 1.0,  dur: 1.4 },
+              ].map((p, i) => (
+                <motion.span key={i} aria-hidden
+                  className="absolute w-[3px] h-[3px] rounded-full bg-emerald-400/80"
+                  style={{ left: `calc(50% + ${p.ox}px)`, top: `calc(58% + ${p.oy}px)` }}
                   initial={{ y: 0, opacity: 0, scale: 0 }}
-                  animate={{ y: [-2, -50], opacity: [0, 0.8, 0], scale: [0, 1, 0.3] }}
-                  transition={{ duration: p.dur, delay: p.delay, repeat: Infinity, repeatDelay: 1.2, ease: 'easeOut' }}
+                  animate={{ y: [-3, -52], opacity: [0, 0.75, 0], scale: [0, 1, 0.3] }}
+                  transition={{ duration: p.dur, delay: p.delay, repeat: Infinity, repeatDelay: 1.4, ease: 'easeOut' }}
                 />
               ))}
             </div>
 
-            {/* Brand name — letter-by-letter stagger */}
-            <div className="flex items-center">
-              {LETTERS.map((char, i) => (
+            {/* Brand name — letter stagger with blur-in */}
+            <div className="flex items-center" aria-label="MB Plant House">
+              {BRAND.map((char, i) => (
                 <motion.span key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.38, delay: 0.75 + i * 0.044, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-[13px] tracking-[0.28em] font-light text-forest-200/80"
-                  style={{ width: char === ' ' ? '0.55em' : undefined }}
+                  initial={{ opacity: 0, y: 7, filter: 'blur(5px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  transition={{ duration: 0.44, delay: 0.62 + i * 0.036, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-[12px] tracking-[0.3em] font-light text-forest-100/72"
+                  style={{ width: char === ' ' ? '0.58em' : undefined }}
                 >
                   {char}
                 </motion.span>
               ))}
             </div>
 
-            {/* Expanding divider */}
-            <motion.div className="mt-5 h-px rounded-full"
-              style={{ background: 'linear-gradient(90deg, transparent, rgba(113,158,114,0.55), transparent)' }}
-              initial={{ width: 0 }} animate={{ width: 120 }}
-              transition={{ duration: 1.1, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            {/* Thin expanding divider */}
+            <motion.div
+              aria-hidden
+              className="mt-[14px] h-px rounded-full"
+              style={{ background: 'linear-gradient(90deg, transparent, rgba(110,162,112,0.50), transparent)' }}
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: 108, opacity: 1 }}
+              transition={{ duration: 0.95, delay: 0.62, ease: [0.16, 1, 0.3, 1] }}
             />
 
-            {/* Tagline */}
-            <motion.p
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 1.4 }}
-              className="mt-3 text-[10px] tracking-[0.22em] uppercase text-forest-500/70"
+            {/* Tagline + percentage counter */}
+            <motion.div
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.95 }}
+              className="mt-[11px] flex items-center gap-[14px]"
             >
-              Premium Nursery
-            </motion.p>
+              <span className="text-[9.5px] tracking-[0.24em] uppercase text-forest-500/55 font-light">
+                Premium Nursery
+              </span>
+              <span className="text-[9.5px] tracking-[0.12em] text-forest-600/38 tabular-nums font-light">
+                {String(progress).padStart(3, ' ')}%
+              </span>
+            </motion.div>
           </div>
 
-          {/* Bottom progress bar */}
-          <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'rgba(45,110,53,0.15)' }}>
-            <motion.div className="h-full"
-              initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
-              transition={{ duration: 1.38, ease: [0.16, 1, 0.3, 1] }}
-              style={{ transformOrigin: 'left', background: 'linear-gradient(90deg, #3d6741, #71a172, #4a9e56)' }}
-            />
+          {/* Bottom progress bar with shimmer sweep */}
+          <div aria-hidden className="absolute bottom-0 left-0 right-0 h-[2px]"
+            style={{ background: 'rgba(36,82,40,0.22)' }}
+          >
+            <motion.div
+              className="h-full relative overflow-hidden"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1.35, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                transformOrigin: 'left',
+                background: 'linear-gradient(90deg, #2c5630, #5a9e5e, #3a7d3e)',
+              }}
+            >
+              {/* Shimmer traveling left → right */}
+              <motion.div
+                aria-hidden
+                className="absolute inset-y-0 w-24 pointer-events-none"
+                style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent)' }}
+                initial={{ left: '-96px' }}
+                animate={{ left: '100%' }}
+                transition={{ duration: 0.95, delay: 0.45, ease: 'easeInOut' }}
+              />
+            </motion.div>
           </div>
         </motion.div>
       )}
