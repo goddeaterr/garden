@@ -36,8 +36,8 @@ export function LoadingScreen({ visible }: { visible: boolean }) {
       {visible && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.07, filter: 'blur(18px)' }}
-          transition={{ duration: 1.0, ease: [0.76, 0, 0.24, 1] }}
+          exit={{ opacity: 0, scale: 1.06 }}
+          transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
           className="fixed inset-0 z-[500] flex items-center justify-center overflow-hidden select-none"
           style={{ background: 'rgb(7, 14, 9)' }}
         >
@@ -225,8 +225,8 @@ export function LoadingScreen({ visible }: { visible: boolean }) {
             <div className="flex items-center" aria-label="MB Plant House">
               {BRAND.map((char, i) => (
                 <motion.span key={i}
-                  initial={{ opacity: 0, y: 7, filter: 'blur(5px)' }}
-                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.44, delay: 0.62 + i * 0.036, ease: [0.16, 1, 0.3, 1] }}
                   className="text-[12px] tracking-[0.3em] font-light text-forest-100/72"
                   style={{ width: char === ' ' ? '0.58em' : undefined }}

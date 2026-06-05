@@ -1,46 +1,61 @@
 'use client';
 
-import { useEffect } from 'react';
-import { motion, useSpring } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 
 /**
- * Apple-style ambient cursor glow — a large soft radial-gradient orb
- * that lags behind the cursor using spring physics. Renders as a fixed
- * overlay so it covers the whole page. mix-blend-mode:soft-light keeps
- * it subtle on light sections and beautifully visible on dark ones.
- * Hidden on touch/pointer:coarse devices (no cursor to follow).
+ * Cursor glow — pure RAF lerp, zero React re-renders.
+ * No framer-motion spring (which fires a re-render every animation frame).
+ * The orb is promoted to its own GPU layer via will-change:transform.
  */
 export function CursorGlow() {
-  const x = useSpring(-800, { stiffness: 75, damping: 26, mass: 0.7 });
-  const y = useSpring(-800, { stiffness: 75, damping: 26, mass: 0.7 });
+  const orbRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const move = (e: MouseEvent) => { x.set(e.clientX); y.set(e.clientY); };
-    window.addEventListener('mousemove', move, { passive: true });
-    return () => window.removeEventListener('mousemove', move);
-  }, [x, y]);
+    // Start off-screen so there's no flash on mount
+    let tx = -1000, ty = -1000;
+    let cx = -1000, cy = -1000;
+    let rafId = 0;
+    const LERP = 0.072; // lag factor — lower = more lag
+
+    const onMove = (e: MouseEvent) => { tx = e.clientX; ty = e.clientY; };
+
+    const loop = () => {
+      cx += (tx - cx) * LERP;
+      cy += (ty - cy) * LERP;
+      if (orbRef.current) {
+        // translate so the centre of the 620px orb sits on the cursor
+        orbRef.current.style.transform = `translate(${cx - 310}px,${cy - 310}px)`;
+      }
+      rafId = requestAnimationFrame(loop);
+    };
+
+    window.addEventListener('mousemove', onMove, { passive: true });
+    rafId = requestAnimationFrame(loop);
+
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   return (
-    <motion.div
-      aria-hidden
-      className="pointer-events-none fixed inset-0 z-[2] hidden [@media(pointer:fine)]:block"
-    >
-      <motion.div
+    // Only renders on pointer:fine (mouse) devices
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-[2] hidden [@media(pointer:fine)]:block overflow-hidden">
+      <div
+        ref={orbRef}
         style={{
-          position: 'fixed',
+          position: 'absolute',
           top: 0, left: 0,
           width: 620,
           height: 620,
           borderRadius: '50%',
-          x, y,
-          translateX: '-50%',
-          translateY: '-50%',
           background:
-            'radial-gradient(circle, rgba(90,190,110,0.13) 0%, rgba(70,155,90,0.06) 45%, transparent 70%)',
+            'radial-gradient(circle, rgba(88,192,108,0.11) 0%, rgba(68,152,88,0.045) 48%, transparent 70%)',
           mixBlendMode: 'soft-light',
+          willChange: 'transform',
           pointerEvents: 'none',
         }}
       />
-    </motion.div>
+    </div>
   );
 }

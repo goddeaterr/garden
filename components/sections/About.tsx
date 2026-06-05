@@ -26,8 +26,8 @@ function FeatureCard({
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{ duration: 0.6, delay: inView ? delay : 0, ease: [0.16, 1, 0.3, 1] }}
       style={{ rotateX, rotateY, transformStyle: 'preserve-3d', perspective: 800 }}
       onMouseMove={e => {
         const r = e.currentTarget.getBoundingClientRect();
@@ -59,13 +59,13 @@ function FeatureCard({
 
 export function About() {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const inView = useInView(ref, { once: false, amount: 0.15 });
   const { tr } = useI18n();
   const a = tr.about;
 
   return (
     <section ref={ref} id="about" className="botanical-section-texture relative py-32 px-6 bg-forest-50 dark:bg-forest-950 overflow-hidden">
-      <Particles density={22} type="leaves" />
+      <Particles density={14} type="leaves" />
 
       {/* Botanical SVG watermark — large rotating fern ornament */}
       <div className="absolute -right-24 sm:-right-8 top-1/2 -translate-y-1/2 opacity-[0.045] dark:opacity-[0.055] pointer-events-none select-none" aria-hidden>
@@ -105,8 +105,8 @@ export function About() {
       <div className="relative max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="text-[11px] tracking-[0.3em] uppercase text-forest-600 dark:text-forest-400 mb-6"
         >
           {a.eyebrow}
@@ -117,14 +117,14 @@ export function About() {
           <motion.span
             className="block overflow-hidden"
             initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.01, delay: 0.1 }}
+            animate={inView ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.01, delay: inView ? 0.1 : 0 }}
           >
             <motion.span
               className="block"
               initial={{ y: '105%' }}
-              animate={inView ? { y: '0%' } : {}}
-              transition={{ duration: 0.82, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+              animate={inView ? { y: '0%' } : { y: '105%' }}
+              transition={{ duration: 0.78, delay: inView ? 0.12 : 0, ease: [0.16, 1, 0.3, 1] }}
             >
               {a.headline1}
             </motion.span>
@@ -133,20 +133,20 @@ export function About() {
           <motion.span
             className="block overflow-hidden"
             initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.01, delay: 0.22 }}
+            animate={inView ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.01, delay: inView ? 0.22 : 0 }}
           >
             <motion.span
               className="block relative"
               initial={{ y: '105%' }}
-              animate={inView ? { y: '0%' } : {}}
-              transition={{ duration: 0.82, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+              animate={inView ? { y: '0%' } : { y: '105%' }}
+              transition={{ duration: 0.78, delay: inView ? 0.24 : 0, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="text-forest-600 dark:text-forest-400">{a.headline2}</span>
               <motion.span
                 initial={{ scaleX: 0 }}
-                animate={inView ? { scaleX: 1 } : {}}
-                transition={{ duration: 1.1, delay: 0.72, ease: [0.16, 1, 0.3, 1] }}
+                animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
+                transition={{ duration: 1.0, delay: inView ? 0.68 : 0, ease: [0.16, 1, 0.3, 1] }}
                 className="absolute -bottom-1 left-0 h-[2.5px] w-full rounded-full bg-gradient-to-r from-forest-600 via-emerald-500 to-transparent"
                 style={{ transformOrigin: 'left' }}
               />

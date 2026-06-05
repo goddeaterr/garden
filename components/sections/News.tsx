@@ -40,10 +40,10 @@ function NewsCard({ item, locale, index = 0 }: { item: NewsItem; locale: string;
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 28, scale: 0.97, filter: 'blur(6px)' }}
-      whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-      viewport={{ once: true, margin: '-30px' }}
-      transition={{ duration: 0.65, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, y: 24, scale: 0.97 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: false, amount: 0.12 }}
+      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -4, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
       className="group bg-white/70 dark:bg-forest-900/60 border border-white/80 dark:border-forest-700/40 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-forest-900/10 transition-shadow duration-500"
     >
@@ -130,7 +130,7 @@ export function News() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-10"
         >

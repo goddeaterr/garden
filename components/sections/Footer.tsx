@@ -80,7 +80,7 @@ function CornerDecoration({ flip = false }: { flip?: boolean }) {
 
 export function Footer() {
   const ref    = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const inView = useInView(ref, { once: false, amount: 0.1 });
   const { tr } = useI18n();
   const f      = tr.footer;
   const isOpen = getOpenStatus();

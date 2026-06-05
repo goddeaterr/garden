@@ -127,8 +127,8 @@ export function Hero() {
       <div className="absolute inset-x-0 bottom-0 h-[36%] hero-meadow-haze" aria-hidden />
 
       {/* Particles — botanical mix + firefly layer */}
-      <Particles density={55} type="mixed" />
-      <Particles density={14} type="firefly" />
+      <Particles density={30} type="mixed" />
+      <Particles density={7} type="firefly" />
 
       {/* Background tree silhouettes — static, no parallax */}
       <div className="absolute bottom-0 left-0 right-0 pointer-events-none" aria-hidden>
@@ -258,8 +258,8 @@ export function Hero() {
         <h1 className="hero-title-depth text-[clamp(1.9rem,4.8vw,4.2rem)] font-bold tracking-[-0.03em] leading-[1.05] text-forest-950 dark:text-forest-50 mb-4 max-w-2xl">
           {words.map((word, i) => (
             <motion.span key={i}
-              initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.4 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="inline-block mr-[0.22em]"
             >

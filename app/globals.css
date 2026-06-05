@@ -412,27 +412,29 @@ html { scrollbar-width: thin; scrollbar-color: rgba(60,80,64,0.16) transparent; 
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  will-change: transform, opacity;
+  /* Promote to own compositor layer so blur is composited, not repainted */
+  will-change: transform;
+  transform: translateZ(0);
 }
 .ambient-orb-1 {
-  width: 760px; height: 620px;
+  width: 700px; height: 580px;
   top: 5%; left: -12%;
-  background: radial-gradient(circle, rgba(55,130,75,0.18) 0%, transparent 70%);
-  filter: blur(110px);
+  background: radial-gradient(circle, rgba(55,130,75,0.16) 0%, transparent 70%);
+  filter: blur(72px);
   animation: ambient-drift-1 38s ease-in-out infinite;
 }
 .ambient-orb-2 {
-  width: 680px; height: 680px;
+  width: 620px; height: 620px;
   bottom: 8%; right: -10%;
-  background: radial-gradient(circle, rgba(100,175,85,0.13) 0%, transparent 70%);
-  filter: blur(100px);
+  background: radial-gradient(circle, rgba(100,175,85,0.11) 0%, transparent 70%);
+  filter: blur(68px);
   animation: ambient-drift-2 45s ease-in-out infinite;
 }
 .ambient-orb-3 {
-  width: 560px; height: 480px;
+  width: 520px; height: 440px;
   top: 45%; left: 28%;
-  background: radial-gradient(circle, rgba(210,192,145,0.10) 0%, transparent 70%);
-  filter: blur(90px);
+  background: radial-gradient(circle, rgba(210,192,145,0.09) 0%, transparent 70%);
+  filter: blur(60px);
   animation: ambient-drift-3 30s ease-in-out infinite;
 }
 
@@ -787,9 +789,12 @@ input[type="range"].apple-slider::-moz-range-thumb {
 .will-change-transform { will-change: transform; }
 
 /* Isolate heavy sections so the browser can skip repaints */
+/* CSS containment — isolates repaint/layout per section */
 #catalog  { contain: layout style; }
 #about    { contain: layout style; }
 #services { contain: layout style; }
+#news     { contain: layout style; }
+#footer   { contain: layout style; }
 
 /* Faster, butter-smooth transitions for interactive elements */
 button, a {
