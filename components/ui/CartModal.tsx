@@ -43,10 +43,12 @@ const inputCls = "w-full px-4 py-2.5 rounded-xl bg-white dark:bg-forest-900 bord
 
 export function CartModal() {
   const { items, removeItem, updateQty, clearCart, itemCount, subtotal, isOpen, closeCart } = useCart();
-  const [form, setForm] = useState({ name:'', email:'', phone:'', notes:'' });
+  const [form, setForm] = useState({ name:'', email:'', phone:'', notes:'', _hp:'' });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [err, setErr] = useState('');
+  // Time-gate: record when the cart/form was first mounted
+  const formOpenedAt = useState(() => Date.now())[0];
 
   const set = (k: keyof typeof form) =>
     (e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) =>
@@ -62,6 +64,8 @@ export function CartModal() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: form.name, email: form.email, phone: form.phone, notes: form.notes,
+          _hp: form._hp,            // honeypot value (should be empty)
+          _t: formOpenedAt,         // timestamp for time-gate check
           items: items.map(i => ({
             treeName: i.tree.name, treeHeight: i.tree.height || '',
             treePrice: i.tree.price, treeCategory: i.tree.category,
@@ -91,7 +95,7 @@ export function CartModal() {
   const handleClose = () => {
     if (!sent) { closeCart(); return; }
     setSent(false);
-    setForm({ name:'', email:'', phone:'', notes:'' });
+    setForm({ name:'', email:'', phone:'', notes:'', _hp:'' });
     closeCart();
   };
 
@@ -231,6 +235,13 @@ export function CartModal() {
                   {/* ── Contact form ── */}
                   {items.length > 0 && (
                     <form id="cart-form" onSubmit={handleSubmit} className="px-5 pt-4 pb-6 space-y-3">
+                      {/* Honeypot — visually hidden, bots fill it, humans don't */}
+                      <input
+                        type="text" name="website" tabIndex={-1} autoComplete="off"
+                        aria-hidden="true" value={form._hp}
+                        onChange={e => setForm(p => ({ ...p, _hp: e.target.value }))}
+                        style={{ position:'absolute', left:'-9999px', opacity:0, height:0, width:0, pointerEvents:'none' }}
+                      />
                       <div className="flex items-center gap-2 mb-1">
                         <div className="flex-1 h-px bg-forest-200/60 dark:bg-forest-800/60" />
                         <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-forest-500 dark:text-forest-400">Your details</span>

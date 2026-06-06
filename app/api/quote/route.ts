@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { rateLimit, getIP } from '@/lib/rateLimit';
 
 interface QuoteItem {
   treeName: string; treeHeight: string;
@@ -7,6 +8,8 @@ interface QuoteItem {
 interface QuotePayload {
   name: string; email: string; phone?: string; notes?: string;
   items: QuoteItem[];
+  _hp?: string;   // honeypot — must be empty
+  _t?: number;    // form-open timestamp — must be > 1800 ms ago
 }
 
 const CAT_COLOR: Record<string, string> = {
@@ -299,14 +302,56 @@ function customerHtml(data: QuotePayload): string {
 }
 
 // ─── Route handler ─────────────────────────────────────────────────────────────
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+  // ── Rate limit: 4 quote requests per IP per hour ──
+  const ip = getIP(req);
+  const { ok, retryAfter } = rateLimit('quote', ip, 4, 60 * 60_000);
+  if (!ok) {
+    return NextResponse.json(
+      { error: `Too many requests. Try again in ${retryAfter}s.` },
+      { status: 429, headers: { 'Retry-After': String(retryAfter) } }
+    );
+  }
+
+  // ── Reject oversized payloads (> 64 KB) ──
+  const contentLength = Number(req.headers.get('content-length') || 0);
+  if (contentLength > 65_536) {
+    return NextResponse.json({ error: 'Payload too large' }, { status: 413 });
+  }
+
   try {
     const data: QuotePayload = await req.json();
-    const { name, email, items } = data;
+    const { name, email, items, _hp, _t } = data;
+
+    // ── Honeypot — bots fill hidden fields, humans don't ──
+    if (_hp) {
+      // Silently accept but do nothing (don't reveal the check to bots)
+      return NextResponse.json({ ok: true });
+    }
+
+    // ── Time gate — reject if form was submitted faster than 1.8 s ──
+    if (_t && Date.now() - _t < 1800) {
+      return NextResponse.json({ error: 'Submission too fast' }, { status: 400 });
+    }
 
     if (!name?.trim() || !email?.trim() || !items?.length) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
+
+    // ── Basic email format check ──
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) {
+      return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
+    }
+
+    // ── Cap items to prevent payload abuse ──
+    if (items.length > 50) {
+      return NextResponse.json({ error: 'Too many items' }, { status: 400 });
+    }
+
+    // ── Sanitise strings ──
+    data.name  = String(name).slice(0, 120).replace(/[<>]/g, '');
+    data.notes = data.notes ? String(data.notes).slice(0, 1000).replace(/<script/gi, '') : undefined;
+    data.phone = data.phone ? String(data.phone).slice(0, 30).replace(/[^+\d\s\-()]/g, '') : undefined;
 
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {

@@ -10,20 +10,21 @@
     "seed-db": "npx ts-node --project tsconfig.scripts.json scripts/seed-db.ts"
   },
   "dependencies": {
-    "@vercel/postgres": "^0.10.0",
-    "pdfkit": "^0.15.1",
-    "resend": "^4.0.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.0",
     "lucide-react": "^0.408.0",
     "next": "14.2.5",
+    "pdfkit": "^0.15.1",
+    "pg": "^8.21.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "resend": "^4.0.0",
     "tailwind-merge": "^2.4.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",
     "@types/pdfkit": "^0.13.6",
+    "@types/pg": "^8.20.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.19",

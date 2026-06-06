@@ -1,24 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createHash } from 'crypto';
 
-const attempts: Map<string, { count: number; resetAt: number }> = new Map();
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const entry = attempts.get(ip);
-  if (!entry || entry.resetAt < now) {
-    attempts.set(ip, { count: 1, resetAt: now + 15 * 60 * 1000 });
-    return true;
-  }
-  if (entry.count >= 10) return false;
-  entry.count++;
-  return true;
-}
+import { rateLimit, getIP } from '@/lib/rateLimit';
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for') || 'unknown';
-  if (!checkRateLimit(ip)) {
-    return NextResponse.json({ error: 'Too many attempts. Try again in 15 minutes.' }, { status: 429 });
+  // 5 attempts per 15 minutes per IP — brute-force protection
+  const ip = getIP(req);
+  const { ok, retryAfter } = rateLimit('admin-auth', ip, 5, 15 * 60_000);
+  if (!ok) {
+    return NextResponse.json(
+      { error: `Too many attempts. Try again in ${retryAfter}s.` },
+      { status: 429, headers: { 'Retry-After': String(retryAfter) } }
+    );
   }
 
   const body = await req.json().catch(() => null);

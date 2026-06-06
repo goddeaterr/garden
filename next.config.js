@@ -43,12 +43,25 @@ const nextConfig = {
   },
   async headers() {
     return [
+      // Apply security headers to every route
       { source: '/(.*)', headers: securityHeaders },
+
+      // API routes — no caching
       {
         source: '/api/(.*)',
         headers: [
           { key: 'Cache-Control', value: 'no-store, no-cache, must-revalidate' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
+        ],
+      },
+
+      // Admin routes — never index in search engines, never frame
+      {
+        source: '/admin/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'Cache-Control', value: 'no-store, no-cache, must-revalidate, private' },
         ],
       },
     ];
